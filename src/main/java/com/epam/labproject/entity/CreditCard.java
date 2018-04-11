@@ -1,12 +1,10 @@
-package com.epam.entity;
-
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+package com.epam.labproject.entity;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-//@Table(name="creditcard")
+@Table(name="creditcard")
 public class CreditCard {
 
     @Id
@@ -18,7 +16,8 @@ public class CreditCard {
 
     private Date date_of_death;
     @ManyToOne
-    private User user_id;
+    @Column(name="user_id")
+    private User userId;
     private int number;
 
     public  CreditCard(){

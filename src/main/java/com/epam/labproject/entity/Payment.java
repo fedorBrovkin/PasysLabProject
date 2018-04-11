@@ -1,12 +1,11 @@
-package com.epam.entity;
+package com.epam.labproject.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Locale;
 
 @Entity
-//@Table(name="payment")
+@Table(name="payment")
 public class Payment {
 
     @Id
@@ -18,7 +17,6 @@ public class Payment {
     private CreditCard target;//id_card
 
     private BigDecimal amount;
-    @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private Date time;
 
     public Payment(){
