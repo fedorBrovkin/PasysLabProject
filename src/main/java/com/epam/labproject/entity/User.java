@@ -1,18 +1,20 @@
-package com.epam.entity;
+package com.epam.labproject.entity;
 
 import javax.persistence.*;
 
 @Entity
-//@Table(name="user")
+@Table(name="user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    //unique
+
+    @Column(unique = true)
     private String login;
     private String password;
     @ManyToOne
-    private Role role_id;
+    @Column(name="role_id")
+    private Role roleId;
 
     public User(){
 
@@ -36,10 +38,10 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public Role getRole_id() {
-        return role_id;
+    public Role getRoleId() {
+        return roleId;
     }
-    public void setRole_id(Role role_id) {
-        this.role_id = role_id;
+    public void setRole_id(Role roleId) {
+        this.roleId = roleId;
     }
 }

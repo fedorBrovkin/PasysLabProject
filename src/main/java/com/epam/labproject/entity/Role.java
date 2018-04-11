@@ -1,9 +1,9 @@
-package com.epam.entity;
+package com.epam.labproject.entity;
 
 import javax.persistence.*;
 
 @Entity
-//@Table(name="role")
+@Table(name="role")
 public class Role {
 
     @Id
