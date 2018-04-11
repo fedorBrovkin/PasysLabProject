@@ -5,13 +5,10 @@ import java.util.Date;
 
 @Entity
 @Table(name="creditcard")
-public class CreditCard {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class CreditCard extends IdentifiableEntity{
+    @ManyToOne
     @Column(name="account_id")
-    private int accountId;
+    private Account accountId;
     private int cvc;
     @Column(name="date_of_death")
     private Date dateOfDeath;
@@ -23,20 +20,11 @@ public class CreditCard {
     public  CreditCard(){
 
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getAccountId() {
+    public Account getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(Account accountId) {
         this.accountId = accountId;
     }
 

@@ -6,11 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="payment")
-public class Payment {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Payment extends IdentifiableEntity{
     @ManyToOne
     private CreditCard source;//id_card
     @ManyToOne
@@ -22,15 +18,6 @@ public class Payment {
     public Payment(){
 
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public CreditCard getSource() {
         return source;
     }

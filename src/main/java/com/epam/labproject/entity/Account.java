@@ -1,26 +1,18 @@
 package com.epam.labproject.entity;
 
-
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.UUID;
+
 
 
 @Entity
 @Table(name = "account")
-public class Account {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+public class Account extends IdentifiableEntity{
     @Column(unique = true)
     private int number;
-
     private BigDecimal balance;
-    @Column()
+    @Column(name = "date_of_death")
     private LocalDate dateOfDeath;
     @Column(nullable = false)
     private boolean status=false;
@@ -30,15 +22,6 @@ public class Account {
 
     public Account(){
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public int getNumber() {
         return number;
     }

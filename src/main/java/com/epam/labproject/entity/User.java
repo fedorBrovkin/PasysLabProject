@@ -1,14 +1,12 @@
 package com.epam.labproject.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="user")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+public class User extends IdentifiableEntity{
     @Column(unique = true)
     private String login;
     private String password;
@@ -20,12 +18,6 @@ public class User {
 
     }
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
     public String getLogin() {
         return login;
     }
