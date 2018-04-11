@@ -14,11 +14,19 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'org.springframework.boot'
+apply plugin: 'checkstyle'
 
 group = 'com.epam.labproject'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+
+
+checkstyle {
+	showViolations = true
+	toolVersion = '8.7'
+	maxWarnings = 0
+	maxErrors = 0
+}
 
 
 repositories {
