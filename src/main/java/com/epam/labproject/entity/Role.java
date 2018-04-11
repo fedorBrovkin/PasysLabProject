@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="role")
-public class Role extends IdentifiableEntity{
+public class Role extends AbstractIdentifiableEntity{
     private String name;
 
     public Role(){

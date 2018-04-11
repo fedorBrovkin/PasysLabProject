@@ -8,14 +8,14 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "account")
-public class Account extends IdentifiableEntity{
+public class Account extends AbstractIdentifiableEntity{
     @Column(unique = true)
     private int number;
     private BigDecimal balance;
     @Column(name = "date_of_death")
     private LocalDate dateOfDeath;
     @Column(nullable = false)
-    private boolean status=false;
+    private boolean status;
     @ManyToOne
     @Column(name="user_id")
     private User userId;

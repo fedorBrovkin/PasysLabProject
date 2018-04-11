@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="payment")
-public class Payment extends IdentifiableEntity{
+public class Payment extends AbstractIdentifiableEntity{
     @ManyToOne
     private CreditCard source;//id_card
     @ManyToOne

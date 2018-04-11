@@ -1,12 +1,10 @@
 package com.epam.labproject.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name="user")
-public class User extends IdentifiableEntity{
+public class User extends AbstractIdentifiableEntity{
     @Column(unique = true)
     private String login;
     private String password;
