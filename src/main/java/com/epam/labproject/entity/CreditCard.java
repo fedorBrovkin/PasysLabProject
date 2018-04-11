@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="creditcard")
-public class CreditCard extends IdentifiableEntity{
+public class CreditCard extends AbstractIdentifiableEntity{
     @ManyToOne
     @Column(name="account_id")
     private Account accountId;
