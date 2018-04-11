@@ -22,4 +22,44 @@ public class Payment {
     public Payment(){
 
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public CreditCard getSource() {
+        return source;
+    }
+
+    public void setSource(CreditCard source) {
+        this.source = source;
+    }
+
+    public CreditCard getTarget() {
+        return target;
+    }
+
+    public void setTarget(CreditCard target) {
+        this.target = target;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
 }
