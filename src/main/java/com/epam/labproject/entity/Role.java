@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="role")
 public class Role extends AbstractIdentifiableEntity{
+    @Column(unique = true)
     private String name;
 
     public Role(){
