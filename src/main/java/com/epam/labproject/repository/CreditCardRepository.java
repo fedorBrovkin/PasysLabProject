@@ -1,6 +1,6 @@
 package com.epam.labproject.repository;
 
-import com.epam.labproject.entity.CreditCard;
+import com.epam.labproject.model.entity.CreditCard;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
