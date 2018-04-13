@@ -1,10 +1,10 @@
 //package com.epam.labproject.repository;
 //
-//import com.epam.labproject.model.Customer;
+//import com.epam.labproject.model.entity.Account;
 //import org.springframework.data.repository.CrudRepository;
 //import org.springframework.stereotype.Repository;
 //
 //@Repository
-//public interface CustomerRepository extends CrudRepository<Customer, Long> {
+//public interface AccountRepository extends CrudRepository<Account, Long> {
 //
 //}

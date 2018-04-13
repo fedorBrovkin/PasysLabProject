@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PaymentSystemApplication {
 
 
-	public static void main(String[] args) {
-		SpringApplication.run(PaymentSystemApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(PaymentSystemApplication.class, args);
+  }
 }
