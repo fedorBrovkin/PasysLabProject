@@ -1,6 +1,6 @@
 package com.epam.labproject.Service;
 
-import com.epam.labproject.entity.Payment;
+import com.epam.labproject.model.entity.Payment;
 import com.epam.labproject.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

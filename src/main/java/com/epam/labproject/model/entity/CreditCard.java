@@ -19,15 +19,11 @@ public class CreditCard extends AbstractIdentifiableEntity {
   private int cvc;
   @Column(name = "expiration_date")
   private Date expirationDate;
-//  @ManyToOne
-//  @JoinColumn(name = "user_id")
-//  private User user;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
   @Column(name = "number")
   private int number;
-
-  public CreditCard() {
-
-  }
 
   public Account getAccount() {
     return account;

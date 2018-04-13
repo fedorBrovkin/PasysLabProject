@@ -1,6 +1,7 @@
-package com.epam.labproject.Service;
+package com.epam.labproject.service;
 
-import com.epam.labproject.entity.Role;
+
+import com.epam.labproject.model.entity.Role;
 import com.epam.labproject.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,8 @@ public class RoleService {
 
     public void save(Role role){
         roleRepository.save(role);
+    }
+    public Role findByName(String name){
+        return roleRepository.findByName(name);
     }
 }

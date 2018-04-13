@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name = "role")
 public class Role extends AbstractIdentifiableEntity {
 
-  @Column(name = "name")
+  @Column(name = "name",unique = true)
   private String name;
 
   public Role() {

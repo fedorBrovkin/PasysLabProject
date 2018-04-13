@@ -1,32 +1,49 @@
-package com.epam.labproject.Service;
+package com.epam.labproject.service;
 
-import com.epam.labproject.entity.User;
+import com.epam.labproject.model.entity.User;
 import com.epam.labproject.repository.RoleRepository;
 import com.epam.labproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
     private UserRepository userRepository;
-    private RoleRepository roleRepository;
-
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private RoleService roleService;
+    private PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository,RoleRepository roleRepository,
-                       BCryptPasswordEncoder bCryptPasswordEncoder){
+    public UserService(UserRepository userRepository,RoleService roleService,
+                       PasswordEncoder passwordEncoder){
 
         this.userRepository=userRepository;
-        this.roleRepository=roleRepository;
-        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
+        this.roleService=roleService;
+        this.bCryptPasswordEncoder=passwordEncoder;
     }
 
     public void save(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoleId(roleRepository.findByName("user"));
+        user.setRole(roleService.findByName("user"));
         userRepository.save(user);
+        PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+    public User delete(String login){
+        User user = userRepository.findByLogin(login);
+        userRepository.delete(user);
+        return user;
+    }
+
+    public User update(User user){
+        if(userRepository.findByLogin(user.getLogin())==null){
+            this.save(user);
+            return null;
+        }
+        //userRepository.
+        return null;
     }
 }

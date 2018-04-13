@@ -1,6 +1,7 @@
 package com.epam.labproject.Service;
 
-import com.epam.labproject.entity.Account;
+
+import com.epam.labproject.model.entity.Account;
 import com.epam.labproject.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

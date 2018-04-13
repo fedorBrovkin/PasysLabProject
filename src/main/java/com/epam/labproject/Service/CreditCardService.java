@@ -1,6 +1,7 @@
 package com.epam.labproject.Service;
 
-import com.epam.labproject.entity.CreditCard;
+
+import com.epam.labproject.model.entity.CreditCard;
 import com.epam.labproject.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

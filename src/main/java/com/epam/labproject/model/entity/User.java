@@ -1,11 +1,8 @@
 package com.epam.labproject.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -18,9 +15,17 @@ public class User extends AbstractIdentifiableEntity {
   @ManyToOne
   @JoinColumn(name = "role_id")
   private Role role;
+  @OneToMany
+  private List<CreditCard> cards;
+  public User(){
+      this.cards= new  ArrayList<CreditCard>();
+  }
 
-  public User() {
-
+  public List<CreditCard> getCards() {
+    return cards;
+  }
+  public void setCards(List<CreditCard> cards) {
+    this.cards = cards;
   }
 
   public String getLogin() {
@@ -45,5 +50,16 @@ public class User extends AbstractIdentifiableEntity {
 
   public void setRole(Role role) {
     this.role = role;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "id='" + getId() + '\'' +
+            "login='" + login + '\'' +
+            ", password='" + password + '\'' +
+            ", role=" + role +
+            ", cards=" + cards +
+            '}';
   }
 }

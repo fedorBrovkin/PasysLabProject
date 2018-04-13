@@ -27,8 +27,7 @@ public class Account extends AbstractIdentifiableEntity {
   @JoinColumn(name = "user_id")
   private User user;
 
-  public Account() {
-  }
+
 
   public int getNumber() {
     return number;
