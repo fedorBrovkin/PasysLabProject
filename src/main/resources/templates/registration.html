@@ -11,9 +11,6 @@
 
 <form th:action="@{/registration}"
       th:object="${user}" method="POST">
-    User ID:
-    <input type="text" th:field="*{id}" />
-    <br/>
     Login
     <input type="text" th:field="*{login}" />
     <br/>

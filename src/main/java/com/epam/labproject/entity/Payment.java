@@ -24,10 +24,6 @@ public class Payment extends AbstractIdentifiableEntity {
   @Column(name = "time")
   private Date time;
 
-  public Payment() {
-
-  }
-
   public CreditCard getSource() {
     return source;
   }

@@ -7,7 +7,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "credit_card")
 public class CreditCard extends AbstractIdentifiableEntity {
@@ -24,10 +23,6 @@ public class CreditCard extends AbstractIdentifiableEntity {
   private User user;
   @Column(name = "number")
   private int number;
-
-  public CreditCard() {
-
-  }
 
   public Account getAccount() {
     return account;
