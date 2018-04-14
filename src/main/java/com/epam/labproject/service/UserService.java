@@ -4,6 +4,7 @@ import com.epam.labproject.model.entity.User;
 import com.epam.labproject.repository.RoleRepository;
 import com.epam.labproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -16,19 +17,21 @@ public class UserService {
     private UserRepository userRepository;
     private RoleService roleService;
     private PasswordEncoder bCryptPasswordEncoder;
+    private AuthenticationManagerBuilder auth;
 
     @Autowired
     public UserService(UserRepository userRepository,RoleService roleService,
-                       PasswordEncoder passwordEncoder){
+                       PasswordEncoder passwordEncoder, AuthenticationManagerBuilder auth){
 
         this.userRepository=userRepository;
         this.roleService=roleService;
         this.bCryptPasswordEncoder=passwordEncoder;
+        this.auth=auth;
     }
 
     public void save(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRole(roleService.findByName("user"));
+        user.setRole(roleService.findByName("USER"));
         userRepository.save(user);
         PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }

@@ -1,4 +1,4 @@
-package com.epam.labproject.Service;
+package com.epam.labproject.service;
 
 import com.epam.labproject.model.entity.Payment;
 import com.epam.labproject.repository.PaymentRepository;
