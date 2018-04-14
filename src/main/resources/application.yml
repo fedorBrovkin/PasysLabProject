@@ -14,3 +14,7 @@ spring:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+welcome:
+  message: PaymentSystem
+error:
+  message: First Name & Last Name is required!
