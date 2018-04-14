@@ -1,9 +1,9 @@
-package com.epam.labproject.model.entity;
+package com.epam.labproject.entity;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,9 +19,9 @@ public class CreditCard extends AbstractIdentifiableEntity {
   private int cvc;
   @Column(name = "expiration_date")
   private Date expirationDate;
-//  @ManyToOne
-//  @JoinColumn(name = "user_id")
-//  private User user;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
   @Column(name = "number")
   private int number;
 
@@ -53,13 +53,13 @@ public class CreditCard extends AbstractIdentifiableEntity {
     this.expirationDate = expirationDate;
   }
 
-//  public User getUser() {
-//    return user;
-//  }
-//
-//  public void setUser(User user) {
-//    this.user = user;
-//  }
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
 
   public int getNumber() {
     return number;

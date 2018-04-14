@@ -14,39 +14,26 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-//apply plugin: 'checkstyle'
+apply plugin: 'checkstyle'
 
 group = 'com.epam.labproject'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
-//this checkstyle
-//checkstyle {
-//	showViolations = true
-//	toolVersion = '8.7'
-//	configFile file("config/checkstyle/checkstyle.xml")
-//	maxWarnings = 0
-//	maxErrors = 0
-//}
+checkstyle {
+	showViolations = true
+	toolVersion = '8.7'
+	configFile file("config/checkstyle/checkstyle.xml")
+	maxWarnings = 0
+	maxErrors = 0
+}
 
-//checkstyleMain {
-//	source ='src/main/java'
-//}
-//checkstyleTest {
-//	source ='src/test/java'
-//}
-
-//checkstyle {
-//	toolVersion = '8.7'
-//	configFile = rootProject.file('config/checkstyle/checkstyle.xml')
-//	configProperties = [
-//			'checkstyle.cache.file': "${buildDir}/checkstyle.cache",
-//	]
-//	ignoreFailures = true
-//	showViolations = true
-//	maxWarnings = 0
-//	maxErrors = 0
-//}
+checkstyleMain {
+	source ='src/main/java'
+}
+checkstyleTest {
+	source ='src/test/java'
+}
 
 
 repositories {
@@ -57,12 +44,9 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
     compile('org.springframework.boot:spring-boot-starter-web')
-	//compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework:spring-tx')
 	compile('org.postgresql:postgresql:42.1.4')
-	//compile('com.google.googlejavaformat:google-java-format:${googleJavaFormatVersion}')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
 }

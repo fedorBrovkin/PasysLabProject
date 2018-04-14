@@ -1,9 +1,7 @@
-package com.epam.labproject.model.entity;
+package com.epam.labproject.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +25,6 @@ public class Role extends AbstractIdentifiableEntity {
 
   @Override
   public String toString() {
-    return String.format("Customer[name='%s']", name);
+    return String.format("Role[name='%s']", name);
   }
 }

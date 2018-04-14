@@ -1,12 +1,10 @@
-package com.epam.labproject.model.entity;
+package com.epam.labproject.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
