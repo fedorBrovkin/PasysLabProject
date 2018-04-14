@@ -1,13 +1,12 @@
 package com.epam.labproject.controller;
 
 import com.epam.labproject.model.entity.User;
+//import com.epam.labproject.service.SecurityService;
 import com.epam.labproject.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +16,8 @@ import java.util.List;
 @Controller
 class RegistrationController {
 
-    private static List<User> users = new ArrayList<User>();
-
     private UserService userService;
-
+//    private SecurityService securityService;
     @Value("${welcome.message}")
     private String message;
 
@@ -29,9 +26,10 @@ class RegistrationController {
 
     public RegistrationController(UserService userService){
         this.userService = userService;
+        //this.securityService = securityService;
     }
 
-    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
 
         model.addAttribute("message", message);
@@ -39,15 +37,16 @@ class RegistrationController {
         return "index";
     }
 
-    @RequestMapping(value = {"/userList"}, method = RequestMethod.GET)
-    public String personList(Model model) {
+//    @GetMapping(value = {"/login"})
+//    public String login(Model model) {
+//
+//
+//
+//        return "login";
+//    }
 
-        model.addAttribute("users", users);
 
-        return "userList";
-    }
-
-    @RequestMapping(value = {"/registration"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/registration"})
     public String showAddPersonPage(Model model) {
 
         User user = new User();
@@ -56,10 +55,11 @@ class RegistrationController {
         return "registration";
     }
 
-    @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
+    @PostMapping(value = {"/registration"})
     public String savePerson(Model model, @ModelAttribute("user") User user) {
         userService.save(user);
-        return "redirect:/userList";
+        //securityService.autoLogin(user.getLogin(),user.getPassword());
+        return "redirect:/";
     }
 
 }
