@@ -41,6 +41,9 @@ public class UserService {
             }
         }
     }
+    public User getUser(String login){
+        return userRepository.findByLogin(login);
+    }
     public User delete(String login){
         User user = userRepository.findByLogin(login);
         if(user!=null)
