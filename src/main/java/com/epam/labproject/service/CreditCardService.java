@@ -13,15 +13,14 @@ import java.math.BigDecimal;
 @Service
 public class CreditCardService {
     private CreditCardRepository creditCardRepository;
-    private AccountService accountService;
     private PaymentService paymentService;
 
 
     @Autowired
-    public CreditCardService(CreditCardRepository creditCardRepository, AccountService accountService,
+    public CreditCardService(CreditCardRepository creditCardRepository,
                              PaymentService paymentService){
         this.creditCardRepository=creditCardRepository;
-        this.accountService=accountService;
+        this.paymentService=paymentService;
     }
     public void save(CreditCard creditCard){
         creditCardRepository.save(creditCard);
