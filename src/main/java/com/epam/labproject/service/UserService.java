@@ -47,15 +47,4 @@ public class UserService {
         userRepository.delete(user);
         return user;
     }
-
-    public void update(User user){
-        if(user!=null){
-            User currentUser=userRepository.findByLogin(user.getLogin());
-            if(currentUser!=null){
-                currentUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-                currentUser.setLogin(user.getLogin());
-                userRepository.save(currentUser);
-            }
-        }
-    }
 }
