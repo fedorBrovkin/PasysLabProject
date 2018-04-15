@@ -65,12 +65,9 @@ public class UserService {
     public void changePassword(String login,String password){
         User user = getUser(login);
         String psw = bCryptPasswordEncoder.encode(password);
-        if(psw==user.getPassword()){
+        if(user!=null) {
             user.setPassword(psw);
             userRepository.save(user);
-        }else{
-            System.out.println("password doesnt match");
         }
-
     }
 }
