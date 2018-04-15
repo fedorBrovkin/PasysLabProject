@@ -1,11 +1,6 @@
 package com.epam.labproject.model.entity;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -23,6 +18,7 @@ public class CreditCard extends AbstractIdentifiableEntity {
   @JoinColumn(name = "user_id")
   private User user;
   @Column(name = "number",unique = true)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private int number;
 
   public Account getAccount() {

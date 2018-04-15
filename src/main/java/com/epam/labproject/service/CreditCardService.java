@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class CreditCardService {
@@ -23,6 +24,7 @@ public class CreditCardService {
                              PaymentService paymentService,UserService userService){
         this.creditCardRepository=creditCardRepository;
         this.paymentService=paymentService;
+        this.userService=userService;
     }
     public void save(CreditCard creditCard){
         creditCardRepository.save(creditCard);
@@ -33,6 +35,10 @@ public class CreditCardService {
     }
     public void delete(CreditCard creditCard){
         if(creditCard!=null){
+            for(CreditCard cc : creditCard.getUser().getCards()){
+                if(cc.getNumber()==creditCard.getNumber())
+                    creditCard.getUser().getCards().remove(cc);
+            }
             creditCardRepository.delete(creditCardRepository.findByNumber(creditCard.getNumber()));
         }
     }
