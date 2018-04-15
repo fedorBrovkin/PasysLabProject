@@ -16,6 +16,7 @@ public class CreditCardService {
     private AccountService accountService;
     private PaymentService paymentService;
 
+
     @Autowired
     public CreditCardService(CreditCardRepository creditCardRepository, AccountService accountService,
                              PaymentService paymentService){
@@ -33,18 +34,21 @@ public class CreditCardService {
     public CreditCard findByNumber(int number){
         return creditCardRepository.findByNumber(number);
     }
-    public boolean makeTransfer(CreditCard source,CreditCard target,double amount){
-        if(source!=null&&target!=null){
-            Payment payment=accountService.makeTransfer(source.getAccount(),target.getAccount(),new BigDecimal(amount));
-            if(payment!=null){
+    public void doPayment(int sourceNumber,int targetNumber, double amount){
+        CreditCard source=this.findByNumber(sourceNumber);
+        CreditCard target=this.findByNumber(targetNumber);
+        if(source!=null){
+            if(target!=null){
+                Payment payment=new Payment();
                 payment.setSource(source);
                 payment.setTarget(target);
-                paymentService.save(payment);
+                payment.setAmount(new BigDecimal(amount));
+                paymentService.createPayment(payment);
+            }else{
+                //NO SUCH TARGET CARD
             }
-            //throw some Exception
-            return false;
+        }else{
+            //NO SUCH SOURCE CARD
         }
-        return false;
     }
-
 }
