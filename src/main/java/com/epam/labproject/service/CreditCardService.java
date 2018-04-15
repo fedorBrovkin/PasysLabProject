@@ -17,4 +17,14 @@ public class CreditCardService {
     public void save(CreditCard creditCard){
         creditCardRepository.save(creditCard);
     }
+    public void delete(CreditCard creditCard){
+        if(creditCard!=null){
+            creditCardRepository.delete(creditCardRepository.findByNumber(creditCard.getNumber()));
+        }
+    }
+    public CreditCard findByNumber(int number){
+        return creditCardRepository.findByNumber(number);
+    }
+
+
 }
