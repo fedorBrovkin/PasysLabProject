@@ -1,5 +1,6 @@
 package com.epam.labproject.service;
 
+import com.epam.labproject.model.entity.Role;
 import com.epam.labproject.model.entity.User;
 import com.epam.labproject.repository.RoleRepository;
 import com.epam.labproject.repository.UserRepository;
@@ -49,5 +50,24 @@ public class UserService {
         if(user!=null)
         userRepository.delete(user);
         return user;
+    }
+    public void changeRole(String login, String roleName){
+        User user = this.getUser(login);
+        Role role = roleService.findByName(roleName);
+        if(user!=null&&role!=null){
+         user.setRole(role);
+         userRepository.save(user);
+        }
+    }
+    public void changePassword(String login,String password){
+        User user = getUser(login);
+        String psw = bCryptPasswordEncoder.encode(password);
+        if(psw==user.getPassword()){
+            user.setPassword(psw);
+            userRepository.save(user);
+        }else{
+            System.out.println("password doesnt match");
+        }
+
     }
 }
