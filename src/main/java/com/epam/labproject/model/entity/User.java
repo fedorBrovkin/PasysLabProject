@@ -15,7 +15,7 @@ public class User extends AbstractIdentifiableEntity {
   @ManyToOne
   @JoinColumn(name = "role_id")
   private Role role;
-  @OneToMany(mappedBy = "user",orphanRemoval = true)
+  @OneToMany(mappedBy = "user",orphanRemoval = true, targetEntity = CreditCard.class)
   private List<CreditCard> cards=new  ArrayList<CreditCard>();
   public User(){
   }
