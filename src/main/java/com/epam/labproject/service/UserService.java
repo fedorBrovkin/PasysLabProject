@@ -1,61 +1,17 @@
 package com.epam.labproject.service;
 
 import com.epam.labproject.entity.User;
-import com.epam.labproject.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
-public class UserService {
+public interface UserService {
 
-  private UserRepository userRepository;
-  private RoleService roleService;
-  private PasswordEncoder passwordEncoder;
-  private AuthenticationManagerBuilder auth;
+  User getUserByLogin(String login);
 
-  /**
-   * Constructor.
-   */
-  @Autowired
-  public UserService(UserRepository userRepository, RoleService roleService,
-      PasswordEncoder passwordEncoder, AuthenticationManagerBuilder auth) {
+  void save(User user);
 
-    this.userRepository = userRepository;
-    this.roleService = roleService;
-    this.passwordEncoder = passwordEncoder;
-    this.auth = auth;
-  }
+  User delete(String login);
 
-  /**
-   * Create user.
-   */
-  public void save(User user) {
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-    user.setRole(roleService.findByName("USER"));
-    userRepository.save(user);
-    PasswordEncoderFactories.createDelegatingPasswordEncoder();
-  }
+  User update(User user);
 
-  /**
-   * Delete user by login.
-   */
-  public User delete(String login) {
-    User user = userRepository.findByLogin(login);
-    userRepository.delete(user);
-    return user;
-  }
-
-  /**
-   * Update user.
-   */
-  public User update(User user) {
-    if (userRepository.findByLogin(user.getLogin()) == null) {
-      this.save(user);
-      return null;
-    }
-    return null;
-  }
+  List<User> findAll();
 }

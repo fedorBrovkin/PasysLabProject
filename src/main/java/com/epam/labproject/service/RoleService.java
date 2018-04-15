@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleService {
 
+  @Autowired
   private RoleRepository roleRepository;
 
-  @Autowired
-  public RoleService(RoleRepository roleRepository) {
-    this.roleRepository = roleRepository;
-  }
+//  @Autowired
+//  public RoleService(RoleRepository roleRepository) {
+//    this.roleRepository = roleRepository;
+//  }
+
+  public static final String DEFAULT_ROLE_NAME = "USER";
 
   public void save(Role role) {
     roleRepository.save(role);

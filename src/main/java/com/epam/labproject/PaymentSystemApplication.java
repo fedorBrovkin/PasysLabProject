@@ -14,7 +14,6 @@ public class PaymentSystemApplication {
     return PasswordEncoderFactories.createDelegatingPasswordEncoder();
   }
 
-
   public static void main(String[] args) {
     SpringApplication.run(PaymentSystemApplication.class, args);
   }

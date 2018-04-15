@@ -24,7 +24,6 @@ public class PaymentSystemApplicationTests {
     entity.setId(null);
     userRepository.save(entity);
     System.out.println(save.toString());
-
   }
 
 }

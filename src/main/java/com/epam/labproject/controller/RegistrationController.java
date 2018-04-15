@@ -2,8 +2,9 @@ package com.epam.labproject.controller;
 
 import com.epam.labproject.entity.User;
 import com.epam.labproject.service.UserService;
-import java.util.ArrayList;
+import com.epam.labproject.service.UserServiceImpl;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,23 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 class RegistrationController {
 
-  private static List<User> users = new ArrayList<User>();
+  @Autowired
   private UserService userService;
-
-  @Value("${welcome.message}")
-  private String message;
-
-  @Value("${error.message}")
-  private String errorMessage;
-
-  public RegistrationController(UserService userService) {
-    this.userService = userService;
-  }
 
   @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
   public String index(Model model) {
-
-    model.addAttribute("message", message);
 
     return "index";
   }
@@ -38,6 +27,7 @@ class RegistrationController {
   @RequestMapping(value = {"/userList"}, method = RequestMethod.GET)
   public String personList(Model model) {
 
+    List<User> users = userService.findAll();
     model.addAttribute("users", users);
 
     return "userList";
@@ -60,12 +50,11 @@ class RegistrationController {
 
     if (firstName != null && firstName.length() > 0 //
         && lastName != null && lastName.length() > 0) {
-      users.add(user);
       userService.save(user);
       return "redirect:/userList";
     }
 
-    model.addAttribute("errorMessage", errorMessage);
+    model.addAttribute("hasErrorMessage", true);
     return "registration";
   }
 }
