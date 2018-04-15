@@ -87,6 +87,7 @@ public class UserServiceTests {
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     user.setRole(role);
 
+    verify(userRepository, times(1)).findByLogin(ANOTHER_TEST_USER_LOGIN);
     verify(passwordEncoder, times(1)).encode(TEST_USER_PASSWORD);
     verify(roleService, times(1)).findByName(RoleService.DEFAULT_ROLE_NAME);
     verify(userRepository, times(1)).save(user);
@@ -96,6 +97,7 @@ public class UserServiceTests {
   public void createAlreadyExistedUser() {
     userService.createUser(user);
 
+    verify(userRepository, times(1)).findByLogin(TEST_USER_LOGIN);
     verify(passwordEncoder, never()).encode(any());
     verify(roleService, never()).findByName(any());
     verify(userRepository, never()).save(any());
