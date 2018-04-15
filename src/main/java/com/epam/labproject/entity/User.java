@@ -20,7 +20,7 @@ public class User extends AbstractIdentifiableEntity {
   @ManyToOne
   @JoinColumn(name = "role_id")
   private Role role;
-  @OneToMany
+  @OneToMany(mappedBy = "user")
   private List<CreditCard> cards;
 
   public User() {
