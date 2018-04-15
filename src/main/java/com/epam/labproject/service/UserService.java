@@ -41,21 +41,13 @@ public class UserService {
             }
         }
     }
+    public User getUser(String login){
+        return userRepository.findByLogin(login);
+    }
     public User delete(String login){
         User user = userRepository.findByLogin(login);
         if(user!=null)
         userRepository.delete(user);
         return user;
-    }
-
-    public void update(User user){
-        if(user!=null){
-            User currentUser=userRepository.findByLogin(user.getLogin());
-            if(currentUser!=null){
-                currentUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-                currentUser.setLogin(user.getLogin());
-                userRepository.save(currentUser);
-            }
-        }
     }
 }
