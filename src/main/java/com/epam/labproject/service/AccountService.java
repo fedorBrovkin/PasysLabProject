@@ -18,5 +18,10 @@ public class AccountService {
     public void save(Account account){
         accountRepository.save(account);
     }
+    public void close(Account account){}
+    public void update(Account account){}
+    public Account findByNumber(int number){
+        return accountRepository.findByNumber(number);
+    }
 
 }
