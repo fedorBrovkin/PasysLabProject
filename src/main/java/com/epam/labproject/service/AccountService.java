@@ -20,7 +20,15 @@ public class AccountService {
     }
     public void close(Account account){}
     public void update(Account account){
-
+        if(account!=null){
+            Account currentAccount=accountRepository.findByNumber(account.getNumber());
+            if(currentAccount!=null){
+                currentAccount.setBalance(account.getBalance());
+                currentAccount.setBirthDay(account.getBirthDay());
+                currentAccount.setStatus(account.isStatus());
+                currentAccount.setUser(account.getUser());
+            }
+        }
     }
     public Account findByNumber(int number){
         return accountRepository.findByNumber(number);
