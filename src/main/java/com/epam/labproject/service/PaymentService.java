@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentService {
     private PaymentRepository paymentRepository;
+    private CreditCardService creditCardService;
 
     @Autowired
     public PaymentService(PaymentRepository paymentRepository){
@@ -16,5 +17,7 @@ public class PaymentService {
     public void save(Payment payment){
         paymentRepository.save(payment);
     }
+
+
 
 }

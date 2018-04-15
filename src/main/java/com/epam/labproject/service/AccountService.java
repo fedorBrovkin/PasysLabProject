@@ -19,7 +19,9 @@ public class AccountService {
         accountRepository.save(account);
     }
     public void close(Account account){}
-    public void update(Account account){}
+    public void update(Account account){
+
+    }
     public Account findByNumber(int number){
         return accountRepository.findByNumber(number);
     }
