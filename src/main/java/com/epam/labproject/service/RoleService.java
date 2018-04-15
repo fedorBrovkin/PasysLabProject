@@ -16,9 +16,17 @@ public class RoleService {
     }
 
     public void save(Role role){
+        if(role!=null && !role.getName().isEmpty())
         roleRepository.save(role);
     }
     public Role findByName(String name){
         return roleRepository.findByName(name);
     }
+    public void delete(Role role){
+        if(role!=null){
+            if(roleRepository.findByName(role.getName())!=null)
+                roleRepository.delete(roleRepository.findByName(role.getName()));
+        }
+    }
+
 }

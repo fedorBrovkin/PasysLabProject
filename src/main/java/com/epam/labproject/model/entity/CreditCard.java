@@ -22,7 +22,7 @@ public class CreditCard extends AbstractIdentifiableEntity {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
-  @Column(name = "number")
+  @Column(name = "number",unique = true)
   private int number;
 
   public Account getAccount() {
