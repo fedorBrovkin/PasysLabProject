@@ -2,9 +2,13 @@ package com.epam.labproject.service;
 
 
 import com.epam.labproject.model.entity.Account;
+import com.epam.labproject.model.entity.Payment;
 import com.epam.labproject.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Service
 public class AccountService {
@@ -32,6 +36,29 @@ public class AccountService {
     }
     public Account findByNumber(int number){
         return accountRepository.findByNumber(number);
+    }
+    public boolean withdraw(Account source, Account target, BigDecimal amount){
+            if (amount.compareTo(source.getBalance()) < 1) {
+                source.setBalance(source.getBalance().divide(amount));
+                target.setBalance(target.getBalance().add(amount));
+                this.save(source);
+                this.save(target);
+                return true;
+            }
+        return false;
+    }
+    public Payment makeTransfer(Account source, Account target, BigDecimal amount){
+        if(source!=null&&target!=null){
+            if(withdraw(source,target,amount)){
+                Payment payment =new Payment();
+                payment.setAmount(amount);
+                payment.setTime(LocalDateTime.now());
+                return payment;
+            }
+            //throw NoFundsException
+            return null;
+        }
+        return null;
     }
 
 }
