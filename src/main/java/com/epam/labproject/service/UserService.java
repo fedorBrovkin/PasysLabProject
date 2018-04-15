@@ -30,7 +30,7 @@ public class UserService {
         this.auth=auth;
     }
 
-    public void save(User user){
+    public void createUser(User user){
         if(user!=null) {
             if(userRepository.findByLogin(user.getLogin())==null) {
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -41,6 +41,9 @@ public class UserService {
                 System.out.println("already exist page have to be here");
             }
         }
+    }
+    public void save(User user){
+        userRepository.save(user);
     }
     public User getUser(String login){
         return userRepository.findByLogin(login);
