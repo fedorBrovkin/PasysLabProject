@@ -1,7 +1,7 @@
 package com.epam.labproject.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -22,7 +22,7 @@ public class Payment extends AbstractIdentifiableEntity {
   @Column(name = "amount")
   private BigDecimal amount;
   @Column(name = "time")
-  private Date time;
+  private LocalDateTime time;
 
   public CreditCard getSource() {
     return source;
@@ -48,11 +48,11 @@ public class Payment extends AbstractIdentifiableEntity {
     this.amount = amount;
   }
 
-  public Date getTime() {
+  public LocalDateTime getTime() {
     return time;
   }
 
-  public void setTime(Date time) {
+  public void setTime(LocalDateTime time) {
     this.time = time;
   }
 }

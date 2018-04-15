@@ -8,21 +8,35 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleService {
 
+  public static final String DEFAULT_ROLE_NAME = "USER";
+
   @Autowired
   private RoleRepository roleRepository;
 
-//  @Autowired
-//  public RoleService(RoleRepository roleRepository) {
-//    this.roleRepository = roleRepository;
-//  }
-
-  public static final String DEFAULT_ROLE_NAME = "USER";
-
+  /**
+   * Save role.
+   */
   public void save(Role role) {
-    roleRepository.save(role);
+    if (role != null && !role.getName().isEmpty()) {
+      roleRepository.save(role);
+    }
   }
 
+  /**
+   * Find role by name.
+   */
   public Role findByName(String name) {
     return roleRepository.findByName(name);
+  }
+
+  /**
+   * Delete role.
+   */
+  public void delete(Role role) {
+    if (role != null) {
+      if (roleRepository.findByName(role.getName()) != null) {
+        roleRepository.delete(roleRepository.findByName(role.getName()));
+      }
+    }
   }
 }

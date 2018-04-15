@@ -1,6 +1,8 @@
 package com.epam.labproject.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -20,9 +22,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserServiceImplTests {
+public class UserServiceTests {
 
   private static final String TEST_USER_LOGIN = "alex";
+  private static final String ANOTHER_TEST_USER_LOGIN = "another_alex";
   private static final String TEST_USER_PASSWORD = "pwd";
   private static final String TEST_USER_ENCODED_PASSWORD = "enc_pwd";
 
@@ -35,11 +38,14 @@ public class UserServiceImplTests {
 
   @Autowired
   @InjectMocks
-  private UserService userService = new UserServiceImpl();
+  private UserService userService = new UserService();
 
   private User user;
   private Role role;
 
+  /**
+   * Set up before tests.
+   */
   @Before
   public void setUp() {
     user = new User();
@@ -58,8 +64,8 @@ public class UserServiceImplTests {
   }
 
   @Test
-  public void getUserByLogin() {
-    User found = userService.getUserByLogin(TEST_USER_LOGIN);
+  public void getUser() {
+    User found = userService.getUser(TEST_USER_LOGIN);
 
     verify(userRepository, times(1)).findByLogin(TEST_USER_LOGIN);
     assertThat(found.getLogin())
@@ -70,11 +76,28 @@ public class UserServiceImplTests {
   public void save() {
     userService.save(user);
 
+    verify(userRepository, times(1)).save(user);
+  }
+
+  @Test
+  public void createUser() {
+    user.setLogin(ANOTHER_TEST_USER_LOGIN);
+    userService.createUser(user);
+
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     user.setRole(role);
 
     verify(passwordEncoder, times(1)).encode(TEST_USER_PASSWORD);
     verify(roleService, times(1)).findByName(RoleService.DEFAULT_ROLE_NAME);
     verify(userRepository, times(1)).save(user);
+  }
+
+  @Test
+  public void createAlreadyExistedUser() {
+    userService.createUser(user);
+
+    verify(passwordEncoder, never()).encode(any());
+    verify(roleService, never()).findByName(any());
+    verify(userRepository, never()).save(any());
   }
 }

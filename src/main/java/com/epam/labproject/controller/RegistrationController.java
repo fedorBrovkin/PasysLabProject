@@ -2,15 +2,12 @@ package com.epam.labproject.controller;
 
 import com.epam.labproject.entity.User;
 import com.epam.labproject.service.UserService;
-import com.epam.labproject.service.UserServiceImpl;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 class RegistrationController {
@@ -18,22 +15,13 @@ class RegistrationController {
   @Autowired
   private UserService userService;
 
-  @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+  @GetMapping(value = {"/", "/index"})
   public String index(Model model) {
 
     return "index";
   }
 
-  @RequestMapping(value = {"/userList"}, method = RequestMethod.GET)
-  public String personList(Model model) {
-
-    List<User> users = userService.findAll();
-    model.addAttribute("users", users);
-
-    return "userList";
-  }
-
-  @RequestMapping(value = {"/registration"}, method = RequestMethod.GET)
+  @GetMapping(value = {"/registration"})
   public String showAddPersonPage(Model model) {
 
     User user = new User();
@@ -42,7 +30,7 @@ class RegistrationController {
     return "registration";
   }
 
-  @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
+  @PostMapping(value = {"/registration"})
   public String savePerson(Model model, @ModelAttribute("user") User user) {
 
     String firstName = user.getLogin();
@@ -50,8 +38,8 @@ class RegistrationController {
 
     if (firstName != null && firstName.length() > 0 //
         && lastName != null && lastName.length() > 0) {
-      userService.save(user);
-      return "redirect:/userList";
+      userService.createUser(user);
+      return "redirect:/";
     }
 
     model.addAttribute("hasErrorMessage", true);

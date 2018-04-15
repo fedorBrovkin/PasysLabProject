@@ -11,13 +11,16 @@ public class AccountService {
   @Autowired
   private AccountRepository accountRepository;
 
-//  @Autowired
-//  public AccountService(AccountRepository accountRepository) {
-//    this.accountRepository = accountRepository;
-//  }
-
   public void save(Account account) {
     accountRepository.save(account);
+  }
+
+  public void delete(Account account) {
+    accountRepository.delete(account);
+  }
+
+  public Account findByNumber(int number) {
+    return accountRepository.findByNumber(number);
   }
 
 }
