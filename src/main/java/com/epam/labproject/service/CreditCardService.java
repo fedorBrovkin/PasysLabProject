@@ -24,6 +24,7 @@ public class CreditCardService {
                              PaymentService paymentService,UserService userService){
         this.creditCardRepository=creditCardRepository;
         this.paymentService=paymentService;
+        this.userService=userService;
     }
     public void save(CreditCard creditCard){
         creditCardRepository.save(creditCard);
