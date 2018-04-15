@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class PaymentService {
@@ -27,6 +28,9 @@ public class PaymentService {
         }else{
             //do smthing
         }
+    }
+    public List<Payment> findAllBySource(CreditCard creditCard){
+        return paymentRepository.findAllBySource(creditCard);
     }
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     protected boolean makeTransfer(Payment payment){

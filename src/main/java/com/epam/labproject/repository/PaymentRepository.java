@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface PaymentRepository extends CrudRepository<Payment, String> {
-   public List<CreditCard> findAllBySource(CreditCard source);
-   public List<CreditCard> findAllBySourceAndTarget(CreditCard source, CreditCard tardet);
+   public List<Payment> findAllBySource(CreditCard source);
+   public List<Payment> findAllBySourceAndTarget(CreditCard source, CreditCard tardet);
 }
