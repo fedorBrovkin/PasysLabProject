@@ -4,6 +4,7 @@ package com.epam.labproject.service;
 import com.epam.labproject.model.entity.Account;
 import com.epam.labproject.model.entity.CreditCard;
 import com.epam.labproject.model.entity.Payment;
+import com.epam.labproject.model.entity.User;
 import com.epam.labproject.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,16 +15,21 @@ import java.math.BigDecimal;
 public class CreditCardService {
     private CreditCardRepository creditCardRepository;
     private PaymentService paymentService;
+    private UserService userService;
 
 
     @Autowired
     public CreditCardService(CreditCardRepository creditCardRepository,
-                             PaymentService paymentService){
+                             PaymentService paymentService,UserService userService){
         this.creditCardRepository=creditCardRepository;
         this.paymentService=paymentService;
     }
     public void save(CreditCard creditCard){
         creditCardRepository.save(creditCard);
+        User user=creditCard.getUser();
+        user.getCards().add(creditCard);
+        userService.save(user);
+
     }
     public void delete(CreditCard creditCard){
         if(creditCard!=null){
