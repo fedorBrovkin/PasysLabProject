@@ -33,6 +33,7 @@ public class AccountService {
     public Account findByNumber(int number){
         return accountRepository.findByNumber(number);
     }
+
     public void createAccount(String login){
      User user = userService.getUser(login);
      Account account= new Account();
@@ -42,6 +43,27 @@ public class AccountService {
      account.setDateOfCreation(LocalDateTime.now());
      account.setNumber(accountNumberBuilder());
      this.save(account);
+    }
+
+    public void makeActive(int accountNumber){
+        Account account = this.findByNumber(accountNumber);
+        if(account!=null){
+            account.setStatus(true);
+            this.save(account);
+        }
+    }
+    public void makeNotActive(int accountNumber){
+        Account account = this.findByNumber(accountNumber);
+        if(account!=null){
+            account.setStatus(false);
+            this.save(account);
+        }
+    }
+    //public void
+    public double getBalance(Account account){
+        if(account!=null)
+            return account.getBalance().doubleValue();
+        return 0.0;
     }
     private int accountNumberBuilder(){
         int number=0;
