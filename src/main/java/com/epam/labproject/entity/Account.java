@@ -1,64 +1,73 @@
 package com.epam.labproject.entity;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "account")
-public class Account extends AbstractIdentifiableEntity{
-    @Column(unique = true)
-    private int number;
-    private BigDecimal balance;
-    @Column(name = "date_of_death")
-    private LocalDate dateOfDeath;
-    @Column(nullable = false)
-    private boolean status;
-    @ManyToOne
-    @Column(name="user_id")
-    private User userId;
+public class Account extends AbstractIdentifiableEntity {
 
-    public Account(){
-    }
-    public int getNumber() {
-        return number;
-    }
+  @Column(name = "number", unique = true)
+  private int number;
+  @Column(name = "balance")
+  private BigDecimal balance;
+  @Column(name = "birthday")
+  private Date birthDay;
+  @Column(name = "status", nullable = false)
+  private boolean status;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
+  public int getNumber() {
+    return number;
+  }
 
-    public BigDecimal getBalance() {
-        return balance;
-    }
+  public void setNumber(int number) {
+    this.number = number;
+  }
 
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
+  public BigDecimal getBalance() {
+    return balance;
+  }
 
-    public LocalDate getDateOfDeath() {
-        return dateOfDeath;
-    }
+  public void setBalance(BigDecimal balance) {
+    this.balance = balance;
+  }
 
-    public void setDateOfDeath(LocalDate dateOfDeath) {
-        this.dateOfDeath = dateOfDeath;
-    }
+  public Date getBirthDay() {
+    return birthDay;
+  }
 
-    public boolean isStatus() {
-        return status;
-    }
+  public void setBirthDay(Date birthDay) {
+    this.birthDay = birthDay;
+  }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+  public boolean isStatus() {
+    return status;
+  }
 
-    public User getUserId() {
-        return userId;
-    }
+  public void setStatus(boolean status) {
+    this.status = status;
+  }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("Account[lastName='%s']", birthDay);
+  }
 }
+

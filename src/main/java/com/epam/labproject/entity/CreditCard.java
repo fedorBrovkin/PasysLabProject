@@ -1,62 +1,69 @@
 package com.epam.labproject.entity;
 
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="creditcard")
-public class CreditCard extends AbstractIdentifiableEntity{
-    @ManyToOne
-    @Column(name="account_id")
-    private Account accountId;
-    private int cvc;
-    @Column(name="date_of_death")
-    private Date dateOfDeath;
-    @ManyToOne
-    @Column(name="user_id")
-    private User userId;
-    private int number;
+@Table(name = "credit_card")
+public class CreditCard extends AbstractIdentifiableEntity {
 
-    public  CreditCard(){
+  @ManyToOne
+  @JoinColumn(name = "account_id")
+  private Account account;
+  @Column(name = "cvc")
+  private int cvc;
+  @Column(name = "expiration_date")
+  private Date expirationDate;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
+  @Column(name = "number", unique = true)
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int number;
 
-    }
-    public Account getAccountId() {
-        return accountId;
-    }
+  public Account getAccount() {
+    return account;
+  }
 
-    public void setAccountId(Account accountId) {
-        this.accountId = accountId;
-    }
+  public void setAccount(Account account) {
+    this.account = account;
+  }
 
-    public int getCvc() {
-        return cvc;
-    }
+  public int getCvc() {
+    return cvc;
+  }
 
-    public void setCvc(int cvc) {
-        this.cvc = cvc;
-    }
+  public void setCvc(int cvc) {
+    this.cvc = cvc;
+  }
 
-    public Date getDate_of_death() {
-        return dateOfDeath;
-    }
+  public Date getExpirationDate() {
+    return expirationDate;
+  }
 
-    public void setDateOfDeath(Date dateOfDeath) {
-        this.dateOfDeath = dateOfDeath;
-    }
+  public void setExpirationDate(Date expirationDate) {
+    this.expirationDate = expirationDate;
+  }
 
-    public User getUserId() {
-        return userId;
-    }
+  public User getUser() {
+    return user;
+  }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-    public int getNumber() {
-        return number;
-    }
+  public int getNumber() {
+    return number;
+  }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
+  public void setNumber(int number) {
+    this.number = number;
+  }
 }

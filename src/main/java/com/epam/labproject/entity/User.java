@@ -1,37 +1,61 @@
 package com.epam.labproject.entity;
 
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="user")
-public class User extends AbstractIdentifiableEntity{
-    @Column(unique = true)
-    private String login;
-    private String password;
-    @ManyToOne
-    @Column(name="role_id")
-    private Role roleId;
+@Table(name = "users")
+public class User extends AbstractIdentifiableEntity {
 
-    public User(){
+  @Column(name = "login", unique = true)
+  private String login;
+  @Column(name = "password")
+  private String password;
+  @ManyToOne
+  @JoinColumn(name = "role_id")
+  private Role role;
+  @OneToMany(mappedBy = "user")
+  private List<CreditCard> cards;
 
-    }
+  public User() {
+    this.cards = new ArrayList<CreditCard>();
+  }
 
-    public String getLogin() {
-        return login;
-    }
-    public void setLogin(String login) {
-        this.login = login;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public Role getRoleId() {
-        return roleId;
-    }
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
-    }
+  public String getLogin() {
+    return login;
+  }
+
+  public void setLogin(String login) {
+    this.login = login;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
+  }
+
+  public List<CreditCard> getCards() {
+    return cards;
+  }
+
+  public void setCards(List<CreditCard> cards) {
+    this.cards = cards;
+  }
 }

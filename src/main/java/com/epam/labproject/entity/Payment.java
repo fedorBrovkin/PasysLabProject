@@ -1,52 +1,58 @@
 package com.epam.labproject.entity;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="payment")
-public class Payment extends AbstractIdentifiableEntity{
-    @ManyToOne
-    private CreditCard source;//id_card
-    @ManyToOne
-    private CreditCard target;//id_card
+@Table(name = "payment")
+public class Payment extends AbstractIdentifiableEntity {
 
-    private BigDecimal amount;
-    private Date time;
+  @ManyToOne
+  @JoinColumn(name = "source_id")
+  private CreditCard source;
+  @ManyToOne
+  @JoinColumn(name = "target_id")
+  private CreditCard target;
 
-    public Payment(){
+  @Column(name = "amount")
+  private BigDecimal amount;
+  @Column(name = "time")
+  private LocalDateTime time;
 
-    }
-    public CreditCard getSource() {
-        return source;
-    }
+  public CreditCard getSource() {
+    return source;
+  }
 
-    public void setSource(CreditCard source) {
-        this.source = source;
-    }
+  public void setSource(CreditCard source) {
+    this.source = source;
+  }
 
-    public CreditCard getTarget() {
-        return target;
-    }
+  public CreditCard getTarget() {
+    return target;
+  }
 
-    public void setTarget(CreditCard target) {
-        this.target = target;
-    }
+  public void setTarget(CreditCard target) {
+    this.target = target;
+  }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+  public BigDecimal getAmount() {
+    return amount;
+  }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+  public void setAmount(BigDecimal amount) {
+    this.amount = amount;
+  }
 
-    public Date getTime() {
-        return time;
-    }
+  public LocalDateTime getTime() {
+    return time;
+  }
 
-    public void setTime(Date time) {
-        this.time = time;
-    }
+  public void setTime(LocalDateTime time) {
+    this.time = time;
+  }
 }
