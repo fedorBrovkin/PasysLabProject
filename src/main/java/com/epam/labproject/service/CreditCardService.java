@@ -60,7 +60,8 @@ public class CreditCardService {
                     creditCard.setUser(user);
                     creditCard.setCvc(cvcBuider());
                     creditCard.setExpirationDate(LocalDateTime.now().plusYears(3));
-                    creditCardRepository.save(creditCard);
+                    creditCard.setNumber(this.cardNumberBuilder());
+                    this.save(creditCard);
                 }else{
                     //account not found
                 }
@@ -72,6 +73,14 @@ public class CreditCardService {
 
     private int cvcBuider(){
         return 100+(((int)(Math.random()*100))%900);
+    }
+
+    private int cardNumberBuilder(){
+        int number=0;
+        do {
+             number=1000 + (((int) (Math.random() * 1000)) % 9999);
+        }while(creditCardRepository.findByNumber(number)!=null);
+            return number;
     }
 
 
