@@ -61,7 +61,7 @@ public class CreditCardService {
                     creditCard.setCvc(cvcBuider());
                     creditCard.setExpirationDate(LocalDateTime.now().plusYears(3));
                     creditCard.setNumber(this.cardNumberBuilder());
-                    creditCardRepository.save(creditCard);
+                    this.save(creditCard);
                 }else{
                     //account not found
                 }
