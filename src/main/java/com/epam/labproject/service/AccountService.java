@@ -40,7 +40,14 @@ public class AccountService {
      account.setStatus(true);
      account.setUser(user);
      account.setDateOfCreation(LocalDateTime.now());
+     account.setNumber(accountNumberBuilder());
      this.save(account);
     }
-    
+    private int accountNumberBuilder(){
+        int number=0;
+        do {
+            number=100000 + (((int) (Math.random() * 100000)) % 900000);
+        }while(accountRepository.findByNumber(number)!=null);
+        return number;
+    }
 }

@@ -78,7 +78,7 @@ public class CreditCardService {
     private int cardNumberBuilder(){
         int number=0;
         do {
-             number=1000 + (((int) (Math.random() * 1000)) % 9999);
+             number=1000 + (((int) (Math.random() * 1000)) % 9000);
         }while(creditCardRepository.findByNumber(number)!=null);
             return number;
     }
