@@ -53,7 +53,7 @@ public class CreditCardService {
     public void createCard(String login,int accountNumber){
             User user = userService.getUser(login);
             Account account = accountService.findByNumber(accountNumber);
-            if(user!=null || account!=null){
+            if(user!=null && account!=null){
                     CreditCard creditCard=new CreditCard();
                     creditCard.setAccount(account);
                     creditCard.setUser(user);
