@@ -46,9 +46,31 @@ public class AccountService {
      account.setNumber(accountNumberBuilder());
      this.save(account);
     }
-    public List<Account> findAllByUser(User user){
-        return accountRepository.findAllByUser(user);
+
+    public void giveMoney(int accountNumber){
+        Account account=accountRepository.findByNumber(accountNumber);
+        if(account!=null){
+            BigDecimal balance=account.getBalance();
+            account.setBalance(balance.add(new BigDecimal(10000)));
+            accountRepository.save(account);
+        }
     }
+    public void changeStatus(int accountNumber){
+        Account a=accountRepository.findByNumber(accountNumber);
+        a.setStatus(!a.isStatus());
+        this.save(a);
+    }
+    public boolean isActive(int accountNumber){
+        return accountRepository.findByNumber(accountNumber).isStatus();
+    }
+
+    public double getBalance(int accountNumber){
+        Account account=accountRepository.findByNumber(accountNumber);
+        if(account!=null)
+            return account.getBalance().doubleValue();
+        return 0.0;
+    }
+    
     private int accountNumberBuilder(){
         int number=0;
         do {
