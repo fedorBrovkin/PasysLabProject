@@ -1,14 +1,13 @@
 package com.epam.labproject.controller;
 
+import com.epam.labproject.form.CreateCardForm;
 import com.epam.labproject.model.entity.Account;
 import com.epam.labproject.model.entity.CreditCard;
-import com.epam.labproject.model.entity.Role;
 import com.epam.labproject.model.entity.User;
 import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,27 +34,25 @@ public class MakeCardController {
         this.userService = userService;
     }
 
-    @GetMapping("makeCard")
+    @GetMapping("/makeCard")
     public String makeCardPage(Model model){
         User user = userService.getUser(userDetailsService.getCurrentUsername());
         List<Account> accountList = accountService.findAllByUser(user);
+        accountService.createAccount(user.getLogin());
         if (accountList == null||accountList.isEmpty()){
             accountService.createAccount(userDetailsService.getCurrentUsername());
             return "redirect:makeCard";
         }
         model.addAttribute("accounts", accountList);
+        CreateCardForm cardForm = new CreateCardForm();
+        model.addAttribute("cardForm", cardForm);
         return "makeCard";
     }
 
-    @GetMapping("createCardAndAccount")
-    public String showCreateCardAndaccount(Model model){
 
-        return "createCardAndAccount";
-    }
-
-    @PostMapping("createCardAndAccount")
-    public String createCardAndAccount(){
-
+    @PostMapping("createCard")
+    public String createCardAndAccount(@ModelAttribute("createCardForm") CreateCardForm cardForm){
+        creditCardService.createCard(cardForm.getLogin(),cardForm.getNumber());
         return "cardList";
     }
 }
