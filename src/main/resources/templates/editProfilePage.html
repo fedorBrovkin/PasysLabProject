@@ -16,12 +16,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Welcome</h1>
-<h2 th:utext="${message}">..!..</h2>
+<h1>Change Password</h1>
+<form th:action="@{/registration}"
+      th:object="${user}" method="POST">
+    Old Password
+    <input type="text" th:field="*{login}" />
+    <br/>
+    New password
+    <input type="text" th:field ="*{password}"/>
+    <br/>
+    <br/>
+    <input type="submit" value="Create" />
+</form>
 
-
-
-<a th:href="@{/userOffice}"><button type="button" class="btn btn-dark">My office</button></a>
+<a th:href="@{/userOffice}"><button type="button" class="btn btn-dark">Back</button></a>
 </body>
 
 </html>

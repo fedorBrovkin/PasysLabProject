@@ -17,11 +17,13 @@
 </head>
 <body>
 <h1>Welcome</h1>
-<h2 th:utext="${message}">..!..</h2>
 
+    <h2 th:utext="${message}">..!..</h2>
 
+<a th:href="@{/cardList}"><button type="button" class="btn btn-dark">My cards</button></a>
+<a th:href="@{/makePayment}"><button type="button" class="btn btn-dark">Make payment</button></a>
+<a th:href="@{/editProfilePage}"><button type="button" class="btn btn-dark">Edit profile</button></a>
 
-<a th:href="@{/userOffice}"><button type="button" class="btn btn-dark">My office</button></a>
 </body>
 
 </html>

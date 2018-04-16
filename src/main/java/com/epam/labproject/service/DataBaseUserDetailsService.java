@@ -2,8 +2,10 @@ package com.epam.labproject.service;
 
 import com.epam.labproject.model.entity.User;
 import com.epam.labproject.repository.UserRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ import java.util.Set;
 @Transactional
 public class DataBaseUserDetailsService implements UserDetailsService {
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     DataBaseUserDetailsService(UserRepository userRepository){
         this.userRepository = userRepository;
@@ -28,5 +30,10 @@ public class DataBaseUserDetailsService implements UserDetailsService {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
         return new org.springframework.security.core.userdetails.User(user.getLogin(),user.getPassword(),grantedAuthorities);
+    }
+
+    public String getCurrentUsername(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class AccountService {
@@ -29,6 +30,7 @@ public class AccountService {
     public void save(Account account){
         accountRepository.save(account);
     }
+
     public void delete(Account account){accountRepository.delete(account);}
     public Account findByNumber(int number){
         return accountRepository.findByNumber(number);
