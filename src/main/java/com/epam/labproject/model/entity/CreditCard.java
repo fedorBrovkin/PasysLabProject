@@ -1,4 +1,5 @@
 package com.epam.labproject.model.entity;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -13,7 +14,7 @@ public class CreditCard extends AbstractIdentifiableEntity {
   @Column(name = "cvc")
   private int cvc;
   @Column(name = "expiration_date")
-  private Date expirationDate;
+  private LocalDateTime expirationDate;
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
@@ -37,11 +38,11 @@ public class CreditCard extends AbstractIdentifiableEntity {
     this.cvc = cvc;
   }
 
-  public Date getExpirationDate() {
+  public LocalDateTime getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(Date expirationDate) {
+  public void setExpirationDate(LocalDateTime expirationDate) {
     this.expirationDate = expirationDate;
   }
 

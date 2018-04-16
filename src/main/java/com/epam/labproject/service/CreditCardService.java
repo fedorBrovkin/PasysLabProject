@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -17,14 +18,17 @@ public class CreditCardService {
     private CreditCardRepository creditCardRepository;
     private PaymentService paymentService;
     private UserService userService;
+    private AccountService accountService;
 
 
     @Autowired
     public CreditCardService(CreditCardRepository creditCardRepository,
-                             PaymentService paymentService,UserService userService){
+                             PaymentService paymentService,UserService userService
+    ,AccountService accountService){
         this.creditCardRepository=creditCardRepository;
         this.paymentService=paymentService;
         this.userService=userService;
+        this.accountService=accountService;
     }
     public void save(CreditCard creditCard){
         creditCardRepository.save(creditCard);
@@ -45,6 +49,32 @@ public class CreditCardService {
     public CreditCard findByNumber(int number){
         return creditCardRepository.findByNumber(number);
     }
+
+    public void createCard(String login,int accountNumber){
+            User user = userService.getUser(login);
+            Account account = accountService.findByNumber(accountNumber);
+            if(user!=null){
+                if(account!=null){
+                    CreditCard creditCard=new CreditCard();
+                    creditCard.setAccount(account);
+                    creditCard.setUser(user);
+                    creditCard.setCvc(cvcBuider());
+                    creditCard.setExpirationDate(LocalDateTime.now().plusYears(3));
+                    creditCardRepository.save(creditCard);
+                }else{
+                    //account not found
+                }
+            }else{
+                //usernotfound
+            }
+
+    }
+
+    private int cvcBuider(){
+        return 100+(((int)(Math.random()*100))%900);
+    }
+
+
     public void doPayment(int sourceNumber,int targetNumber, double amount){
         CreditCard source=this.findByNumber(sourceNumber);
         CreditCard target=this.findByNumber(targetNumber);
