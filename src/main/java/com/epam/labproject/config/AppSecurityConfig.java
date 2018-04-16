@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -26,17 +27,23 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-       // auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService);
     }
 
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/registration").permitAll()
-                .anyRequest().authenticated().and()
-        .formLogin().permitAll();
+         http.authorizeRequests()
+                 .antMatchers("/registration").permitAll()
+                .anyRequest().authenticated()
+                       .and()
+                .formLogin().permitAll();
+//        http.authorizeRequests()
+//                 .antMatchers("/registration").permitAll()
+//                .anyRequest().authenticated().and()
+//                .formLogin()
+//                .loginPage("/loginPage");
     }
 }
 

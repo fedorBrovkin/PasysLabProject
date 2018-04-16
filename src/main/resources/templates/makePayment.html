@@ -16,30 +16,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Registration:</h1>
-
-
-
-<form th:action="@{/registration}"
-      th:object="${user}" method="POST">
-    Login
-    <input type="text" th:field="*{login}" />
-    <br/>
-    Password
-    <input type="text" th:field ="*{password}"/>
-    <br/>
-    <br/>
-    <input type="submit" value="Create" />
+<h1>Make Payment</h1>
+<form>
+    <div class="form-group">
+        <label for="source">Source card</label>
+        <input type="email" class="form-control" id="source" aria-describedby="sourceHelp" placeholder="Source card number">
+        <small id="sourceHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="target">TargetCard</label>
+        <input type="password" class="form-control" id="target" placeholder="Target card number">
+    </div>
+    <div class="form-group">
+        <label for="value">Value</label>
+        <input type="password" class="form-control" id="value" placeholder="Value">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<br/>
-
-<!-- Check if errorMessage is not null and not empty -->
-
-<div th:if="${errorMessage}" th:utext="${errorMessage}"
-     style="color:red;font-style:italic;">
-    ...
-</div>
-
+<a th:href="@{/userOffice}"><button type="submit" class="btn btn-primary">Back</button></a>
 </body>
+
 </html>

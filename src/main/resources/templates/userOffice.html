@@ -16,30 +16,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Registration:</h1>
+<h1>Welcome</h1>
 
+    <h2 th:utext="${message}">..!..</h2>
 
-
-<form th:action="@{/registration}"
-      th:object="${user}" method="POST">
-    Login
-    <input type="text" th:field="*{login}" />
-    <br/>
-    Password
-    <input type="text" th:field ="*{password}"/>
-    <br/>
-    <br/>
-    <input type="submit" value="Create" />
-</form>
-
-<br/>
-
-<!-- Check if errorMessage is not null and not empty -->
-
-<div th:if="${errorMessage}" th:utext="${errorMessage}"
-     style="color:red;font-style:italic;">
-    ...
-</div>
+<a th:href="@{/cardList}"><button type="button" class="btn btn-dark">My cards</button></a>
+<a th:href="@{/makePayment}"><button type="button" class="btn btn-dark">Make payment</button></a>
+<a th:href="@{/editProfilePage}"><button type="button" class="btn btn-dark">Edit profile</button></a>
 
 </body>
+
 </html>

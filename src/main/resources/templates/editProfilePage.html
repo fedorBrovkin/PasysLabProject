@@ -16,30 +16,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Registration:</h1>
-
-
-
+<h1>Change Password</h1>
 <form th:action="@{/registration}"
       th:object="${user}" method="POST">
-    Login
+    Old Password
     <input type="text" th:field="*{login}" />
     <br/>
-    Password
+    New password
     <input type="text" th:field ="*{password}"/>
     <br/>
     <br/>
     <input type="submit" value="Create" />
 </form>
 
-<br/>
-
-<!-- Check if errorMessage is not null and not empty -->
-
-<div th:if="${errorMessage}" th:utext="${errorMessage}"
-     style="color:red;font-style:italic;">
-    ...
-</div>
-
+<a th:href="@{/userOffice}"><button type="button" class="btn btn-dark">Back</button></a>
 </body>
+
 </html>
