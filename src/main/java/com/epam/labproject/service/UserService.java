@@ -34,7 +34,7 @@ public class UserService {
         if(user!=null) {
             if(userRepository.findByLogin(user.getLogin())==null) {
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-                user.setRole(roleService.findByName("USER"));
+                user.setRole(roleService.findByName("ROLE_USER"));
                 userRepository.save(user);
                 PasswordEncoderFactories.createDelegatingPasswordEncoder();
             }else{
