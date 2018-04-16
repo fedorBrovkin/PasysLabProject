@@ -47,6 +47,10 @@ public class AccountService {
      this.save(account);
     }
 
+    public List<Account> findAllByUser(User user){
+        return accountRepository.findAllByUser(user);
+    }
+
     public void giveMoney(int accountNumber){
         Account account=accountRepository.findByNumber(accountNumber);
         if(account!=null){
