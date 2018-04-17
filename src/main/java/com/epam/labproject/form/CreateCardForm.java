@@ -3,13 +3,13 @@ package com.epam.labproject.form;
 
 public class CreateCardForm {
     private String login;
-    private int number;
+    private String number;
 
     public String getLogin() {
         return login;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
@@ -17,7 +17,7 @@ public class CreateCardForm {
         this.login = login;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 }

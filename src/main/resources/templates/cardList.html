@@ -24,7 +24,7 @@
             <th scope="col">Card Number</th>
         </tr>
         <tr th:each ="card : ${cardList}">
-            <td scope="col" th:utext="*{number}">...</td>
+            <td scope="col" th:utext="${card.number}">...</td>
         </tr>
     </table>
 </div>

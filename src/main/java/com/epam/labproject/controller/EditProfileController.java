@@ -1,7 +1,7 @@
 package com.epam.labproject.controller;
 
+import com.epam.labproject.entity.User;
 import com.epam.labproject.form.EditProfileForm;
-import com.epam.labproject.model.entity.User;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,10 +35,10 @@ public class EditProfileController {
     @PostMapping("/editProfilePage")
     public String editProfile(Model model, @ModelAttribute ("profilForm") EditProfileForm profileForm){
         User user = userService.getUser(detailsService.getCurrentUsername());
-        profileForm.setOldPassworld(bCryptPasswordEncoder.encode(profileForm.getOldPassworld()));
-        if (user.getPassword().equals(profileForm.getOldPassworld()))
+        if (bCryptPasswordEncoder.matches(profileForm.getOldPassworld(), user.getPassword()))
             if (profileForm.getNewPassworld().equals(profileForm.getRepeatPassword())) {
                 user.setPassword(bCryptPasswordEncoder.encode(profileForm.getNewPassworld()));
+
                 return "redirect:/userOffice";
             }
         return "editProfilePage";

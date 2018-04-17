@@ -1,19 +1,13 @@
 package com.epam.labproject.service;
 
 
-import com.epam.labproject.model.entity.Account;
-import com.epam.labproject.model.entity.CreditCard;
-import com.epam.labproject.model.entity.Payment;
-import com.epam.labproject.model.entity.User;
+import com.epam.labproject.entity.Account;
+import com.epam.labproject.entity.User;
 import com.epam.labproject.repository.AccountRepository;
-import com.epam.labproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

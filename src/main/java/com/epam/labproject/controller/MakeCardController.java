@@ -1,8 +1,8 @@
 package com.epam.labproject.controller;
 
+import com.epam.labproject.entity.Account;
+import com.epam.labproject.entity.User;
 import com.epam.labproject.form.CreateCardForm;
-import com.epam.labproject.model.entity.Account;
-import com.epam.labproject.model.entity.User;
 import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;
@@ -36,12 +36,11 @@ public class MakeCardController {
 
     @GetMapping("/makeCard")
     public String makeCardPage(Model model){
-        String currenUserLogin = userDetailsService.getCurrentUsername();
-        User user = userService.getUser(currenUserLogin);
+        String currentUserLogin = userDetailsService.getCurrentUsername();
+        User user = userService.getUser(currentUserLogin);
         List<Account> accountList = accountService.findAllByUser(user);
-        accountService.createAccount(user.getLogin());
         if (CollectionUtils.isEmpty(accountList)){
-            accountService.createAccount(currenUserLogin);
+            accountService.createAccount(currentUserLogin);
             return "redirect:makeCard";
         }
         CreateCardForm cardForm = new CreateCardForm();

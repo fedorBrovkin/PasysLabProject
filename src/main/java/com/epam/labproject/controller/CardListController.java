@@ -1,6 +1,6 @@
 package com.epam.labproject.controller;
 
-import com.epam.labproject.model.entity.CreditCard;
+import com.epam.labproject.entity.CreditCard;
 import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;

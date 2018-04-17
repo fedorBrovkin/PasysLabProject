@@ -16,7 +16,11 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                  .antMatchers("/registration").permitAll()
                 .anyRequest().authenticated()
                        .and()
-                .formLogin().permitAll();
+                 .formLogin().loginPage("/login")
+                 .permitAll()
+                 .and()
+                 .logout()
+                 .permitAll();
     }
 }
 

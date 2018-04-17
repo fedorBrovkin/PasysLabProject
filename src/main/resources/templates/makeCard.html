@@ -19,10 +19,11 @@
 <form th:action="@{/createCard}"
       th:object="${cardForm}" method="POST">
     <select class="form-control" id="dropOperator" th:field="*{number}">
-        <option value="0" th:each="account:${accounts}" th:utext="${account.number}">...</option>
+        <option value="0" th:each="account:${accounts}" th:value="${account.number}" th:text="${account.number}">...
+        </option>
     </select>
     <input type="text" th:field="*{login}"/>
-    <input type="submit" value="Create" />
+    <input type="submit" value="Create"/>
 </form>
 </body>
 

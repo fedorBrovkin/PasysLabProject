@@ -17,13 +17,16 @@
 </head>
 <body>
 <h1>Change Password</h1>
-<form th:action="@{/registration}"
-      th:object="${user}" method="POST">
+<form th:action="@{/editProfilePage}"
+      th:object="${profilForm}" method="POST">
     Old Password
-    <input type="text" th:field="*{login}" />
+    <input type="text" th:field="*{oldPassworld}"/>
     <br/>
     New password
-    <input type="text" th:field ="*{password}"/>
+    <input type="text" th:field="*{newPassworld}"/>
+    <br/>
+    Repeat new password
+    <input type="text" th:field="*{repeatPassword}"/>
     <br/>
     <br/>
     <input type="submit" value="Create" />
