@@ -2,12 +2,8 @@ package com.epam.labproject.service;
 
 import com.epam.labproject.entity.Role;
 import com.epam.labproject.entity.User;
-import com.epam.labproject.repository.RoleRepository;
 import com.epam.labproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,16 +14,14 @@ public class UserService {
     private UserRepository userRepository;
     private RoleService roleService;
     private PasswordEncoder bCryptPasswordEncoder;
-    private AuthenticationManagerBuilder auth;
 
     @Autowired
-    public UserService(UserRepository userRepository,RoleService roleService,
-                       PasswordEncoder passwordEncoder, AuthenticationManagerBuilder auth){
+    public UserService(UserRepository userRepository, RoleService roleService,
+                       PasswordEncoder passwordEncoder) {
 
         this.userRepository=userRepository;
         this.roleService=roleService;
         this.bCryptPasswordEncoder=passwordEncoder;
-        this.auth=auth;
     }
 
     public void createUser(User user){

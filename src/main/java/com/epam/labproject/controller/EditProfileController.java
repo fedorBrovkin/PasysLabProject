@@ -26,19 +26,19 @@ public class EditProfileController {
     }
 
     @GetMapping("/editProfilePage")
-    public String showEditProfilePage(Model model){
+    public String showEditProfilePage(Model model) {
         EditProfileForm profileForm = new EditProfileForm();
         model.addAttribute("profilForm", profileForm);
         return "editProfilePage";
     }
 
     @PostMapping("/editProfilePage")
-    public String editProfile(Model model, @ModelAttribute ("profilForm") EditProfileForm profileForm){
+    public String editProfile(Model model, @ModelAttribute("profilForm") EditProfileForm profileForm) {
         User user = userService.getUser(detailsService.getCurrentUsername());
         if (bCryptPasswordEncoder.matches(profileForm.getOldPassworld(), user.getPassword()))
             if (profileForm.getNewPassworld().equals(profileForm.getRepeatPassword())) {
                 user.setPassword(bCryptPasswordEncoder.encode(profileForm.getNewPassworld()));
-
+                userService.changePassword(detailsService.getCurrentUsername(), profileForm.getNewPassworld());
                 return "redirect:/userOffice";
             }
         return "editProfilePage";
