@@ -20,13 +20,13 @@
 <form th:action="@{/makePayment}"
       th:object="${paymentForm}" method="POST">
     <select class="form-control" id="dropOperator" th:field="*{sourceCard}">
-        <option value="0" th:each="cardNumber:${cards}" th:value="${cardNumber.number}"
-                th:text="${cardNumber.number.number}">...
+        <option value="0" th:each="card:${cards}" th:value="${card.cardNumber}"
+                th:text="${card.currentCondition}">...
         </option>
     </select>
     <div class="form-group">
         <label for="target">TargetCard</label>
-        <input type="password" class="form-control" id="target" placeholder="Target cardNumber number"
+        <input type="password" class="form-control" id="target" placeholder="Target card number"
                th:field="*{targetCard}">
     </div>
 

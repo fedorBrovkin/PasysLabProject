@@ -1,6 +1,7 @@
 package com.epam.labproject.controller;
 
 import com.epam.labproject.entity.CreditCard;
+import com.epam.labproject.form.CardForm;
 import com.epam.labproject.form.PaymentForm;
 import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;
@@ -34,18 +35,17 @@ public class PaymentController {
 
     @GetMapping("/makePayment")
     public String showPaymentPage(Model model) {
-
-
-        List<CreditCard> cards;
-
+        List<CreditCard> cardList = userService.getUser(detailsService.getCurrentUsername()).getCards();
         PaymentForm paymentForm = new PaymentForm();
+        model.addAttribute("cards", CardForm.getCardFormList(cardList));
         model.addAttribute("paymentForm", paymentForm);
         return "makePayment";
     }
 
     @PostMapping("/makePayment")
     public String makePayment(@RequestAttribute("paymentForm") PaymentForm paymentForm) {
-
+        creditCardService.doPayment(paymentForm.getSourceCard(),
+                Integer.parseInt(paymentForm.getTargetCard()), Double.parseDouble(paymentForm.getAmount()));
         return "redirect:userOffice";
     }
 }

@@ -11,39 +11,45 @@ public class CardForm {
     int cardNumber;
     int accountNumber;
     double balance;
+    String currentCondition;
 
     public CardForm(int cardNumber, int accountNumber, double balance) {
         this.cardNumber = cardNumber;
         this.accountNumber = accountNumber;
         this.balance = balance;
+        currentCondition = "Card: " + Integer.toString(cardNumber) + " account:" + Integer.toString(accountNumber) + " balance:" + Double.toString(balance);
     }
 
-    public int getAccountNumber() {
-        return accountNumber;
+    public void setCurrentCondition(String currentCondition) {
+        this.currentCondition = currentCondition;
     }
 
-    public void setBalance(int balance) {
+    public void setCardNumber(int cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
     public void setAccountNumber(int accountNumber) {
-
         this.accountNumber = accountNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
-
-        this.cardNumber = cardNumber;
-    }
-
-    public double getBalance() {
-
-        return balance;
+    public String getCurrentCondition() {
+        return currentCondition;
     }
 
     public int getCardNumber() {
-
         return cardNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
     }
 
     public static List<CardForm> getCardFormList(List<CreditCard> cardList) {
