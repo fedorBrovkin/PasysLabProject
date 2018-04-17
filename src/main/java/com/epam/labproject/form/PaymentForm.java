@@ -13,12 +13,10 @@ public class PaymentForm {
     }
 
     public String getTargetCard() {
-
         return targetCard;
     }
 
     public int getSourceCard() {
-
         return sourceCard;
     }
 
@@ -27,12 +25,10 @@ public class PaymentForm {
     }
 
     public void setTargetCard(String targetCard) {
-
         this.targetCard = targetCard;
     }
 
     public void setSourceCard(int sourceCard) {
-
         this.sourceCard = sourceCard;
     }
 }

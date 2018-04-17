@@ -2,6 +2,7 @@ package com.epam.labproject.controller;
 
 import com.epam.labproject.entity.Account;
 import com.epam.labproject.entity.User;
+import com.epam.labproject.form.AccountForm;
 import com.epam.labproject.form.CreateCardForm;
 import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.CreditCardService;
@@ -45,7 +46,7 @@ public class MakeCardController {
         }
         CreateCardForm cardForm = new CreateCardForm();
         model.addAttribute("cardForm", cardForm);
-        model.addAttribute("accounts", accountList);
+        model.addAttribute("accounts", AccountForm.getAccountFormList(accountList));
 
         return "makeCard";
     }
@@ -56,4 +57,6 @@ public class MakeCardController {
         creditCardService.createCard(cardForm.getLogin(),Integer.parseInt(cardForm.getNumber()));
         return "cardList";
     }
+
+
 }
