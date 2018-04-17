@@ -39,10 +39,12 @@ public class PaymentService {
   protected boolean makeTransfer(Payment payment) {
     if (payment != null) {
       if (payment.getAmount().compareTo(payment.getSource().getAccount().getBalance()) < 1) {
-        payment.getSource().getAccount().setBalance(
-            payment.getSource().getAccount().getBalance().subtract(payment.getAmount()));
+        payment.getSource().getAccount()
+                .setBalance(payment.getSource().getAccount().getBalance()
+                        .subtract(payment.getAmount()));
         payment.getTarget().getAccount()
-            .setBalance(payment.getTarget().getAccount().getBalance().add(payment.getAmount()));
+            .setBalance(payment.getTarget().getAccount().getBalance()
+                    .add(payment.getAmount()));
         payment.setTime(LocalDateTime.now());
         return true;
       }
