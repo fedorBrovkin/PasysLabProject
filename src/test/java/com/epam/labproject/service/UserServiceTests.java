@@ -1,24 +1,21 @@
 package com.epam.labproject.service;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import com.epam.labproject.entity.Role;
 import com.epam.labproject.entity.User;
 import com.epam.labproject.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,8 +34,7 @@ public class UserServiceTests {
   private PasswordEncoder passwordEncoder;
 
   @Autowired
-  @InjectMocks
-  private UserService userService = new UserService();
+  private UserService userService;
 
   private User user;
   private Role role;
@@ -55,9 +51,9 @@ public class UserServiceTests {
         .thenReturn(user);
 
     role = new Role();
-    role.setName(RoleService.DEFAULT_ROLE_NAME);
-    Mockito.when(roleService.findByName(RoleService.DEFAULT_ROLE_NAME))
-        .thenReturn(role);
+//    role.setName(RoleService.DEFAULT_ROLE_NAME);
+//    Mockito.when(roleService.findByName(RoleService.DEFAULT_ROLE_NAME))
+//        .thenReturn(role);
 
     Mockito.when(passwordEncoder.encode(TEST_USER_PASSWORD))
         .thenReturn(TEST_USER_ENCODED_PASSWORD);
@@ -89,7 +85,7 @@ public class UserServiceTests {
 
     verify(userRepository, times(1)).findByLogin(ANOTHER_TEST_USER_LOGIN);
     verify(passwordEncoder, times(1)).encode(TEST_USER_PASSWORD);
-    verify(roleService, times(1)).findByName(RoleService.DEFAULT_ROLE_NAME);
+//    verify(roleService, times(1)).findByName(RoleService.DEFAULT_ROLE_NAME);
     verify(userRepository, times(1)).save(user);
   }
 
