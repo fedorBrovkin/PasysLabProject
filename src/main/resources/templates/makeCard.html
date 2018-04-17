@@ -19,7 +19,8 @@
 <form th:action="@{/createCard}"
       th:object="${cardForm}" method="POST">
     <select class="form-control" id="dropOperator" th:field="*{number}">
-        <option value="0" th:each="account:${accounts}" th:value="${account.number}" th:text="${account.number}">...
+        <option value="0" th:each="account:${accounts}" th:value="${account.accNumber}" th:text="${account.accNumber}">
+            ...
         </option>
     </select>
     <input type="text" th:field="*{login}"/>

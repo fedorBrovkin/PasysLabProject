@@ -32,7 +32,7 @@ class RegistrationController {
 
     @PostMapping(value = {"/registration"})
     public String saveUser(Model model, @ModelAttribute("user") User user) {
-        userService.save(user);
+        userService.createUser(user);
         return "redirect:/";
     }
 
