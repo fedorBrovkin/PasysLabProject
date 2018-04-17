@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserOfficeController {
 
-    DataBaseUserDetailsService userDetailsService;
+    private DataBaseUserDetailsService userDetailsService;
 
     @Value("${User.welcome.Messege}")
     private String message;

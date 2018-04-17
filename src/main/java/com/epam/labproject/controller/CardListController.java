@@ -1,7 +1,6 @@
 package com.epam.labproject.controller;
 
 import com.epam.labproject.model.entity.CreditCard;
-import com.epam.labproject.model.entity.User;
 import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;
@@ -15,10 +14,10 @@ import java.util.List;
 
 @Controller
 public class CardListController {
-    UserService userService;
-    DataBaseUserDetailsService userDetailsService;
-    CreditCardService cardService;
-    AccountService accountService;
+    private UserService userService;
+    private DataBaseUserDetailsService userDetailsService;
+    private CreditCardService cardService;
+    private AccountService accountService;
 
     public CardListController(UserService userService,
                               DataBaseUserDetailsService userDetailsService,
