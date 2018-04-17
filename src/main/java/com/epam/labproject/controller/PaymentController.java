@@ -17,10 +17,10 @@ import java.util.List;
 @Controller
 public class PaymentController {
 
-    private PaymentService paymentService;
-    private CreditCardService creditCardService;
-    private DataBaseUserDetailsService detailsService;
-    private UserService userService;
+    private final PaymentService paymentService;
+    private final CreditCardService creditCardService;
+    private final DataBaseUserDetailsService detailsService;
+    private final UserService userService;
 
     public PaymentController(PaymentService paymentService,
                              CreditCardService creditCardService,

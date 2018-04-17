@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class EditProfileController {
-    private PasswordEncoder bCryptPasswordEncoder;
-    private UserService userService;
-    private DataBaseUserDetailsService detailsService;
+    private final PasswordEncoder bCryptPasswordEncoder;
+    private final UserService userService;
+    private final DataBaseUserDetailsService detailsService;
 
     public EditProfileController(UserService userService,
                                  PasswordEncoder bCryptPasswordEncoder,

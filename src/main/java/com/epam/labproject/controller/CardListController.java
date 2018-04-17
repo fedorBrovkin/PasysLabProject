@@ -14,10 +14,10 @@ import java.util.List;
 
 @Controller
 public class CardListController {
-    private UserService userService;
-    private DataBaseUserDetailsService userDetailsService;
-    private CreditCardService cardService;
-    private AccountService accountService;
+    private final UserService userService;
+    private final DataBaseUserDetailsService userDetailsService;
+    private final CreditCardService cardService;
+    private final AccountService accountService;
 
     public CardListController(UserService userService,
                               DataBaseUserDetailsService userDetailsService,

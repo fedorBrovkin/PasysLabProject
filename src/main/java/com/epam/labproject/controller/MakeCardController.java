@@ -19,10 +19,10 @@ import java.util.List;
 @Controller
 public class MakeCardController {
 
-    private CreditCardService creditCardService;
-    private DataBaseUserDetailsService userDetailsService;
-    private AccountService accountService;
-    private UserService userService;
+    private final CreditCardService creditCardService;
+    private final DataBaseUserDetailsService userDetailsService;
+    private final AccountService accountService;
+    private final UserService userService;
 
     public MakeCardController(CreditCardService creditCardService,
                               DataBaseUserDetailsService userDetailsService,

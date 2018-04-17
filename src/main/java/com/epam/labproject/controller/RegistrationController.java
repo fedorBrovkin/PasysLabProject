@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 class RegistrationController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Value("${welcome.message}")
     private String message;
