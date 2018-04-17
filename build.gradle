@@ -20,6 +20,21 @@ group = 'com.epam.labproject'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+checkstyle {
+	showViolations = true
+	toolVersion = '8.7'
+	configFile file("config/checkstyle/checkstyle.xml")
+	maxWarnings = 0
+	maxErrors = 0
+}
+
+checkstyleMain {
+	source ='src/main/java'
+}
+checkstyleTest {
+	source ='src/test/java'
+}
+
 
 repositories {
 	mavenCentral()
@@ -33,9 +48,10 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.security:spring-security-core')
-    compile('org.postgresql:postgresql')
     compile("org.webjars:bootstrap:3.0.3")
     compile("org.webjars:jquery:2.0.3-1")
+	compile('org.postgresql:postgresql')
+	compile('org.hibernate:hibernate-core')
 	testCompile('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')

@@ -1,4 +1,4 @@
-package com.epam.labproject.model.entity;
+package com.epam.labproject.entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

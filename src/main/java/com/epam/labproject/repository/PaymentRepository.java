@@ -1,14 +1,16 @@
 package com.epam.labproject.repository;
 
-import com.epam.labproject.model.entity.CreditCard;
-import com.epam.labproject.model.entity.Payment;
-import org.springframework.data.repository.CrudRepository;
+import com.epam.labproject.entity.CreditCard;
+import com.epam.labproject.entity.Payment;
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 @Repository
-public interface PaymentRepository extends CrudRepository<Payment, String> {
-   public List<Payment> findAllBySource(CreditCard source);
-   public List<Payment> findAllBySourceAndTarget(CreditCard source, CreditCard tardet);
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
+
+  public List<Payment> findAllBySource(CreditCard source);
+
+  public List<Payment> findAllBySourceAndTarget(CreditCard source, CreditCard tardet);
 }

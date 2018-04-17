@@ -1,6 +1,7 @@
-package com.epam.labproject.model.entity;
-import java.time.LocalDateTime;
+package com.epam.labproject.entity;
 import java.util.Date;
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
 
 

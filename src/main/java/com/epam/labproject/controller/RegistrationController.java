@@ -1,13 +1,13 @@
 package com.epam.labproject.controller;
 
-import com.epam.labproject.model.entity.User;
+import com.epam.labproject.entity.User;
 import com.epam.labproject.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 class RegistrationController {
@@ -24,13 +24,11 @@ class RegistrationController {
         this.userService = userService;
     }
 
-    @GetMapping(value = {"/", "/index"})
-    public String index(Model model) {
+  @GetMapping(value = {"/", "/index"})
+  public String index(Model model) {
 
-        model.addAttribute("message", message);
-
-        return "index";
-    }
+    return "index";
+  }
 
     @GetMapping(value = {"/registration"})
     public String registration(Model model) {

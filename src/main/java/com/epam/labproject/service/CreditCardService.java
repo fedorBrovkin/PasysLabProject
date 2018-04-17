@@ -1,10 +1,10 @@
 package com.epam.labproject.service;
 
 
-import com.epam.labproject.model.entity.Account;
-import com.epam.labproject.model.entity.CreditCard;
-import com.epam.labproject.model.entity.Payment;
-import com.epam.labproject.model.entity.User;
+import com.epam.labproject.entity.Account;
+import com.epam.labproject.entity.CreditCard;
+import com.epam.labproject.entity.Payment;
+import com.epam.labproject.entity.User;
 import com.epam.labproject.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

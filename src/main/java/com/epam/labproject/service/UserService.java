@@ -1,7 +1,7 @@
 package com.epam.labproject.service;
 
-import com.epam.labproject.model.entity.Role;
-import com.epam.labproject.model.entity.User;
+import com.epam.labproject.entity.Role;
+import com.epam.labproject.entity.User;
 import com.epam.labproject.repository.RoleRepository;
 import com.epam.labproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
