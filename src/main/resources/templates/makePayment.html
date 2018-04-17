@@ -16,28 +16,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Registration:</h1>
-
-<form th:action="@{/registration}"
-      th:object="${user}" method="POST">
-    Login
-    <input type="text" th:field="*{login}" />
-    <br/>
-    Password
-    <input type="text" th:field ="*{password}"/>
-    <br/>
-    <br/>
-    <input type="submit" value="Create" />
+<h1>Make Payment</h1>
+<form th:action="@{/makePayment}"
+      th:object="${paymentForm}" method="POST">
+    <select class="form-control" id="dropOperator" th:field="*{sourceCard}">
+        <option value="0" th:each="card:${cards}" th:value="${card.number}" th:text="${card.number.number}">...
+        </option>
+    </select>
+    <div class="form-group">
+        <label for="target">TargetCard</label>
+        <input type="password" class="form-control" id="target" placeholder="Target card number"
+               th:field="*{targetCard}">
+    </div>
+    <div class="form-group">
+        <label for="value">Value</label>
+        <input type="password" class="form-control" id="value" placeholder="Value" th:field="*{value}">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<br/>
-
-<!-- Check if errorMessage is not null and not empty -->
-
-<div th:if="${hasErrorMessage}" th:utext="#{error.message}"
-     style="color:red;font-style:italic;">
-    ...
-</div>
-
+<a th:href="@{/userOffice}">
+    <button type="submit" class="btn btn-primary">Back</button>
+</a>
 </body>
+
 </html>

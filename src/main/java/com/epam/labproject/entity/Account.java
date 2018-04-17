@@ -1,6 +1,8 @@
 package com.epam.labproject.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +20,7 @@ public class Account extends AbstractIdentifiableEntity {
   @Column(name = "balance")
   private BigDecimal balance;
   @Column(name = "birthday")
-  private Date birthDay;
+  private LocalDateTime dateOfCreation;
   @Column(name = "status", nullable = false)
   private boolean status;
   @ManyToOne
@@ -41,12 +43,11 @@ public class Account extends AbstractIdentifiableEntity {
     this.balance = balance;
   }
 
-  public Date getBirthDay() {
-    return birthDay;
+  public LocalDateTime getDateOfCreation() {
+    return dateOfCreation;
   }
-
-  public void setBirthDay(Date birthDay) {
-    this.birthDay = birthDay;
+  public void setDateOfCreation(LocalDateTime dateOfCreation) {
+    this.dateOfCreation = dateOfCreation;
   }
 
   public boolean isStatus() {
@@ -67,7 +68,7 @@ public class Account extends AbstractIdentifiableEntity {
 
   @Override
   public String toString() {
-    return String.format("Account[lastName='%s']", birthDay);
+    return String.format("Account[lastName='%s']", dateOfCreation);
   }
 }
 

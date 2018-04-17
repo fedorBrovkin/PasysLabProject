@@ -1,13 +1,8 @@
 package com.epam.labproject.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -20,11 +15,16 @@ public class User extends AbstractIdentifiableEntity {
   @ManyToOne
   @JoinColumn(name = "role_id")
   private Role role;
-  @OneToMany(mappedBy = "user")
-  private List<CreditCard> cards;
+  @OneToMany(mappedBy = "user",orphanRemoval = true, targetEntity = CreditCard.class)
+  private List<CreditCard> cards=new  ArrayList<CreditCard>();
+  public User(){
+  }
 
-  public User() {
-    this.cards = new ArrayList<CreditCard>();
+  public List<CreditCard> getCards() {
+    return cards;
+  }
+  public void setCards(List<CreditCard> cards) {
+    this.cards = cards;
   }
 
   public String getLogin() {
@@ -51,11 +51,14 @@ public class User extends AbstractIdentifiableEntity {
     this.role = role;
   }
 
-  public List<CreditCard> getCards() {
-    return cards;
-  }
-
-  public void setCards(List<CreditCard> cards) {
-    this.cards = cards;
+  @Override
+  public String toString() {
+    return "User{" +
+            "id='" + getId() + '\'' +
+            "login='" + login + '\'' +
+            ", password='" + password + '\'' +
+            ", role=" + role +
+            ", cards=" + cards +
+            '}';
   }
 }

@@ -16,28 +16,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Registration:</h1>
-
-<form th:action="@{/registration}"
-      th:object="${user}" method="POST">
-    Login
-    <input type="text" th:field="*{login}" />
-    <br/>
-    Password
-    <input type="text" th:field ="*{password}"/>
-    <br/>
-    <br/>
-    <input type="submit" value="Create" />
+<form th:action="@{/createCard}"
+      th:object="${cardForm}" method="POST">
+    <select class="form-control" id="dropOperator" th:field="*{number}">
+        <option value="0" th:each="account:${accounts}" th:value="${account.number}" th:text="${account.number}">...
+        </option>
+    </select>
+    <input type="text" th:field="*{login}"/>
+    <input type="submit" value="Create"/>
 </form>
-
-<br/>
-
-<!-- Check if errorMessage is not null and not empty -->
-
-<div th:if="${hasErrorMessage}" th:utext="#{error.message}"
-     style="color:red;font-style:italic;">
-    ...
-</div>
-
 </body>
+
 </html>

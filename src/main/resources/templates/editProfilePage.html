@@ -16,28 +16,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Registration:</h1>
-
-<form th:action="@{/registration}"
-      th:object="${user}" method="POST">
-    Login
-    <input type="text" th:field="*{login}" />
+<h1>Change Password</h1>
+<form th:action="@{/editProfilePage}"
+      th:object="${profilForm}" method="POST">
+    Old Password
+    <input type="text" th:field="*{oldPassworld}"/>
     <br/>
-    Password
-    <input type="text" th:field ="*{password}"/>
+    New password
+    <input type="text" th:field="*{newPassworld}"/>
+    <br/>
+    Repeat new password
+    <input type="text" th:field="*{repeatPassword}"/>
     <br/>
     <br/>
     <input type="submit" value="Create" />
 </form>
 
-<br/>
-
-<!-- Check if errorMessage is not null and not empty -->
-
-<div th:if="${hasErrorMessage}" th:utext="#{error.message}"
-     style="color:red;font-style:italic;">
-    ...
-</div>
-
+<a th:href="@{/userOffice}"><button type="button" class="btn btn-dark">Back</button></a>
 </body>
+
 </html>

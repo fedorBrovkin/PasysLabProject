@@ -1,13 +1,9 @@
 package com.epam.labproject.entity;
-
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.time.LocalDateTime;
+
+import javax.persistence.*;
+
 
 @Entity
 @Table(name = "credit_card")
@@ -19,11 +15,11 @@ public class CreditCard extends AbstractIdentifiableEntity {
   @Column(name = "cvc")
   private int cvc;
   @Column(name = "expiration_date")
-  private Date expirationDate;
+  private LocalDateTime expirationDate;
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
-  @Column(name = "number", unique = true)
+  @Column(name = "number",unique = true)
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int number;
 
@@ -43,16 +39,15 @@ public class CreditCard extends AbstractIdentifiableEntity {
     this.cvc = cvc;
   }
 
-  public Date getExpirationDate() {
+  public LocalDateTime getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(Date expirationDate) {
+  public void setExpirationDate(LocalDateTime expirationDate) {
     this.expirationDate = expirationDate;
   }
 
-  public User getUser() {
-    return user;
+  public User getUser() { return user;
   }
 
   public void setUser(User user) {
