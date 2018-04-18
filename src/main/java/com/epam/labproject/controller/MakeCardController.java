@@ -55,7 +55,7 @@ public class MakeCardController {
     @PostMapping("/createCard")
     public String createCardAndAccount(@ModelAttribute("cardForm") CreateCardForm cardForm){
         creditCardService.createCard(cardForm.getLogin(),Integer.parseInt(cardForm.getNumber()));
-        return "cardList";
+        return "redirect:cardList";
     }
 
 

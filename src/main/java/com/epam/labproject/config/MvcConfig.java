@@ -19,6 +19,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
     }
 
+
     /**
      * Locale resolver.
      */
@@ -28,6 +29,7 @@ public class MvcConfig implements WebMvcConfigurer {
         slr.setDefaultLocale(new Locale("en"));
         return slr;
     }
+
 
     /**
      * Locale change interceptor.

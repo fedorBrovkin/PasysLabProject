@@ -16,18 +16,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<form th:action="@{/createCard}"
-      th:object="${cardForm}" method="POST">
-    <select class="form-control" id="dropOperator" th:field="*{number}">
-        <option value="0" th:each="account:${accounts}" th:value="${account.accNumber}"
-                th:text="${account.currentCondition}">
-            ...
-        </option>
-    </select>
-    <input type="text" th:field="*{login}"/>
-    <input class="btn btn-dark" type="submit" value="Create"/>
-</form>
+<h1>Account List</h1>
+<div>
+    <table class="table table-sm table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Account Number</th>
+            <th scope="col">Balance</th>
+        </tr>
+        <tr th:each="account : ${accounts}">
+            <td scope="col" th:utext="${account.accNumber}">...</td>
+            <td scope="col" th:utext="${account.balance}">...</td>
+        </tr>
+    </table>
+</div>
+<a th:href="@{/makeAccount}">
+    <button type="button" class="btn btn-dark">Make Account</button>
+</a>
+<a th:href="@{/blockAccount}">
+    <button type="button" class="btn btn-dark">Block Account</button>
+</a>
+<a th:href="@{/userOffice}">
+    <button type="button" class="btn btn-dark">Back</button>
+</a>
+
+
 </body>
 
 </html>
-

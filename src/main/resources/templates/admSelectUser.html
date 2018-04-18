@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang=en>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -16,18 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<form th:action="@{/createCard}"
-      th:object="${cardForm}" method="POST">
-    <select class="form-control" id="dropOperator" th:field="*{number}">
-        <option value="0" th:each="account:${accounts}" th:value="${account.accNumber}"
-                th:text="${account.currentCondition}">
-            ...
-        </option>
-    </select>
-    <input type="text" th:field="*{login}"/>
-    <input class="btn btn-dark" type="submit" value="Create"/>
+<form th:action="@{/admSelectUser}"
+      th:object="${user}" method="POST">
+    <div><label> User Name : <input type="text" th:field="*{login}"/> </label></div>
+    <input class="btn btn-dark" type="submit" value="Submit"/>
 </form>
 </body>
-
 </html>
-

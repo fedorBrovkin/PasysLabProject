@@ -4,6 +4,7 @@ import com.epam.labproject.entity.Account;
 import com.epam.labproject.entity.User;
 import com.epam.labproject.form.AccountForm;
 import com.epam.labproject.service.AccountService;
+import com.epam.labproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -16,36 +17,48 @@ import java.util.List;
 @Controller
 public class AdminController {
 
+    private static User blockUser;
     private final AccountService accountService;
+    private final UserService userService;
 
-    public AdminController(AccountService accountService) {
+    public AdminController(AccountService accountService,
+                           UserService userService) {
         this.accountService = accountService;
+        this.userService = userService;
     }
 
     @GetMapping("/administrator")
-    public String showAdministratot(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
+    public String showAdministrator(Model model) {
         return "administrator";
     }
 
-    @PostMapping("/administrator")
-    public String choseUser(Model model, @ModelAttribute("user") User user) {
-        List<Account> accountList = accountService.findAllByUser(user);
+    @GetMapping("/admSelectUser")
+    public String showSelectUser(Model model) {
+        model.addAttribute(new User());
+        return "admSelectUser";
+    }
+
+    @PostMapping("/admSelectUser")
+    public String blockAccount(@ModelAttribute("user") User user) {
+        AdminController.blockUser = userService.getUser(user.getLogin());
+        return "redirect:admSelectAccount";
+    }
+
+    @GetMapping("/admSelectAccount")
+    public String showSelectAccount(Model model) {
+        List<Account> accountList = accountService.findAllByUser(AdminController.blockUser);
         if (CollectionUtils.isEmpty(accountList)) {
-
+            accountService.createAccount(AdminController.blockUser.getLogin());
+            return "redirect:makeCard";
         }
-        AccountForm accountForm = new AccountForm();
-        model.addAttribute("accountForm", accountForm);
+        model.addAttribute("accountForm", new AccountForm());
         model.addAttribute("accounts", AccountForm.getAccountFormList(accountList));
-
-        return "administrator";
+        return "admSelectAccount";
     }
 
-    @PostMapping("/blockAccount")
-    public String blockAccount(@ModelAttribute("accountForm") AccountForm accountForm) {
-        accountService.changeStatus(accountForm.getAccNumber());
-        return "/administrator";
-    }
+    @PostMapping("/admSelectAccount")
+    public String selectUser(@ModelAttribute("accountForm") AccountForm accountForm) {
 
+        return "redirect:administrator";
+    }
 }
