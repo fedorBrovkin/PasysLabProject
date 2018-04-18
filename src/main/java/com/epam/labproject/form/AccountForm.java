@@ -12,6 +12,9 @@ public class AccountForm {
     double balance;
     String currentCondition;
 
+    public AccountForm() {
+    }
+
     public AccountForm(int accNumber, double balance) {
         this.accNumber = accNumber;
         this.balance = balance;
