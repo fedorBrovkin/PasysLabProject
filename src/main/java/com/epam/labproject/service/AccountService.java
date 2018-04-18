@@ -30,6 +30,15 @@ public class AccountService {
         return accountRepository.findByNumber(number);
     }
 
+    /**
+     * RETURN LIST OF Active ACCOUNTS for current User
+     * @param login
+     * @return
+     */
+    public List<Account> findAllByUserNameAndStatusTrue(String login){
+        return accountRepository
+                .findAllByUserAndStatusIsTrue(userService.getUser(login));
+    }
     public void createAccount(String login){
      User user = userService.getUser(login);
      Account account= new Account();
@@ -45,30 +54,58 @@ public class AccountService {
         return accountRepository.findAllByUser(user);
     }
 
+    /**
+     *
+     * Admin fixed transaction to target card.
+     * @param accountNumber target card number.
+     *
+     */
     public void giveMoney(int accountNumber){
         Account account=accountRepository.findByNumber(accountNumber);
-        if(account!=null){
+        if(account!=null&&account.isStatus()){
             BigDecimal balance=account.getBalance();
             account.setBalance(balance.add(new BigDecimal(10000)));
             accountRepository.save(account);
         }
     }
+
+    /**
+     *Changing account status for currentAccount
+     *
+     * @param accountNumber
+     */
     public void changeStatus(int accountNumber){
         Account a=accountRepository.findByNumber(accountNumber);
         a.setStatus(!a.isStatus());
         this.save(a);
     }
+
+    /**
+     * True if account is not blocled
+     * @param accountNumber
+     * @return
+     */
     public boolean isActive(int accountNumber){
         return accountRepository.findByNumber(accountNumber).isStatus();
     }
 
+    /**
+     * Get current account balance
+     * @param accountNumber
+     * @return
+     */
     public double getBalance(int accountNumber){
         Account account=accountRepository.findByNumber(accountNumber);
         if(account!=null)
             return account.getBalance().doubleValue();
         return 0.0;
     }
-    
+
+    /**
+     *
+     * Random number creator for new AccountCreation
+     * @return
+     */
     private int accountNumberBuilder(){
         int number=0;
         do {

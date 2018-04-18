@@ -13,4 +13,5 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<Account, Long> {
     public Account findByNumber(int number);
     public List<Account> findAllByUser(User user);
+    public List<Account>findAllByUserAndStatusIsTrue(User user);
 }
