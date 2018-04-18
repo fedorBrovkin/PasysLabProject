@@ -22,9 +22,13 @@
         <thead>
         <tr>
             <th scope="col">Card Number</th>
+            <th scope="col">Account Number</th>
+            <th scope="col">balance</th>
         </tr>
         <tr th:each ="card : ${cardList}">
-            <td scope="col" th:utext="${card.number}">...</td>
+            <td scope="col" th:utext="${card.cardNumber}">...</td>
+            <td scope="col" th:utext="${card.accountNumber}">...</td>
+            <td scope="col" th:utext="${card.balance}">...</td>
         </tr>
     </table>
 </div>

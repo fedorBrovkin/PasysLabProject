@@ -22,28 +22,13 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-        <img th:src="@{../static/logo.png}" class="rounded float-left">
-        </div>
-    </div>
-</div>
-<div><label> User Name : <input type="text" name="username"/> </label></div>
-<div><label> Password: <input type="password" name="password"/> </label></div>
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-            <form th:action="@{/login}" method="post">
-                <div><input class="btn btn-outline-success" type="submit" value="Log In"/></div>
-            </form>
-        </div>
-        <div class="col-sm">
-            <a th:href="@{/registration}">
-                <button type="button" class="btn btn-outline-primary" value=>Sign In</button>
-            </a>
-        </div>
-    </div>
-</div>
+<form th:action="@{/login}" method="post">
+    <div><label> User Name : <input type="text" name="username"/> </label></div>
+    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><input class="btn btn-dark" type="submit" value="Sign In"/></div>
+</form>
+<a th:href="@{/registration}">
+    <button type="button" class="btn btn-dark">Registration</button>
+</a>
 </body>
 </html>

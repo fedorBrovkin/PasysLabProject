@@ -19,20 +19,19 @@
 <h1>Make Payment</h1>
 <form th:action="@{/makePayment}"
       th:object="${paymentForm}" method="POST">
+
     <select class="form-control" id="dropOperator" th:field="*{sourceCard}">
-        <option value="0" th:each="card:${cards}" th:value="${card.number}" th:text="${card.number.number}">...
+        <option value="0" th:each="card:${cards}" th:value="${card.cardNumber}"
+                th:text="${card.currentCondition}">
+            ...
         </option>
     </select>
-    <div class="form-group">
-        <label for="target">TargetCard</label>
-        <input type="password" class="form-control" id="target" placeholder="Target card number"
-               th:field="*{targetCard}">
-    </div>
-    <div class="form-group">
-        <label for="value">Value</label>
-        <input type="password" class="form-control" id="value" placeholder="Value" th:field="*{value}">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div><label> Target Card <input type="text" th:field="*{targetCard}"/> </label></div>
+
+    <div><label> Amount <input type="text" th:field="*{amount}"/> </label></div>
+
+    <input type="submit" value="Make Payment"/>
 </form>
 
 <a th:href="@{/userOffice}">

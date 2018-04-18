@@ -3,12 +3,14 @@ package com.epam.labproject.service;
 import com.epam.labproject.entity.CreditCard;
 import com.epam.labproject.entity.Payment;
 import com.epam.labproject.repository.PaymentRepository;
-import java.time.LocalDateTime;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class PaymentService {
@@ -23,7 +25,7 @@ public class PaymentService {
   /**
    * Create payment.
    */
-  public void createPayment(Payment payment) {
+  public void createPayment(@Valid Payment payment) {
     if (makeTransfer(payment)) {
       save(payment);
     } else {

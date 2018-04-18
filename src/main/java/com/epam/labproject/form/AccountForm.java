@@ -10,10 +10,12 @@ import java.util.List;
 public class AccountForm {
     int accNumber;
     double balance;
+    String currentCondition;
 
     public AccountForm(int accNumber, double balance) {
         this.accNumber = accNumber;
         this.balance = balance;
+        currentCondition = Integer.toString(accNumber) + "    Balance:" + Double.toString(balance);
     }
 
     public int getAccNumber() {
@@ -30,6 +32,15 @@ public class AccountForm {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public void setCurrentCondition(String currentCondition) {
+        this.currentCondition = currentCondition;
+    }
+
+    public String getCurrentCondition() {
+
+        return currentCondition;
     }
 
     public static List<AccountForm> getAccountFormList(List<Account> accountList) {
