@@ -27,6 +27,7 @@
         <tr th:each="account : ${accounts}">
             <td scope="col" th:utext="${account.accNumber}">...</td>
             <td scope="col" th:utext="${account.balance}">...</td>
+            <td scope="col" th:utext="${account.status}">...</td>
         </tr>
     </table>
 </div>
@@ -37,7 +38,7 @@
     <button type="button" class="btn btn-dark">Block Account</button>
 </a>
 <a th:href="@{/userOffice}">
-    <button type="button" class="btn btn-dark">Back</button>
+    <button type="button" class="btn btn-dark">My office</button>
 </a>
 
 

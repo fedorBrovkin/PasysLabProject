@@ -39,7 +39,7 @@ public class MakeCardController {
     public String makeCardPage(Model model){
         String currentUserLogin = userDetailsService.getCurrentUsername();
         User user = userService.getUser(currentUserLogin);
-        List<Account> accountList = accountService.findAllByUser(user);
+        List<Account> accountList = accountService.findAllByUserNameAndStatusTrue(currentUserLogin);
         if (CollectionUtils.isEmpty(accountList)){
             accountService.createAccount(currentUserLogin);
             return "redirect:makeCard";

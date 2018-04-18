@@ -81,6 +81,17 @@ public class AccountService {
     }
 
     /**
+     * Blocking account
+     *
+     * @param accountNumber
+     */
+    public void blockAccount(int accountNumber) {
+        Account a = accountRepository.findByNumber(accountNumber);
+        a.setStatus(false);
+        this.save(a);
+    }
+
+    /**
      * True if account is not blocled
      * @param accountNumber
      * @return

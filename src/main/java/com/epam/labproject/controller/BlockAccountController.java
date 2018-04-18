@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -39,4 +41,9 @@ public class BlockAccountController {
         return "blockAccount";
     }
 
+    @PostMapping("/blockAccount")
+    public String blockAccount(@ModelAttribute("accountForm") AccountForm accountForm) {
+        accountService.blockAccount(accountForm.getAccNumber());
+        return "redirect:accountList";
+    }
 }
