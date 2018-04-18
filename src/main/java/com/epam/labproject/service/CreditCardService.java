@@ -107,20 +107,20 @@ public class CreditCardService {
      * @param amount
      */
     public void doPayment(int sourceNumber, int targetNumber, double amount) {
-        CreditCard source = this.findByNumber(sourceNumber);
-        CreditCard target = this.findByNumber(targetNumber);
-        if (source != null&& this.isAccountActive(source)&&this.checkStatus(source)) {
-            if (target != null&&this.isAccountActive(target)&&this.checkStatus(target)) {
-                Payment payment = new Payment();
-                payment.setSource(source);
-                payment.setTarget(target);
-                payment.setAmount(new BigDecimal(amount));
-                paymentService.createPayment(payment);
+            CreditCard source = this.findByNumber(sourceNumber);
+            CreditCard target = this.findByNumber(targetNumber);
+            if (source != null && this.isAccountActive(source) && this.checkStatus(source)) {
+                if (target != null && this.isAccountActive(target) && this.checkStatus(target)) {
+                    Payment payment = new Payment();
+                    payment.setSource(source);
+                    payment.setTarget(target);
+                    payment.setAmount(new BigDecimal(amount));
+                    paymentService.createPayment(payment);
+                } else {
+                    //NO SUCH TARGET CARD or Account is not Active or CardIsOutOfDate
+                }
             } else {
-                //NO SUCH TARGET CARD or Account is not Active or CardIsOutOfDate
+                //NO SUCH SOURCE CARD or Account is not active or CardIsOutOfDate
             }
-        } else {
-            //NO SUCH SOURCE CARD or Account is not active or CardIsOutOfDate
-        }
     }
 }
