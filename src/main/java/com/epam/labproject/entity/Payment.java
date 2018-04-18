@@ -1,6 +1,7 @@
 package com.epam.labproject.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class Payment extends AbstractIdentifiableEntity {
   private CreditCard target;
 
   @Positive
+  @Max(15000)
   @Column(name = "amount")
   private BigDecimal amount;
   @Column(name = "time")
