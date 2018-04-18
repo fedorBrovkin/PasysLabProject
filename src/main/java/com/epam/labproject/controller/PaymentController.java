@@ -10,8 +10,8 @@ import com.epam.labproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 
 import java.util.List;
 
@@ -37,15 +37,16 @@ public class PaymentController {
     public String showPaymentPage(Model model) {
         List<CreditCard> cardList = userService.getUser(detailsService.getCurrentUsername()).getCards();
         PaymentForm paymentForm = new PaymentForm();
-        model.addAttribute("cards", CardForm.getCardFormList(cardList));
         model.addAttribute("paymentForm", paymentForm);
+        model.addAttribute("cards", CardForm.getCardFormList(cardList));
+
         return "makePayment";
     }
 
     @PostMapping("/makePayment")
-    public String makePayment(@RequestAttribute("paymentForm") PaymentForm paymentForm) {
+    public String makePayment(Model model, @ModelAttribute("paymentForm") PaymentForm paymentForm) {
         creditCardService.doPayment(paymentForm.getSourceCard(),
                 Integer.parseInt(paymentForm.getTargetCard()), Double.parseDouble(paymentForm.getAmount()));
-        return "redirect:userOffice";
+        return "redirect:/userOffice";
     }
 }
