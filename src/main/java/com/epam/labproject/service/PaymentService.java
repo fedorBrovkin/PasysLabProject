@@ -47,8 +47,9 @@ public class PaymentService {
       throw new PasysException("No funds");
     }
 
-    sourceAccount.getBalance().subtract(payment.getAmount());
-    targetAccount.getBalance().add(payment.getAmount());
+    sourceAccount.setBalance(sourceAccount.getBalance().subtract(payment.getAmount()));
+    targetAccount.setBalance(targetAccount.getBalance().add(payment.getAmount()));
+
     payment.setTime(LocalDateTime.now());
 
     accountService.save(sourceAccount);
