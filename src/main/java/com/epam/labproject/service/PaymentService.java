@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -62,4 +63,22 @@ public class PaymentService {
       allBySource.sort(Comparator.comparing(Payment::getTime));
       return allBySource;
     }
+
+    public List<Payment> findAllByTarget(CreditCard creditCard){
+      List<Payment> allByTarget = paymentRepository.findAllByTarget(creditCard);
+      allByTarget.sort(Comparator.comparing(Payment::getTime));
+      return allByTarget;
+    }
+
+    public List<Payment> findAllMyPayments(CreditCard creditCard){
+    List<Payment>list = findAllBySource(creditCard);
+    list.addAll(findAllByTarget(creditCard));
+    list.sort(Comparator.comparing(Payment::getTime));
+    return list;
+    }
+
+    public boolean checkDestination(Payment payment,CreditCard creditCard){
+      return payment.getSource().getNumber()==creditCard.getNumber();
+    }
+
 }
