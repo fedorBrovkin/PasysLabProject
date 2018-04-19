@@ -1,5 +1,6 @@
 package com.epam.labproject.service;
 
+import com.epam.labproject.entity.Account;
 import com.epam.labproject.entity.CreditCard;
 import com.epam.labproject.entity.Payment;
 import com.epam.labproject.exception.PasysException;
@@ -36,16 +37,20 @@ public class PaymentService {
     if (payment == null) {
       return;
     }
+    
     BigDecimal paymentBalance=payment.getSource().getAccount().getBalance();
+
     if (payment.getAmount().compareTo(paymentBalance) >= 1) {
       throw new PasysException("No funds");
     }
-    
-    accountService.findByNumber(payment.getSource().getAccount().getNumber())
-            .getBalance().subtract(payment.getAmount());
-    accountService.findByNumber(payment.getTarget().getAccount().getNumber())
-            .getBalance().subtract(payment.getAmount());
+
+    Account sourceAccount=accountService.findByNumber(payment.getSource().getAccount().getNumber());
+            sourceAccount.getBalance().add(payment.getAmount());
+    Account targetAccount = accountService.findByNumber(payment.getTarget().getAccount().getNumber());
+            targetAccount.getBalance().subtract(payment.getAmount());
     payment.setTime(LocalDateTime.now());
+    accountService.save(sourceAccount);
+    accountService.save(targetAccount);
     save(payment);
   }
 
