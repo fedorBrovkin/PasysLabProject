@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -35,7 +36,9 @@ public class PaymentService {
   }
 
     public List<Payment> findAllBySource(CreditCard creditCard) {
-        return paymentRepository.findAllBySource(creditCard);
+      List<Payment> allBySource = paymentRepository.findAllBySource(creditCard);
+      allBySource.sort(Comparator.comparing(Payment::getTime));
+      return allBySource;
     }
 
   @Transactional(isolation = Isolation.REPEATABLE_READ)
