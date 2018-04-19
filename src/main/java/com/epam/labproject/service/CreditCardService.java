@@ -96,7 +96,7 @@ public class CreditCardService {
      * @return
      */
     public boolean isAccountActive(CreditCard creditCard) {
-        return accountService.isActive(creditCard.getAccount().getNumber());
+        return creditCard.getAccount().isStatus();
     }
 
     private int cardNumberBuilder() {
