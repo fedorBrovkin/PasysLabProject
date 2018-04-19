@@ -41,7 +41,6 @@ public class PaymentService {
     Account sourceAccount=accountService.findByNumber(payment.getSource().getAccount().getNumber());
     Account targetAccount = accountService.findByNumber(payment.getTarget().getAccount().getNumber());
 
-
     BigDecimal paymentBalance=sourceAccount.getBalance();
 
     if (payment.getAmount().compareTo(paymentBalance) >= 1) {
@@ -51,6 +50,7 @@ public class PaymentService {
     sourceAccount.getBalance().subtract(payment.getAmount());
     targetAccount.getBalance().add(payment.getAmount());
     payment.setTime(LocalDateTime.now());
+
     accountService.save(sourceAccount);
     accountService.save(targetAccount);
     save(payment);
