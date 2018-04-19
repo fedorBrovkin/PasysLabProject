@@ -37,17 +37,19 @@ public class PaymentService {
     if (payment == null) {
       return;
     }
-    
-    BigDecimal paymentBalance=payment.getSource().getAccount().getBalance();
+
+    Account sourceAccount=accountService.findByNumber(payment.getSource().getAccount().getNumber());
+    Account targetAccount = accountService.findByNumber(payment.getTarget().getAccount().getNumber());
+
+
+    BigDecimal paymentBalance=sourceAccount.getBalance();
 
     if (payment.getAmount().compareTo(paymentBalance) >= 1) {
       throw new PasysException("No funds");
     }
 
-    Account sourceAccount=accountService.findByNumber(payment.getSource().getAccount().getNumber());
-            sourceAccount.getBalance().add(payment.getAmount());
-    Account targetAccount = accountService.findByNumber(payment.getTarget().getAccount().getNumber());
-            targetAccount.getBalance().subtract(payment.getAmount());
+    sourceAccount.getBalance().subtract(payment.getAmount());
+    targetAccount.getBalance().add(payment.getAmount());
     payment.setTime(LocalDateTime.now());
     accountService.save(sourceAccount);
     accountService.save(targetAccount);
