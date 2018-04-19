@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserOfficeController {
 
     @GetMapping("/userOffice")
-    String userOfficeDetails(Model model){
+    String userOfficeDetails(Model model) {
         return "userOffice";
     }
 
     @PostMapping("/userOffice")
-    public String makeCard (){
+    public String makeCard() {
         return "userOffice";
     }
 }

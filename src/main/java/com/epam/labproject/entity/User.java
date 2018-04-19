@@ -1,8 +1,14 @@
 package com.epam.labproject.entity;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -17,6 +23,9 @@ public class User extends AbstractIdentifiableEntity {
   private Role role;
   @OneToMany(mappedBy = "user", targetEntity = CreditCard.class, fetch = FetchType.EAGER)
   private List<CreditCard> cards=new  ArrayList<CreditCard>();
+
+  //  @OneToMany(mappedBy = "user", targetEntity = UnBlockRequest.class, fetch = FetchType.EAGER)
+//  private List<UnBlockRequest> requests=new ArrayList<>();
   public User(){
   }
 
@@ -50,6 +59,14 @@ public class User extends AbstractIdentifiableEntity {
   public void setRole(Role role) {
     this.role = role;
   }
+
+//  public List<UnBlockRequest> getRequests() {
+//    return requests;
+//  }
+//
+//  public void setRequests(List<UnBlockRequest> requests) {
+//    this.requests = requests;
+//  }
 
   @Override
   public String toString() {

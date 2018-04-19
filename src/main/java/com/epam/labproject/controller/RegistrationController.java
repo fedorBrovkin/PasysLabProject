@@ -4,6 +4,10 @@ import com.epam.labproject.entity.User;
 import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
+import java.util.HashSet;
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,11 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashSet;
-import java.util.Set;
 
 @Controller
 class RegistrationController {
@@ -31,7 +30,7 @@ class RegistrationController {
     }
 
     @GetMapping(value = {"/", "/index"})
-  public String index(Model model) {
+    public String index(Model model) {
         String currentUser = userDetailsService.getCurrentUsername();
         Set<GrantedAuthority> authirities = new HashSet(userDetailsService.loadUserByUsername(currentUser).getAuthorities());
         for (GrantedAuthority a : authirities) {
@@ -39,8 +38,8 @@ class RegistrationController {
                 return "redirect:administrator";
             }
         }
-    return "index";
-  }
+        return "index";
+    }
 
 
     @GetMapping(value = {"/registration"})

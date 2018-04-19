@@ -25,14 +25,14 @@ public class UserService {
         this.bCryptPasswordEncoder = passwordEncoder;
     }
 
-    public void createUser(User user)throws PasysException{
-        if(user!=null) {
-            if(userRepository.findByLogin(user.getLogin())==null){
+    public void createUser(User user) throws PasysException {
+        if (user != null) {
+            if (userRepository.findByLogin(user.getLogin()) == null) {
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
                 user.setRole(roleService.findByName("ROLE_USER"));
                 userRepository.save(user);
                 PasswordEncoderFactories.createDelegatingPasswordEncoder();
-            }else{
+            } else {
                 throw new PasysException("user is already exist");//MESSAGE FROM BUNDLE NEEDED
             }
         }
@@ -52,17 +52,19 @@ public class UserService {
             userRepository.delete(user);
         }
     }
-    public void changeRole(String login, String roleName)throws PasysException{
+
+    public void changeRole(String login, String roleName) throws PasysException {
         User user = this.getUser(login);
         Role role = roleService.findByName(roleName);
-        if(user!=null&&role!=null){
-         user.setRole(role);
-         userRepository.save(user);
-        }else{
+        if (user != null && role != null) {
+            user.setRole(role);
+            userRepository.save(user);
+        } else {
             throw new PasysException("No such role");
         }
     }
-    public void changePassword(String login,String password){
+
+    public void changePassword(String login, String password) {
         User user = getUser(login);
         String psw = bCryptPasswordEncoder.encode(password);
         if (user != null) {
@@ -70,4 +72,5 @@ public class UserService {
             userRepository.save(user);
         }
     }
+
 }

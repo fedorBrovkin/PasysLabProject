@@ -6,11 +6,10 @@ import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
 
 @Controller
 public class CardListController {
@@ -30,7 +29,7 @@ public class CardListController {
     }
 
     @GetMapping("/cardList")
-    public String showCardList(Model model){
+    public String showCardList(Model model) {
         List<CreditCard> cardList = userService.getUser(userDetailsService.getCurrentUsername()).getCards();
         model.addAttribute("cardList", CardForm.getCardFormList(cardList));
         return "cardList";

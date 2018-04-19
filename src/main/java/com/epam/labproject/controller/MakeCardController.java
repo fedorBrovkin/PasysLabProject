@@ -9,14 +9,13 @@ import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 @Controller
 public class MakeCardController {
@@ -37,11 +36,11 @@ public class MakeCardController {
     }
 
     @GetMapping("/makeCard")
-    public String makeCardPage(Model model){
+    public String makeCardPage(Model model) {
         String currentUserLogin = userDetailsService.getCurrentUsername();
         User user = userService.getUser(currentUserLogin);
         List<Account> accountList = accountService.findAllByUserNameAndStatusTrue(currentUserLogin);
-        if (CollectionUtils.isEmpty(accountList)){
+        if (CollectionUtils.isEmpty(accountList)) {
             accountService.createAccount(currentUserLogin);
             return "redirect:makeCard";
         }
@@ -54,12 +53,12 @@ public class MakeCardController {
 
 
     @PostMapping("/createCard")
-    public String createCardAndAccount(@ModelAttribute("cardForm") CreateCardForm cardForm){
+    public String createCardAndAccount(@ModelAttribute("cardForm") CreateCardForm cardForm) {
         try {
             creditCardService.createCard(cardForm.getLogin(), Integer.parseInt(cardForm.getNumber()));
             return "redirect:cardList";
-        }catch(PasysException e){
-           return e.getMessage();
+        } catch (PasysException e) {
+            return e.getMessage();
         }
     }
 
