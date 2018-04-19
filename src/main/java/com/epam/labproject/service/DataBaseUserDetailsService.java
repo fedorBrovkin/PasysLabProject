@@ -19,22 +19,22 @@ import java.util.Set;
 @Transactional
 public class DataBaseUserDetailsService implements UserDetailsService {
 
-  @Autowired
-  private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-  /**
-   * Load user by username.
-   */
-  public UserDetails loadUserByUsername(String username) {
-    User user = userRepository.findByLogin(username);
-    Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-    grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
-    return new org.springframework.security.core.userdetails.User(user.getLogin(),
-        user.getPassword(), grantedAuthorities);
-  }
+    /**
+     * Load user by username.
+     */
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findByLogin(username);
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+        return new org.springframework.security.core.userdetails.User(user.getLogin(),
+                user.getPassword(), grantedAuthorities);
+    }
 
-  public String getCurrentUsername() {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    return auth.getName();
-  }
+    public String getCurrentUsername() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
+    }
 }

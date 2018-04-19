@@ -48,22 +48,25 @@ public class CreditCardService {
             creditCardRepository.delete(creditCardRepository.findByNumber(creditCard.getNumber()));
         }
     }
-    public boolean checkStatus(CreditCard creditCard){
+
+    public boolean checkStatus(CreditCard creditCard) {
         return creditCard.getExpirationDate().isBefore(ChronoLocalDateTime.from(LocalDateTime.now()));
     }
+
     public CreditCard findByNumber(int number) {
         return creditCardRepository.findByNumber(number);
     }
 
     /**
      * create new Card if Account is not blocked
+     *
      * @param login
      * @param accountNumber
      */
     public void createCard(String login, int accountNumber) {
         User user = userService.getUser(login);
         Account account = accountService.findByNumber(accountNumber);
-        if (user != null && account != null&& account.isStatus()) {
+        if (user != null && account != null && account.isStatus()) {
             CreditCard creditCard = new CreditCard();
             creditCard.setAccount(account);
             creditCard.setUser(user);
@@ -78,6 +81,7 @@ public class CreditCardService {
 
     /**
      * Create random CVC number
+     *
      * @return
      */
     private int cvcBuider() {
@@ -86,12 +90,14 @@ public class CreditCardService {
 
     /**
      * Check account status for current creditCard;
+     *
      * @param creditCard
      * @return
      */
-    public boolean isAccountActive(CreditCard creditCard){
+    public boolean isAccountActive(CreditCard creditCard) {
         return accountService.isActive(creditCard.getAccount().getNumber());
     }
+
     private int cardNumberBuilder() {
         int number = 0;
         do {
@@ -102,6 +108,7 @@ public class CreditCardService {
 
     /**
      * Transfer money between two cards.
+     *
      * @param sourceNumber
      * @param targetNumber
      * @param amount

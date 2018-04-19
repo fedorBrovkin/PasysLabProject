@@ -12,5 +12,5 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
   public List<Payment> findAllBySource(CreditCard source);
 
-  public List<Payment> findAllBySourceAndTarget(CreditCard source, CreditCard tardet);
+  public List<Payment> findAllBySourceAndTarget(CreditCard source, CreditCard target);
 }

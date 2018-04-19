@@ -11,23 +11,26 @@ public class RoleService {
     private RoleRepository roleRepository;
 
     @Autowired
-    public RoleService(RoleRepository roleRepository){
-        this.roleRepository=roleRepository;
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
-    public void save(Role role){
-        if(role!=null && !role.getName().isEmpty()
-                && roleRepository.findByName(role.getName())==null) {
+    public void save(Role role) {
+        if (role != null && !role.getName().isEmpty()
+                && roleRepository.findByName(role.getName()) == null) {
             roleRepository.save(role);
         }
     }
-    public Role findByName(String name){
+
+    public Role findByName(String name) {
         return roleRepository.findByName(name);
     }
-    public void delete(Role role){
-        if(role!=null){
-            if(roleRepository.findByName(role.getName())!=null)
-                roleRepository.delete(roleRepository.findByName(role.getName()));
+
+    public void delete(Role role) {
+        if (role != null) {
+            Role persistedRole = roleRepository.findByName(role.getName());
+            if (persistedRole != null)
+                roleRepository.delete(persistedRole);
         }
     }
 

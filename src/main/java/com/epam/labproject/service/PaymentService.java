@@ -33,24 +33,24 @@ public class PaymentService {
     }
   }
 
-  public List<Payment> findAllBySource(CreditCard creditCard) {
-    return paymentRepository.findAllBySource(creditCard);
-  }
-
-  @Transactional(isolation = Isolation.REPEATABLE_READ)
-  protected boolean makeTransfer(Payment payment) {
-    if (payment != null) {
-      if (payment.getAmount().compareTo(payment.getSource().getAccount().getBalance()) < 1) {
-        payment.getSource().getAccount()
-                .setBalance(payment.getSource().getAccount().getBalance()
-                        .subtract(payment.getAmount()));
-        payment.getTarget().getAccount()
-            .setBalance(payment.getTarget().getAccount().getBalance()
-                    .add(payment.getAmount()));
-        payment.setTime(LocalDateTime.now());
-        return true;
-      }
+    public List<Payment> findAllBySource(CreditCard creditCard) {
+        return paymentRepository.findAllBySource(creditCard);
     }
-    return false;
-  }
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    protected boolean makeTransfer(Payment payment) {
+        if (payment != null) {
+            if (payment.getAmount().compareTo(payment.getSource().getAccount().getBalance()) < 1) {
+                payment.getSource().getAccount()
+                        .setBalance(payment.getSource().getAccount().getBalance()
+                                .subtract(payment.getAmount()));
+                payment.getTarget().getAccount()
+                        .setBalance(payment.getTarget().getAccount().getBalance()
+                                .add(payment.getAmount()));
+                payment.setTime(LocalDateTime.now());
+                return true;
+            }
+        }
+        return false;
+    }
 }
