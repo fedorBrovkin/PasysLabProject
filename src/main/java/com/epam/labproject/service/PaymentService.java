@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -35,9 +36,11 @@ public class PaymentService {
     if (payment == null) {
       return;
     }
-    if (payment.getAmount().compareTo(payment.getSource().getAccount().getBalance()) >= 1) {
-      throw new PasysException("No funds");//Message from bundle!!!!
+    BigDecimal paymentBalance=payment.getSource().getAccount().getBalance();
+    if (payment.getAmount().compareTo(paymentBalance) >= 1) {
+      throw new PasysException("No funds");
     }
+    
     accountService.findByNumber(payment.getSource().getAccount().getNumber())
             .getBalance().subtract(payment.getAmount());
     accountService.findByNumber(payment.getTarget().getAccount().getNumber())
