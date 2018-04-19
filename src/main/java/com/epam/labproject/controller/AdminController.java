@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 public class AdminController {
 
-    private static User blockUser;
+    private User blockUser;
     private final AccountService accountService;
     private final UserService userService;
 
@@ -42,13 +42,13 @@ public class AdminController {
     public String selectUser(@ModelAttribute("user") User user) {
         String userLogin = user.getLogin();
         if (userLogin.length() < 0) return "redirect:admSelectUser";
-        AdminController.blockUser = userService.getUser(userLogin);
+        this.blockUser = userService.getUser(userLogin);
         return "redirect:admSelectAccount";
     }
 
     @GetMapping("/admSelectAccount")
     public String showSelectAccount(Model model) {
-        List<Account> accountList = accountService.findAllByUser(AdminController.blockUser);
+        List<Account> accountList = accountService.findAllByUser(this.blockUser);
         if (CollectionUtils.isEmpty(accountList)) {
             return "redirect:administrator";
         }
