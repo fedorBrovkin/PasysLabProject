@@ -40,16 +40,17 @@ public class AdminController {
 
     @PostMapping("/admSelectUser")
     public String selectUser(@ModelAttribute("user") User user) {
-        AdminController.blockUser = userService.getUser(user.getLogin());
+        String userLogin = user.getLogin();
+        if (userLogin.length() < 0) return "redirect:admSelectUser";
+        AdminController.blockUser = userService.getUser(userLogin);
         return "redirect:admSelectAccount";
     }
 
     @GetMapping("/admSelectAccount")
     public String showSelectAccount(Model model) {
-        List<Account> accountList = accountService.findAllByUserNameAndStatusTrue(AdminController.blockUser.getLogin());
+        List<Account> accountList = accountService.findAllByUser(AdminController.blockUser);
         if (CollectionUtils.isEmpty(accountList)) {
-            accountService.createAccount(AdminController.blockUser.getLogin());
-            return "redirect:makeCard";
+            return "redirect:administrator";
         }
         model.addAttribute("accountForm", new AccountForm());
         model.addAttribute("accounts", AccountForm.getAccountFormList(accountList));

@@ -18,16 +18,13 @@
 <body>
 <ul class="nav">
     <li class="nav-item">
-        <a class="nav-link active" th:href="@{/admSelectUser}">Select User</a>
+        <a class="nav-link active " th:href="@{/administrator}">Administrator</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link disabled" th:href="@{/admSelectUser}">Select User</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <a class="nav-link disabled" th:href="@{/admSelectAccount}">Select Account</a>
     </li>
 </ul>
 <a th:href="@{/userOffice}">
