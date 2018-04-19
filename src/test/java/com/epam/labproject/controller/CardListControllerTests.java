@@ -1,6 +1,10 @@
 package com.epam.labproject.controller;
 
+
+import com.epam.labproject.service.AccountService;
+import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;
+import com.epam.labproject.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,10 +20,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringRunner.class)
-public class UserOfficeControllerTests {
+public class CardListControllerTests {
+
+    @MockBean
+    private UserService userService;
 
     @MockBean
     private DataBaseUserDetailsService dataBaseUserDetailsService;
+
+    @MockBean
+    private CreditCardService creditCardService;
+
+    @MockBean
+    private AccountService accountService;
 
     private MockMvc mockMvc;
 
@@ -29,23 +42,19 @@ public class UserOfficeControllerTests {
         viewResolver.setPrefix("classpath:templates/");
         viewResolver.setSuffix(".html");
 
-        mockMvc = MockMvcBuilders.standaloneSetup(new UserOfficeController(dataBaseUserDetailsService))
+        mockMvc = MockMvcBuilders.standaloneSetup(new CardListController(
+                userService,
+                dataBaseUserDetailsService,
+                creditCardService,
+                accountService))
                 .setViewResolvers(viewResolver)
                 .build();
     }
 
     @Test
-    public void testGetUserOfficeDetails() throws Exception {
-        mockMvc.perform(get("/userOffice"))
+    public void testGetShowListCard() throws Exception {
+        mockMvc.perform(get("/cardList"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("userOffice"));
+                .andExpect(view().name("cardList"));
     }
-
-    @Test
-    public void testPostMakeCard() throws Exception {
-        mockMvc.perform(post("/userOffice"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("userOffice"));
-    }
-
 }
