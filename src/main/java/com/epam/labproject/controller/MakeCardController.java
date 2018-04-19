@@ -58,5 +58,4 @@ public class MakeCardController {
         return "cardList";
     }
 
-
 }

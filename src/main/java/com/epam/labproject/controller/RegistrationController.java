@@ -19,15 +19,16 @@ class RegistrationController {
 
     private final UserService userService;
 
-    public RegistrationController(UserService userService){
+    public RegistrationController(UserService userService) {
         this.userService = userService;
     }
 
-  @GetMapping(value = {"/", "/index"})
-  public String index(Model model) {
+    @GetMapping(value = {"/", "/index"})
+    public String index(Model model) {
 
-    return "index";
-  }
+        return "index";
+    }
+
 
     @GetMapping(value = {"/registration"})
     public String registration(Model model) {
@@ -42,10 +43,10 @@ class RegistrationController {
         return "redirect:/";
     }
 
-    @GetMapping(value="/logout")
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+    @GetMapping(value = "/logout")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/";

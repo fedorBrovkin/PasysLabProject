@@ -44,5 +44,4 @@ public class EditProfileController {
         return "editProfilePage";
     }
 
-
 }
