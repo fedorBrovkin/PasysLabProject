@@ -2,9 +2,9 @@ package com.epam.labproject.form;
 
 
 public class PaymentForm {
-    int sourceCard;
-    String targetCard;
-    String amount;
+    private int sourceCard;
+    private String targetCard;
+    private String amount;
 
     public String getAmount() {
         return amount;

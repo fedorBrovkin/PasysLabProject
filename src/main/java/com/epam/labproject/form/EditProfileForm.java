@@ -2,9 +2,9 @@ package com.epam.labproject.form;
 
 
 public class EditProfileForm {
-    String oldPassworld;
-    String newPassworld;
-    String repeatPassword;
+    private String oldPassworld;
+    private String newPassworld;
+    private String repeatPassword;
 
     public String getNewPassworld() {
         return newPassworld;

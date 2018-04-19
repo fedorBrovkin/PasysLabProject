@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardForm {
-    int cardNumber;
-    int accountNumber;
-    double balance;
-    String currentCondition;
+    private int cardNumber;
+    private int accountNumber;
+    private double balance;
+    private String currentCondition;
 
     public CardForm() {
     }
