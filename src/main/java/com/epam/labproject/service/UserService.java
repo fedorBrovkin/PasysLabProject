@@ -2,6 +2,7 @@ package com.epam.labproject.service;
 
 import com.epam.labproject.entity.Role;
 import com.epam.labproject.entity.User;
+import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -24,15 +25,15 @@ public class UserService {
         this.bCryptPasswordEncoder = passwordEncoder;
     }
 
-    public void createUser(User user) {
-        if (user != null) {
-            if (userRepository.findByLogin(user.getLogin()) == null) {
+    public void createUser(User user)throws PasysException{
+        if(user!=null) {
+            if(userRepository.findByLogin(user.getLogin())==null){
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
                 user.setRole(roleService.findByName("ROLE_USER"));
                 userRepository.save(user);
                 PasswordEncoderFactories.createDelegatingPasswordEncoder();
-            } else {
-                System.out.println("already exist page have to be here");
+            }else{
+                throw new PasysException("user is already exist");//MESSAGE FROM BUNDLE NEEDED
             }
         }
     }
@@ -51,17 +52,17 @@ public class UserService {
             userRepository.delete(user);
         }
     }
-
-    public void changeRole(String login, String newRoleName) {
-        User user = getUser(login);
-        Role newRole = roleService.findByName(newRoleName);
-        if (user != null && newRole != null) {
-            user.setRole(newRole);
-            userRepository.save(user);
+    public void changeRole(String login, String roleName)throws PasysException{
+        User user = this.getUser(login);
+        Role role = roleService.findByName(roleName);
+        if(user!=null&&role!=null){
+         user.setRole(role);
+         userRepository.save(user);
+        }else{
+            throw new PasysException("No such role");
         }
     }
-
-    public void changePassword(String login, String password) {
+    public void changePassword(String login,String password){
         User user = getUser(login);
         String psw = bCryptPasswordEncoder.encode(password);
         if (user != null) {

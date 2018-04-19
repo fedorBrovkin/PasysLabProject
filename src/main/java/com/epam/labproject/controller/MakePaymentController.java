@@ -1,6 +1,7 @@
 package com.epam.labproject.controller;
 
 import com.epam.labproject.entity.CreditCard;
+import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.form.CardForm;
 import com.epam.labproject.form.PaymentForm;
 import com.epam.labproject.service.CreditCardService;
@@ -45,8 +46,13 @@ public class MakePaymentController {
 
     @PostMapping("/makePayment")
     public String makePayment(Model model, @ModelAttribute("paymentForm") PaymentForm paymentForm) {
-        creditCardService.doPayment(paymentForm.getSourceCard(),
-                Integer.parseInt(paymentForm.getTargetCard()), Double.parseDouble(paymentForm.getAmount()));
+        try {
+            creditCardService.doPayment(paymentForm.getSourceCard(),
+                    Integer.parseInt(paymentForm.getTargetCard()), Double.parseDouble(paymentForm.getAmount()));
+        } catch (PasysException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
         return "redirect:/userOffice";
     }
 }

@@ -1,6 +1,7 @@
 package com.epam.labproject.controller;
 
 import com.epam.labproject.entity.User;
+import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
 import org.springframework.security.core.Authentication;
@@ -51,7 +52,12 @@ class RegistrationController {
 
     @PostMapping(value = {"/registration"})
     public String saveUser(Model model, @ModelAttribute("user") User user) {
-        userService.createUser(user);
+        try {
+            userService.createUser(user);
+        } catch (PasysException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
         return "redirect:/";
     }
 
