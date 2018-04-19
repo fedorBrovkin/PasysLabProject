@@ -53,7 +53,8 @@ public class PaymentListController {
     @GetMapping("/paymentList")
     public String showPaymentList(Model model) {
         CreditCard creditCard = cardService.findByNumber(this.cardForm.getCardNumber());
-        List<PaymentListForm> payments = PaymentListForm.getPaymentList(paymentService.findAllBySource(creditCard));
+        List<PaymentListForm> payments = PaymentListForm.getPaymentList(paymentService.findAllMyPayments(creditCard),
+                creditCard);
         model.addAttribute("payments", payments);
         return "/paymentList";
     }
