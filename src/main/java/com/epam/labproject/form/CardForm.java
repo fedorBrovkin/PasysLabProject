@@ -23,6 +23,17 @@ public class CardForm {
         currentCondition = "Card: " + Integer.toString(cardNumber) + " account:" + Integer.toString(accountNumber) + " balance:" + Double.toString(balance);
     }
 
+    public static List<CardForm> getCardFormList(List<CreditCard> cardList) {
+        List<CardForm> cards = new ArrayList<>(cardList.size());
+        for (CreditCard card : cardList) {
+            int accountNumber = card.getAccount().getNumber();
+            int cardNumber = card.getNumber();
+            BigDecimal balance = card.getAccount().getBalance();
+            cards.add(new CardForm(cardNumber, accountNumber, balance.doubleValue()));
+        }
+        return cards;
+    }
+
     public void setCurrentCondition(String currentCondition) {
         this.currentCondition = currentCondition;
     }
@@ -55,14 +66,5 @@ public class CardForm {
         return accountNumber;
     }
 
-    public static List<CardForm> getCardFormList(List<CreditCard> cardList) {
-        List<CardForm> cards = new ArrayList<>(cardList.size());
-        for (CreditCard card : cardList) {
-            int accountNumber = card.getAccount().getNumber();
-            int cardNumber = card.getNumber();
-            BigDecimal balance = card.getAccount().getBalance();
-            cards.add(new CardForm(cardNumber, accountNumber, balance.doubleValue()));
-        }
-        return cards;
-    }
+
 }
