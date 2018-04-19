@@ -20,19 +20,16 @@
 <form th:action="@{/editProfilePage}"
       th:object="${profileForm}" method="POST">
 
-    <lable th:text="#{oldPassword}">
+    <lable th:text="#{oldPassword}"></lable>
     <input type="password" th:field="*{oldPassworld}"/>
-    </lable>
 
     <br/>
-    <lable th:text="#{newPassword}">
+    <lable th:text="#{newPassword}"></lable>
     <input type="password" th:field="*{newPassworld}"/>
-    </lable>
 
     <br/>
-    <lable th:text="#{repeatPassword}">
+    <lable th:text="#{repeatPassword}"></lable>
     <input type="password" th:field="*{repeatPassword}"/>
-    </lable>
 
     <br/>
     <br/>

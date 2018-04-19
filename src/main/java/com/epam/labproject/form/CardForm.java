@@ -13,6 +13,9 @@ public class CardForm {
     double balance;
     String currentCondition;
 
+    public CardForm() {
+    }
+
     public CardForm(int cardNumber, int accountNumber, double balance) {
         this.cardNumber = cardNumber;
         this.accountNumber = accountNumber;
