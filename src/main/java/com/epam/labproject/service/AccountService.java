@@ -3,8 +3,11 @@ package com.epam.labproject.service;
 
 import com.epam.labproject.entity.Account;
 import com.epam.labproject.entity.User;
+import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -65,12 +68,14 @@ public class AccountService {
      *
      * @param accountNumber target card number.
      */
-    public void giveMoney(int accountNumber) {
-        Account account = accountRepository.findByNumber(accountNumber);
-        if (account != null && account.isStatus()) {
-            BigDecimal balance = account.getBalance();
+    public void giveMoney(int accountNumber) throws PasysException{
+        Account account=accountRepository.findByNumber(accountNumber);
+        if(account!=null&&account.isStatus()){
+            BigDecimal balance=account.getBalance();
             account.setBalance(balance.add(new BigDecimal(10000)));
             accountRepository.save(account);
+        }else{
+            throw new PasysException();///Account is blocked message
         }
     }
 
@@ -82,6 +87,17 @@ public class AccountService {
     public void changeStatus(int accountNumber) {
         Account a = accountRepository.findByNumber(accountNumber);
         a.setStatus(!a.isStatus());
+        this.save(a);
+    }
+
+    /**
+     * Blocking account
+     *
+     * @param accountNumber
+     */
+    public void blockAccount(int accountNumber) {
+        Account a = accountRepository.findByNumber(accountNumber);
+        a.setStatus(false);
         this.save(a);
     }
 

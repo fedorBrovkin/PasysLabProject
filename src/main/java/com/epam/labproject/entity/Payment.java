@@ -1,12 +1,10 @@
 package com.epam.labproject.entity;
 
+import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "payment")
@@ -19,6 +17,8 @@ public class Payment extends AbstractIdentifiableEntity {
   @JoinColumn(name = "target_id")
   private CreditCard target;
 
+  @Positive
+  @Max(15000)
   @Column(name = "amount")
   private BigDecimal amount;
   @Column(name = "time")

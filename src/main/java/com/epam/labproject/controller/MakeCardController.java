@@ -2,6 +2,7 @@ package com.epam.labproject.controller;
 
 import com.epam.labproject.entity.Account;
 import com.epam.labproject.entity.User;
+import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.form.AccountForm;
 import com.epam.labproject.form.CreateCardForm;
 import com.epam.labproject.service.AccountService;
@@ -39,7 +40,7 @@ public class MakeCardController {
     public String makeCardPage(Model model){
         String currentUserLogin = userDetailsService.getCurrentUsername();
         User user = userService.getUser(currentUserLogin);
-        List<Account> accountList = accountService.findAllByUser(user);
+        List<Account> accountList = accountService.findAllByUserNameAndStatusTrue(currentUserLogin);
         if (CollectionUtils.isEmpty(accountList)){
             accountService.createAccount(currentUserLogin);
             return "redirect:makeCard";
@@ -54,8 +55,12 @@ public class MakeCardController {
 
     @PostMapping("/createCard")
     public String createCardAndAccount(@ModelAttribute("cardForm") CreateCardForm cardForm){
-        creditCardService.createCard(cardForm.getLogin(),Integer.parseInt(cardForm.getNumber()));
-        return "cardList";
+        try {
+            creditCardService.createCard(cardForm.getLogin(), Integer.parseInt(cardForm.getNumber()));
+            return "redirect:cardList";
+        }catch(PasysException e){
+           return e.getMessage();
+        }
     }
 
 }

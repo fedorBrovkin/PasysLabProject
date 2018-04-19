@@ -16,29 +16,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1 th:text="#{changePass}"></h1>
-<form th:action="@{/editProfilePage}"
-      th:object="${profileForm}" method="POST">
+<form th:action="@{/blockAccount}"
+      th:object="${accountForm}" method="POST">
 
-    <lable th:text="#{oldPassword}"></lable>
-    <input type="password" th:field="*{oldPassworld}"/>
+    <select class="form-control" id="dropOperator" th:field="*{accNumber}">
+        <option value="0" th:each="account:${accounts}" th:value="${account.accNumber}"
+                th:text="${account.currentCondition}">
+            ...
+        </option>
+    </select>
 
-    <br/>
-    <lable th:text="#{newPassword}"></lable>
-    <input type="password" th:field="*{newPassworld}"/>
-
-    <br/>
-    <lable th:text="#{repeatPassword}"></lable>
-    <input type="password" th:field="*{repeatPassword}"/>
-
-    <br/>
-    <br/>
     <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
 </form>
-
 <a th:href="@{/userOffice}">
     <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>
 </a>
+
 </body>
 
 </html>

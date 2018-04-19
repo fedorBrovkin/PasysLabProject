@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang=en>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -16,29 +16,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1 th:text="#{changePass}"></h1>
-<form th:action="@{/editProfilePage}"
-      th:object="${profileForm}" method="POST">
-
-    <lable th:text="#{oldPassword}"></lable>
-    <input type="password" th:field="*{oldPassworld}"/>
-
-    <br/>
-    <lable th:text="#{newPassword}"></lable>
-    <input type="password" th:field="*{newPassworld}"/>
-
-    <br/>
-    <lable th:text="#{repeatPassword}"></lable>
-    <input type="password" th:field="*{repeatPassword}"/>
-
-    <br/>
-    <br/>
+<ul class="nav">
+    <li class="nav-item">
+        <a class="nav-link  disabled" th:href="@{/administrator}" th:text="#{administrator}"></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" th:href="@{/admSelectUser}" th:text="#{selectUser}"></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" th:href="@{/admSelectAccount}" th:text="#{selectAccount}"></a>
+    </li>
+</ul>
+<form th:action="@{/admSelectUser}"
+      th:object="${user}" method="POST">
+    <div><label th:text="#{userName}"></label><input type="text" th:field="*{login}"/></div>
     <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
 </form>
-
-<a th:href="@{/userOffice}">
-    <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>
-</a>
 </body>
-
 </html>

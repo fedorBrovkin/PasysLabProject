@@ -16,29 +16,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1 th:text="#{changePass}"></h1>
-<form th:action="@{/editProfilePage}"
-      th:object="${profileForm}" method="POST">
-
-    <lable th:text="#{oldPassword}"></lable>
-    <input type="password" th:field="*{oldPassworld}"/>
-
-    <br/>
-    <lable th:text="#{newPassword}"></lable>
-    <input type="password" th:field="*{newPassworld}"/>
-
-    <br/>
-    <lable th:text="#{repeatPassword}"></lable>
-    <input type="password" th:field="*{repeatPassword}"/>
-
-    <br/>
-    <br/>
-    <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
-</form>
-
+<h1>Account List</h1>
+<div>
+    <table class="table table-sm table-dark">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{accountNumber}"></th>
+            <th scope="col" th:text="#{balance}"></th>
+            <th scope="col" th:text="#{status}"></th>
+        </tr>
+        <tr th:each="account : ${accounts}">
+            <td scope="col" th:utext="${account.accNumber}">...</td>
+            <td scope="col" th:utext="${account.balance}">...</td>
+            <td scope="col" th:utext="${account.status}">
+        </tr>
+    </table>
+</div>
+<a th:href="@{/makeAccount}">
+    <button type="button" class="btn btn-dark" th:text="#{button.makeAccount}"></button>
+</a>
+<a th:href="@{/blockAccount}">
+    <button type="button" class="btn btn-dark" th:text="#{button.blockAccount}"></button>
+</a>
 <a th:href="@{/userOffice}">
     <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>
 </a>
+
+
 </body>
 
 </html>

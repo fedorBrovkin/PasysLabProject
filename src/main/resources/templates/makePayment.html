@@ -16,32 +16,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Make Payment</h1>
+<h1 th:text="#{button.makePayment}"></h1>
 <form th:action="@{/makePayment}"
       th:object="${paymentForm}" method="POST">
+
     <select class="form-control" id="dropOperator" th:field="*{sourceCard}">
         <option value="0" th:each="card:${cards}" th:value="${card.cardNumber}"
-                th:text="${card.currentCondition}">...
+                th:text="${card.currentCondition}">
+            ...
         </option>
     </select>
-    <div class="form-group">
-        <label for="target">TargetCard</label>
-        <input class="form-control" id="target" placeholder="Target card number"
-               th:field="*{targetCard}">
-    </div>
 
-    <div class="form-group">
-        <label for="target">TargetCard</label>
-        <input type="password" class="form-control" id="target" placeholder="Amount"
-               th:field="*{amount}">
-    </div>
+    <div><label th:text="#{targetCard}"></label><input type="text" th:field="*{targetCard}"/></div>
 
-    <button type="submit" class="btn btn-dark">Submit</button>
+    <div><label th:text="#{amount}"></label><input type="text" th:field="*{amount}"/></div>
+
+    <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
 </form>
 
 <a th:href="@{/userOffice}">
-    <button type="submit" class="btn btn-dark">Back</button>
+    <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>
 </a>
+
 </body>
 
 </html>

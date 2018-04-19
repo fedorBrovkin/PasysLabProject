@@ -16,14 +16,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Welcome</h1>
+<h1 th:text="#{greeting}"></h1>
 
     <h2 th:utext="${message}">..!..</h2>
 
-<a th:href="@{/cardList}"><button type="button" class="btn btn-dark">My cards</button></a>
-<a th:href="@{/makePayment}"><button type="button" class="btn btn-dark">Make payment</button></a>
-<a th:href="@{/editProfilePage}"><button type="button" class="btn btn-dark">Edit profile</button></a>
-<a th:href="@{/}"><button type="submit" class="btn btn-dark">Back</button></a>
+<a th:href="@{/cardList}">
+    <button type="button" class="btn btn-dark" th:text="#{button.myCards}"></button>
+</a>
+<a th:href="@{/accountList}">
+    <button type="button" class="btn btn-dark" th:text="#{button.myAccounts}"></button>
+</a>
+<a th:href="@{/paymentList}">
+    <button type="button" class="btn btn-dark" th:text="#{button.Payments}"></button>
+</a>
+<a th:href="@{/editProfilePage}">
+    <button type="button" class="btn btn-dark" th:text="#{button.editProfile}"></button>
+</a>
+<a th:href="@{/}">
+    <button type="submit" class="btn btn-dark" th:text="#{button.back}"></button>
+</a>
 
 </body>
 

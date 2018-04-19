@@ -16,18 +16,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Registration:</h1>
+<h1 th:text="#{registration}"></h1>
 
 <form th:action="@{/registration}"
       th:object="${user}" method="POST">
-    <label th:text="#{login}">Login</label>
+
+    <label th:text="#{login}"></label>
     <input type="text" th:field="*{login}" />
+
     <br/>
-    Password
+    <label th:text="#{password}"></label>
     <input type="password" th:field="*{password}"/>
+
     <br/>
-    <br/>
-    <input type="submit" value="Create" />
+
+    <button class="btn btn-dark" type="submit" th:text="#{button.create}"/>
 </form>
 
 <br/>

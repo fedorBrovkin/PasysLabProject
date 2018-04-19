@@ -5,6 +5,7 @@ import com.epam.labproject.entity.Account;
 import com.epam.labproject.entity.CreditCard;
 import com.epam.labproject.entity.Payment;
 import com.epam.labproject.entity.User;
+import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ public class CreditCardService {
     }
 
     public boolean checkStatus(CreditCard creditCard) {
-        return creditCard.getExpirationDate().isBefore(ChronoLocalDateTime.from(LocalDateTime.now()));
+        return creditCard.getExpirationDate().isAfter(ChronoLocalDateTime.from(LocalDateTime.now()));
     }
 
     public CreditCard findByNumber(int number) {
@@ -63,20 +64,21 @@ public class CreditCardService {
      * @param login
      * @param accountNumber
      */
-    public void createCard(String login, int accountNumber) {
+    public void createCard(String login, int accountNumber) throws PasysException{
+
         User user = userService.getUser(login);
         Account account = accountService.findByNumber(accountNumber);
+
         if (user != null && account != null && account.isStatus()) {
-            CreditCard creditCard = new CreditCard();
-            creditCard.setAccount(account);
-            creditCard.setUser(user);
-            creditCard.setCvc(cvcBuider());
-            creditCard.setExpirationDate(LocalDateTime.now().plusYears(3));
-            creditCard.setNumber(this.cardNumberBuilder());
-            this.save(creditCard);
-        } else {
-            //account not found
-        }
+        } else {throw new PasysException();}//User not found
+
+        CreditCard creditCard = new CreditCard();
+        creditCard.setAccount(account);
+        creditCard.setUser(user);
+        creditCard.setCvc(cvcBuider());
+        creditCard.setExpirationDate(LocalDateTime.now().plusYears(3));
+        creditCard.setNumber(this.cardNumberBuilder());
+        this.save(creditCard);
     }
 
     /**
@@ -95,7 +97,7 @@ public class CreditCardService {
      * @return
      */
     public boolean isAccountActive(CreditCard creditCard) {
-        return accountService.isActive(creditCard.getAccount().getNumber());
+        return creditCard.getAccount().isStatus();
     }
 
     private int cardNumberBuilder() {
@@ -113,21 +115,21 @@ public class CreditCardService {
      * @param targetNumber
      * @param amount
      */
-    public void doPayment(int sourceNumber, int targetNumber, double amount) {
+
+    public void doPayment(int sourceNumber, int targetNumber, double amount) throws PasysException{
         CreditCard source = this.findByNumber(sourceNumber);
         CreditCard target = this.findByNumber(targetNumber);
-        if (source != null && this.isAccountActive(source) && this.checkStatus(source)) {
+
+            if (source != null && this.isAccountActive(source) && this.checkStatus(source)) {
+            }else {throw new PasysException();}//Account is blocked or card is out of date
+
             if (target != null && this.isAccountActive(target) && this.checkStatus(target)) {
-                Payment payment = new Payment();
-                payment.setSource(source);
-                payment.setTarget(target);
-                payment.setAmount(new BigDecimal(amount));
-                paymentService.createPayment(payment);
-            } else {
-                //NO SUCH TARGET CARD or Account is not Active or CardIsOutOfDate
-            }
-        } else {
-            //NO SUCH SOURCE CARD or Account is not active or CardIsOutOfDate
-        }
+            }else{throw new PasysException();}//Accouny blocked or card is out of date
+
+        Payment payment = new Payment();
+        payment.setSource(source);
+        payment.setTarget(target);
+        payment.setAmount(new BigDecimal(amount));
+        paymentService.createPayment(payment);
     }
 }

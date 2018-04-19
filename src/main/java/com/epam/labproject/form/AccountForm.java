@@ -4,18 +4,35 @@ package com.epam.labproject.form;
 import com.epam.labproject.entity.Account;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class AccountForm {
     int accNumber;
     double balance;
+    String status;
     String currentCondition;
 
-    public AccountForm(int accNumber, double balance) {
+    public AccountForm() {
+    }
+
+    public AccountForm(int accNumber, double balance, boolean status) {
         this.accNumber = accNumber;
         this.balance = balance;
-        currentCondition = Integer.toString(accNumber) + "    Balance:" + Double.toString(balance);
+        this.status = (status ? "Blocked" : "Active");
+        currentCondition = Integer.toString(accNumber) + "    Balance:" + Double.toString(balance) + " Status: "
+                + this.status;
+
+    }
+
+    public static List<AccountForm> getAccountFormList(List<Account> accountList) {
+        List<AccountForm> accounts = new LinkedList<>();
+        for (Account account : accountList) {
+            int accountNumber = account.getNumber();
+            BigDecimal balance = account.getBalance();
+            accounts.add(new AccountForm(accountNumber, balance.doubleValue(), !account.isStatus()));
+        }
+        return accounts;
     }
 
     public int getAccNumber() {
@@ -43,13 +60,12 @@ public class AccountForm {
         return currentCondition;
     }
 
-    public static List<AccountForm> getAccountFormList(List<Account> accountList) {
-        List<AccountForm> accounts = new ArrayList<>(accountList.size());
-        for (Account account : accountList) {
-            int accountNumber = account.getNumber();
-            BigDecimal balance = account.getBalance();
-            accounts.add(new AccountForm(accountNumber, balance.doubleValue()));
-        }
-        return accounts;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+
+        return status;
     }
 }
