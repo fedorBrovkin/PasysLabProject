@@ -21,24 +21,25 @@
     <table class="table table-sm table-dark">
         <thead>
         <tr>
-            <th scope="col">Account Number</th>
-            <th scope="col">Balance</th>
+            <th scope="col" th:text="#{accountNumber}"></th>
+            <th scope="col" th:text="#{balance}"></th>
+            <th scope="col" th:text="#{status}"></th>
         </tr>
         <tr th:each="account : ${accounts}">
             <td scope="col" th:utext="${account.accNumber}">...</td>
             <td scope="col" th:utext="${account.balance}">...</td>
-            <td scope="col" th:utext="${account.status}">...</td>
+            <td scope="col" th:utext="${account.status}">
         </tr>
     </table>
 </div>
 <a th:href="@{/makeAccount}">
-    <button type="button" class="btn btn-dark">Make Account</button>
+    <button type="button" class="btn btn-dark" th:text="#{button.makeAccount}"></button>
 </a>
 <a th:href="@{/blockAccount}">
-    <button type="button" class="btn btn-dark">Block Account</button>
+    <button type="button" class="btn btn-dark" th:text="#{button.blockAccount}"></button>
 </a>
 <a th:href="@{/userOffice}">
-    <button type="button" class="btn btn-dark">My office</button>
+    <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>
 </a>
 
 

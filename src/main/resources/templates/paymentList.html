@@ -19,9 +19,9 @@
 <table class="table table-sm table-dark">
     <thead>
     <tr>
-        <th scope="col">Card Number</th>
-        <th scope="col">Account Number</th>
-        <th scope="col">balance</th>
+        <th scope="col" th:text="#{cardNumber}"></th>
+        <th scope="col" th:text="#{accountNumber}"></th>
+        <th scope="col" th:text="#{balance}"></th>
     </tr>
     <tr th:each="payment : ${payments}">
         <td scope="col" th:utext="${card.cardNumber}">...</td>
@@ -31,10 +31,10 @@
 </table>
 </div>
 <a th:href="@{/makePayment}">
-    <button type="button" class="btn btn-dark">Make new payment</button>
+    <button type="button" class="btn btn-dark" th:text="#{button.makePayment}"></button>
 </a>
 <a th:href="@{/userOffice}">
-    <button type="button" class="btn btn-dark">My office</button>
+    <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>
 </a>
 </body>
 </html>

@@ -25,13 +25,13 @@
         </option>
     </select>
     <input type="text" th:field="*{login}"/>
-    <input class="btn btn-dark" type="submit" value="Create"/>
+    <button class="btn btn-dark" type="submit" th:text="#{button.create}"/>
 </form>
 <a th:href="@{/cardList}">
-    <button type="submit" class="btn btn-dark">Back</button>
+    <button type="submit" class="btn btn-dark" th:text="#{button.back}"></button>
 </a>
 <a th:href="@{/userOffice}">
-    <button type="button" class="btn btn-dark">My office</button>
+    <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>
 </a>
 </body>
 

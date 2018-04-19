@@ -16,24 +16,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Change Password</h1>
+<h1 th:text="#{changePass}"></h1>
 <form th:action="@{/editProfilePage}"
       th:object="${profileForm}" method="POST">
-    Old Password
+
+    <lable th:text="#{oldPassword}">
     <input type="password" th:field="*{oldPassworld}"/>
+    </lable>
+
     <br/>
-    New password
+    <lable th:text="#{newPassword}">
     <input type="password" th:field="*{newPassworld}"/>
+    </lable>
+
     <br/>
-    Repeat new password
+    <lable th:text="#{repeatPassword}">
     <input type="password" th:field="*{repeatPassword}"/>
+    </lable>
+
     <br/>
     <br/>
-    <input class="btn btn-dark" type="submit" value="Create"/>
+    <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
 </form>
 
 <a th:href="@{/userOffice}">
-    <button type="button" class="btn btn-dark">My office</button>
+    <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>
 </a>
 </body>
 

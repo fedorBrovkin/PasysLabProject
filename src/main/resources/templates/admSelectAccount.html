@@ -18,13 +18,13 @@
 <body>
 <ul class="nav">
     <li class="nav-item">
-        <a class="nav-link disabled" th:href="@{/administrator}">Administrator</a>
+        <a class="nav-link  disabled" th:href="@{/administrator}" th:text="#{administrator}"></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link disabled" th:href="@{/admSelectUser}">Select User</a>
+        <a class="nav-link disabled" th:href="@{/admSelectUser}" th:text="#{selectUser}"></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link active " th:href="@{/admSelectAccount}">Select Account</a>
+        <a class="nav-link active" th:href="@{/admSelectAccount}" th:text="#{selectAccount}"></a>
     </li>
 </ul>
 
@@ -36,7 +36,7 @@
             ...
         </option>
     </select>
-    <input class="btn btn-dark" type="submit" value="Change Status"/>
+    <button class="btn btn-dark" type="submit" th:text="#{button.changeStatus}"/>
 </form>
 
 </body>

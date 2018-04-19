@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Make Payment</h1>
+<h1 th:text="#{button.makePayment}"></h1>
 <form th:action="@{/makePayment}"
       th:object="${paymentForm}" method="POST">
 
@@ -27,16 +27,15 @@
         </option>
     </select>
 
-    <div><label> Target Card <input type="text" th:field="*{targetCard}"/> </label></div>
+    <div><label th:text="#{targetCard}"></label><input type="text" th:field="*{targetCard}"/></div>
 
-    <div><label> Amount <input type="text" th:field="*{amount}"/> </label></div>
+    <div><label th:text="#{amount}"></label><input type="text" th:field="*{amount}"/></div>
 
-    <input class="btn btn-dark" type="submit" value="Make Payment"/>
+    <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
 </form>
 
 <a th:href="@{/userOffice}">
-    <button type="button" class="btn btn-dark">My office</button>
-    <button type="submit" class="btn btn-dark">Back</button>
+    <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>
 </a>
 
 </body>

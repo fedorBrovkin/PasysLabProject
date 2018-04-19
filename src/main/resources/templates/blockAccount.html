@@ -18,16 +18,18 @@
 <body>
 <form th:action="@{/blockAccount}"
       th:object="${accountForm}" method="POST">
+
     <select class="form-control" id="dropOperator" th:field="*{accNumber}">
         <option value="0" th:each="account:${accounts}" th:value="${account.accNumber}"
                 th:text="${account.currentCondition}">
             ...
         </option>
     </select>
-    <input class="btn btn-dark" type="submit" value="Submit"/>
+
+    <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
 </form>
 <a th:href="@{/userOffice}">
-    <button type="button" class="btn btn-dark">My office</button>
+    <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>
 </a>
 
 </body>

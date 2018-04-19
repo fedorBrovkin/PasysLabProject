@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class PaymentController {
+public class MakePaymentController {
 
     private final PaymentService paymentService;
     private final CreditCardService creditCardService;
     private final DataBaseUserDetailsService detailsService;
     private final UserService userService;
 
-    public PaymentController(PaymentService paymentService,
-                             CreditCardService creditCardService,
-                             DataBaseUserDetailsService detailsService,
-                             UserService userService) {
+    public MakePaymentController(PaymentService paymentService,
+                                 CreditCardService creditCardService,
+                                 DataBaseUserDetailsService detailsService,
+                                 UserService userService) {
         this.paymentService = paymentService;
         this.creditCardService = creditCardService;
         this.detailsService = detailsService;

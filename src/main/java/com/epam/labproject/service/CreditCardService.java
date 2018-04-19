@@ -50,7 +50,7 @@ public class CreditCardService {
     }
 
     public boolean checkStatus(CreditCard creditCard) {
-        return creditCard.getExpirationDate().isBefore(ChronoLocalDateTime.from(LocalDateTime.now()));
+        return creditCard.getExpirationDate().isAfter(ChronoLocalDateTime.from(LocalDateTime.now()));
     }
 
     public CreditCard findByNumber(int number) {

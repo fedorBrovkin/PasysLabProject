@@ -16,14 +16,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Card List</h1>
+<h1 th:text="#{cardList}"></h1>
 <div>
     <table class="table table-sm table-dark">
         <thead>
         <tr>
-            <th scope="col">Card Number</th>
-            <th scope="col">Account Number</th>
-            <th scope="col">balance</th>
+            <th scope="col" th:text="#{cardNumber}"></th>
+            <th scope="col" th:text="#{accountNumber}"></th>
+            <th scope="col" th:text="#{balance}"></th>
         </tr>
         <tr th:each ="card : ${cardList}">
             <td scope="col" th:utext="${card.cardNumber}">...</td>
@@ -32,11 +32,12 @@
         </tr>
     </table>
 </div>
-<a th:href="@{/makeCard}"><button type="button" class="btn btn-dark">Make card</button></a>
-<a th:href="@{/userOffice}">
-    <button type="button" class="btn btn-dark">My office</button>
+<a th:href="@{/makeCard}">
+    <button type="button" class="btn btn-dark" th:text="#{button.makeCard}"></button>
 </a>
-
+<a th:href="@{/userOffice}">
+    <button type="button" class="btn btn-dark" th:text="#{button.myOffice}">My office</button>
+</a>
 
 </body>
 
