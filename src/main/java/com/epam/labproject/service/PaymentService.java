@@ -17,22 +17,33 @@ import java.util.List;
 @Service
 public class PaymentService {
 
-  @Autowired
-  private PaymentRepository paymentRepository;
+  private final PaymentRepository paymentRepository;
+  private final AccountService accountService;
 
-  public void save(Payment payment) {
-    paymentRepository.save(payment);
+  @Autowired PaymentService(PaymentRepository paymentRepository, AccountService accountService){
+    this.paymentRepository=paymentRepository;
+    this.accountService = accountService;
   }
+
+  private void save(Payment payment) { paymentRepository.save(payment); }
 
   /**
    * Create payment.
    */
+  @Transactional(isolation = Isolation.REPEATABLE_READ)
   public void createPayment(@Valid Payment payment) throws PasysException{
-    if (makeTransfer(payment)) {
-      save(payment);
-    } else {
-
+    if (payment == null) {
+      return;
     }
+    if (payment.getAmount().compareTo(payment.getSource().getAccount().getBalance()) >= 1) {
+      throw new PasysException("No funds");//Message from bundle!!!!
+    }
+    accountService.findByNumber(payment.getSource().getAccount().getNumber())
+            .getBalance().subtract(payment.getAmount());
+    accountService.findByNumber(payment.getTarget().getAccount().getNumber())
+            .getBalance().subtract(payment.getAmount());
+    payment.setTime(LocalDateTime.now());
+    save(payment);
   }
 
     public List<Payment> findAllBySource(CreditCard creditCard) {
@@ -40,23 +51,4 @@ public class PaymentService {
       allBySource.sort(Comparator.comparing(Payment::getTime));
       return allBySource;
     }
-
-  @Transactional(isolation = Isolation.REPEATABLE_READ)
-  protected boolean makeTransfer(Payment payment) throws PasysException{
-    if (payment != null) {
-      if (payment.getAmount().compareTo(payment.getSource().getAccount().getBalance()) < 1) {
-        payment.getSource().getAccount()
-                .setBalance(payment.getSource().getAccount().getBalance()
-                        .subtract(payment.getAmount()));
-        payment.getTarget().getAccount()
-            .setBalance(payment.getTarget().getAccount().getBalance()
-                    .add(payment.getAmount()));
-        payment.setTime(LocalDateTime.now());
-        return true;
-      }else{
-          throw new PasysException("No funds");//Message from bundle!!!!
-      }
-    }
-    return false;
-  }
 }
