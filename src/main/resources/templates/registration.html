@@ -1,5 +1,5 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -13,34 +13,45 @@
             integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
             crossorigin="anonymous"></script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="../../resources/static/logo.png">
+
+    <title>Pysys Registration</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../resources/static/loginStyle.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{../static/loginStyle.css}" rel="stylesheet">
 </head>
-<body>
-<h1 th:text="#{registration}"></h1>
+<body class="text-center">
 
-<form th:action="@{/registration}"
-      th:object="${user}" method="POST">
+<form class="form-signin" th:action="@{/registration}" th:object="${user}" method="post" shrink-to-fit=no>
+    <img class="mb-4" src="../../resources/static/logo.png" th:src="@{../static/logo.png}" height="200">
+    <h1 class="h3 mb-3 font-weight-normal" th:text="#{registration}"></h1>
+    <label for="inputLogin" class="sr-only" th:text="#{login}"></label>
+    <input type="text" name="username" th:field="*{login}" id="inputLogin" class="form-control" th:placeholder="#{login}" required autofocus>
+    <label for="inputPassword" th:field="*{password}" class="sr-only" th:text="#{password}"></label>
+    <input type="password" id="inputPassword" name="password" class="form-control" th:placeholder="#{password}" required>
 
-    <label th:text="#{login}"></label>
-    <input type="text" th:field="*{login}" />
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <a th:href="@{/login}" class="btn btn-lg btn-block btn-dark" th:text="#{button.back}"/>
+        </div><div>
 
-    <br/>
-    <label th:text="#{password}"></label>
-    <input type="password" th:field="*{password}"/>
-
-    <br/>
-
-    <button class="btn btn-dark" type="submit" th:text="#{button.create}"/>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <button class="btn btn-lg btn-block btn-success" type="submit" th:text="#{button.create}"/>
+        </div>
+    </div>
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <div th:if="${param.logout}">
+        You have been logged out.
+    </div>
+    <p class="mt-5 mb-3 text-muted">EPAM 2018</p>
 </form>
-
-<br/>
-
-<!-- Check if errorMessage is not null and not empty -->
-
-<div th:if="${hasErrorMessage}" th:utext="#{error.message}"
-     style="color:red;font-style:italic;">
-    ...
-</div>
-
 </body>
 </html>
