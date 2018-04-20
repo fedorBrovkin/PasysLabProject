@@ -55,4 +55,22 @@ public class Payment extends AbstractIdentifiableEntity {
   public void setTime(LocalDateTime time) {
     this.time = time;
   }
+
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!(obj instanceof Payment))
+      return false;
+    if (obj == null) // not need
+      return false;
+    if (this.amount == ((Payment) obj).getAmount() &
+            this.time.equals(((Payment) obj).getTime()) &
+            this.source.equals(((Payment) obj).getSource()) &
+            this.target.equals(((Payment) obj).getTarget())) {
+      return true;
+    }
+    return false;
+  }
 }

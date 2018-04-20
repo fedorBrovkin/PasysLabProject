@@ -31,7 +31,7 @@ class RegistrationController {
     }
 
     @GetMapping(value = {"/", "/index"})
-  public String index(Model model) {
+    public String index(Model model) {
         String currentUser = userDetailsService.getCurrentUsername();
         Set<GrantedAuthority> authirities = new HashSet(userDetailsService.loadUserByUsername(currentUser).getAuthorities());
         for (GrantedAuthority a : authirities) {
@@ -39,8 +39,8 @@ class RegistrationController {
                 return "redirect:administrator";
             }
         }
-    return "index";
-  }
+        return "index";
+    }
 
 
     @GetMapping(value = {"/registration"})

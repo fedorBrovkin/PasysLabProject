@@ -18,9 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 public class UserOfficeControllerTests {
 
-    @MockBean
-    private DataBaseUserDetailsService dataBaseUserDetailsService;
-
     private MockMvc mockMvc;
 
     @Before
@@ -29,7 +26,7 @@ public class UserOfficeControllerTests {
         viewResolver.setPrefix("classpath:templates/");
         viewResolver.setSuffix(".html");
 
-        mockMvc = MockMvcBuilders.standaloneSetup(new UserOfficeController(dataBaseUserDetailsService))
+        mockMvc = MockMvcBuilders.standaloneSetup(new UserOfficeController())
                 .setViewResolvers(viewResolver)
                 .build();
     }

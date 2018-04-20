@@ -1,12 +1,10 @@
 package com.epam.labproject.service;
 
-
 import com.epam.labproject.entity.Role;
 import com.epam.labproject.repository.RoleRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +27,6 @@ public class RoleServiceTests {
     private RoleRepository roleRepository;
 
     @Autowired
-    @InjectMocks
     private RoleService roleService;
 
     private Role role;
@@ -43,14 +40,14 @@ public class RoleServiceTests {
     }
 
     @Test
-    public void saveNullRole() {
+    public void testSaveNullRole() {
         roleService.save(null);
 
         verify(roleRepository, never()).save(any());
     }
 
     @Test
-    public void saveRoleWithEmptyName() {
+    public void testSaveRoleWithEmptyName() {
         role.setName("");
         Mockito.when(roleRepository.findByName(TEST_ROLE_NAME))
                 .thenReturn(role);
@@ -62,14 +59,14 @@ public class RoleServiceTests {
 
 
     @Test
-    public void saveExistedRole() {
+    public void testSaveExistedRole() {
         roleService.save(role);
 
         verify(roleRepository, never()).save(any());
     }
 
     @Test
-    public void saveRole() {
+    public void testSaveRole() {
         Mockito.when(roleRepository.findByName(TEST_ROLE_NAME))
                 .thenReturn(null);
 
@@ -79,7 +76,7 @@ public class RoleServiceTests {
     }
 
     @Test
-    public void findByName() {
+    public void testFindByName() {
         Mockito.when(roleRepository.findByName(TEST_ROLE_NAME))
                 .thenReturn(role);
         Role found = roleService.findByName(TEST_ROLE_NAME);
@@ -91,7 +88,7 @@ public class RoleServiceTests {
     }
 
     @Test
-    public void deleteNullRole() {
+    public void testDeleteNullRole() {
         roleService.delete(null);
 
         verify(roleRepository, never()).findByName(any());
@@ -99,7 +96,7 @@ public class RoleServiceTests {
     }
 
     @Test
-    public void deleteNotExistedRole() {
+    public void testDeleteNotExistedRole() {
         Mockito.when(roleRepository.findByName(TEST_ROLE_NAME))
                 .thenReturn(null);
 
@@ -110,7 +107,7 @@ public class RoleServiceTests {
     }
 
     @Test
-    public void deleteExistedRole() {
+    public void testDeleteExistedRole() {
         roleService.delete(role);
 
         verify(roleRepository, times(1)).findByName(TEST_ROLE_NAME);

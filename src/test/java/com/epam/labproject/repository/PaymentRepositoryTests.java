@@ -90,7 +90,7 @@ public class PaymentRepositoryTests {
     }
 
     @Test
-    public void findAllBySource() {
+    public void testFindAllBySource() {
         List<Payment> foundPayments = paymentRepository.findAllBySource(source);
         assertNotNull(foundPayments);
         assertThat(foundPayments, hasSize(3));
@@ -98,7 +98,15 @@ public class PaymentRepositoryTests {
     }
 
     @Test
-    public void findAllBySourceAndTarget() {
+    public void testFindAllByTarget() {
+        List<Payment> foundPayments = paymentRepository.findAllByTarget(target);
+        assertNotNull(foundPayments);
+        assertThat(foundPayments, hasSize(2));
+        assertThat(foundPayments, containsInAnyOrder(payments.get(0), payments.get(1)));
+    }
+
+    @Test
+    public void testFindAllBySourceAndTarget() {
         List<Payment> foundPayments = paymentRepository.findAllBySourceAndTarget(source, target);
         assertNotNull(foundPayments);
         assertThat(foundPayments, hasSize(2));

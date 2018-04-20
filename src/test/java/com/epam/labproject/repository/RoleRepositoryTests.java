@@ -19,7 +19,7 @@ public class RoleRepositoryTests {
   private RoleRepository roleRepository;
 
   @Test
-  public void findByName() {
+  public void testFindByName() {
     Role admin = new Role();
     admin.setName(TEST_ROLE_NAME);
     roleRepository.save(admin);

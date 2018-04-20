@@ -68,13 +68,13 @@ public class AccountService {
      *
      * @param accountNumber target card number.
      */
-    public void giveMoney(int accountNumber) throws PasysException{
-        Account account=accountRepository.findByNumber(accountNumber);
-        if(account!=null&&account.isStatus()){
-            BigDecimal balance=account.getBalance();
+    public void giveMoney(int accountNumber) throws PasysException {
+        Account account = accountRepository.findByNumber(accountNumber);
+        if (account != null && account.isStatus()) {
+            BigDecimal balance = account.getBalance();
             account.setBalance(balance.add(new BigDecimal(10000)));
             accountRepository.save(account);
-        }else{
+        } else {
             throw new PasysException();///Account is blocked message
         }
     }
@@ -119,8 +119,9 @@ public class AccountService {
      */
     public double getBalance(int accountNumber) {
         Account account = accountRepository.findByNumber(accountNumber);
-        if (account != null)
+        if (account != null) {
             return account.getBalance().doubleValue();
+        }
         return 0.0;
     }
 

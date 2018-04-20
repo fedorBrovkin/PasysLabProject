@@ -2,11 +2,11 @@ package com.epam.labproject.service;
 
 import com.epam.labproject.entity.Role;
 import com.epam.labproject.entity.User;
+import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,7 +36,6 @@ public class UserServiceTests {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    @InjectMocks
     private UserService userService;
 
     private User user;
@@ -56,14 +55,14 @@ public class UserServiceTests {
         role = new Role();
         role.setName(DEFAULT_ROLE_NAME);
         Mockito.when(roleService.findByName(DEFAULT_ROLE_NAME))
-            .thenReturn(role);
+                .thenReturn(role);
 
         Mockito.when(passwordEncoder.encode(TEST_USER_PASSWORD))
                 .thenReturn(TEST_USER_ENCODED_PASSWORD);
     }
 
     @Test
-    public void getUser() {
+    public void testGetUser() {
         User found = userService.getUser(TEST_USER_LOGIN);
 
         verify(userRepository, times(1)).findByLogin(TEST_USER_LOGIN);
@@ -72,14 +71,15 @@ public class UserServiceTests {
     }
 
     @Test
-    public void save() {
+    public void testSave() {
         userService.save(user);
 
         verify(userRepository, times(1)).save(user);
     }
 
+
     @Test
-    public void createAnotherUser() {
+    public void testCreateAnotherUser() throws PasysException {
         user.setLogin(ANOTHER_TEST_USER_LOGIN);
         userService.createUser(user);
 
@@ -92,8 +92,8 @@ public class UserServiceTests {
         verify(userRepository, times(1)).save(user);
     }
 
-    @Test
-    public void createAlreadyExistedUser() {
+    @Test(expected = PasysException.class)
+    public void testCreateAlreadyExistedUser() throws PasysException {
         userService.createUser(user);
 
         verify(userRepository, times(1)).findByLogin(TEST_USER_LOGIN);
@@ -103,7 +103,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void deleteExistedUser() {
+    public void testDeleteExistedUser() {
         userService.delete(TEST_USER_LOGIN);
 
         verify(userRepository, times(1)).findByLogin(TEST_USER_LOGIN);
@@ -111,7 +111,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void deleteNotExistedUser() {
+    public void testDeleteNotExistedUser() {
         Mockito.when(userRepository.findByLogin(TEST_USER_LOGIN))
                 .thenReturn(null);
 
@@ -122,7 +122,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void changeRole() {
+    public void testChangeRole() throws PasysException {
         userService.changeRole(TEST_USER_LOGIN, DEFAULT_ROLE_NAME);
 
         user.setRole(role);
@@ -131,8 +131,8 @@ public class UserServiceTests {
         verify(userRepository, times(1)).save(user);
     }
 
-    @Test
-    public void changeRoleWithNotExistedUser() {
+    @Test(expected = PasysException.class)
+    public void testChangeRoleWithNotExistedUser() throws PasysException {
         Mockito.when(userRepository.findByLogin(TEST_USER_LOGIN))
                 .thenReturn(null);
 
@@ -144,8 +144,8 @@ public class UserServiceTests {
         verify(userRepository, never()).save(user);
     }
 
-    @Test
-    public void changeRoleWithNotExistedRole() {
+    @Test(expected = PasysException.class)
+    public void testChangeRoleWithNotExistedRole() throws PasysException {
         Mockito.when(roleService.findByName(DEFAULT_ROLE_NAME))
                 .thenReturn(null);
 
@@ -158,7 +158,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void changePassword() {
+    public void testChangePassword() {
         userService.changePassword(TEST_USER_LOGIN, TEST_USER_PASSWORD);
 
         user.setPassword(TEST_USER_ENCODED_PASSWORD);
@@ -168,7 +168,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void changePasswordWithNotExistedUser() {
+    public void testChangePasswordWithNotExistedUser() {
         Mockito.when(userRepository.findByLogin(TEST_USER_LOGIN))
                 .thenReturn(null);
 

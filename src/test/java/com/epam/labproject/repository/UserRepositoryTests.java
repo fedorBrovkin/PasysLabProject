@@ -19,7 +19,7 @@ public class UserRepositoryTests {
   private UserRepository userRepository;
 
   @Test
-  public void findByLogin() {
+  public void testFindByLogin() {
     User alex = new User();
     alex.setLogin(TEST_USER_LOGIN);
     userRepository.save(alex);

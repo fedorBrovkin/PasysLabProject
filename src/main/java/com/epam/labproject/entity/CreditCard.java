@@ -1,4 +1,6 @@
 package com.epam.labproject.entity;
+import com.epam.labproject.form.CardForm;
+
 import java.util.Date;
 import java.time.LocalDateTime;
 
@@ -60,5 +62,22 @@ public class CreditCard extends AbstractIdentifiableEntity {
 
   public void setNumber(int number) {
     this.number = number;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!(obj instanceof CreditCard))
+      return false;
+    if (obj == null) // not need
+      return false;
+    if (this.number == ((CreditCard)obj).getNumber() &
+            this.cvc == ((CreditCard) obj).getCvc() &
+            this.expirationDate.equals(((CreditCard) obj).getExpirationDate()) &
+            this.account.equals(((CreditCard) obj).getAccount())) {
+      return true;
+    }
+    return false;
   }
 }

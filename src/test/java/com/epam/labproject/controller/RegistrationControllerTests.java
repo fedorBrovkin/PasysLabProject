@@ -1,6 +1,8 @@
 package com.epam.labproject.controller;
 
 import com.epam.labproject.entity.User;
+import com.epam.labproject.exception.PasysException;
+import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +28,9 @@ public class RegistrationControllerTests {
     @MockBean
     private UserService userService;
 
+    @MockBean
+    private DataBaseUserDetailsService userDetailsService;
+
     private MockMvc mockMvc;
 
     @Before
@@ -34,23 +39,9 @@ public class RegistrationControllerTests {
         viewResolver.setPrefix("classpath:templates/");
         viewResolver.setSuffix(".html");
 
-        mockMvc = MockMvcBuilders.standaloneSetup(new RegistrationController(userService))
+        mockMvc = MockMvcBuilders.standaloneSetup(new RegistrationController(userService, userDetailsService))
                 .setViewResolvers(viewResolver)
                 .build();
-    }
-
-    @Test
-    public void testRoot() throws Exception {
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"));
-    }
-
-    @Test
-    public void testIndex() throws Exception {
-        mockMvc.perform(get("/index"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"));
     }
 
     @Test
