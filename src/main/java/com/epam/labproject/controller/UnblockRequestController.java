@@ -27,12 +27,15 @@ public class UnblockRequestController {
     List<UnblockRequestForm> requests = UnblockRequestForm
         .getFormList(requestService.findAllRequest());
     model.addAttribute("requests", requests);
+    model.addAttribute("unblockRequestForm", new UnblockRequestForm());
     return "admUnblockRequest";
   }
 
   @PostMapping("/admUnblockRequest")
   public String changeStatus(@ModelAttribute("unblockRequestForm") UnblockRequestForm requestForm) {
-    accountService.changeStatus(requestForm.getAccNumber());
+    int accNumber = requestForm.getAccNumber();
+    accountService.changeStatus(accNumber);
+    requestService.delete(accNumber);
     return "redirect:admUnblockRequest";
   }
 

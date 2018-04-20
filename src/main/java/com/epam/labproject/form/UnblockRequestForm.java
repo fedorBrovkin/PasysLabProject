@@ -13,6 +13,9 @@ public class UnblockRequestForm {
   private int accNumber;
   private String currentCondition;
 
+  public UnblockRequestForm() {
+  }
+
   public UnblockRequestForm(String username, String time, int accNumber) {
     this.username = username;
     this.time = time;

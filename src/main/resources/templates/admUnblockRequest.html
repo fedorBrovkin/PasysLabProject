@@ -33,7 +33,7 @@
 
 <form th:action="@{/admUnblockRequest}"
       th:object="${unblockRequestForm}" method="POST">
-  <select class="form-control" id="dropOperator">
+  <select class="form-control" id="dropOperator" th:field="*{accNumber}">
     <option value="0" th:each="request:${requests}" th:value="${request.accNumber}"
             th:text="${request.currentCondition}">
       ...
