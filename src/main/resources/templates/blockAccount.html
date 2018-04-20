@@ -26,7 +26,19 @@
         </option>
     </select>
 
-    <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
+  <button class="btn btn-dark" type="submit" th:text="#{button.blockAccount}"/>
+</form>
+<form th:action="@{/unblockAccount}"
+      th:object="${unblockAccountForm}" method="POST">
+
+  <select class="form-control" id="dropOperator" th:field="*{accNumber}">
+    <option value="0" th:each="account:${blockedAccounts}" th:value="${account.accNumber}"
+            th:text="${account.currentCondition}">
+      ...
+    </option>
+  </select>
+
+  <button class="btn btn-dark" type="submit" th:text="#{button.makeRequest}"/>
 </form>
 <a th:href="@{/userOffice}">
     <button type="button" class="btn btn-dark" th:text="#{button.myOffice}"></button>

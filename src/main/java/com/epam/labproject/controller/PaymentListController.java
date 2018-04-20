@@ -8,13 +8,12 @@ import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.PaymentService;
 import com.epam.labproject.service.UserService;
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 @Controller
 public class PaymentListController {
@@ -22,7 +21,6 @@ public class PaymentListController {
     private final DataBaseUserDetailsService detailsService;
     private final UserService userService;
     private final CreditCardService cardService;
-    private CardForm cardForm;
 
     public PaymentListController(PaymentService paymentService,
                                  DataBaseUserDetailsService detailsService,
@@ -44,18 +42,17 @@ public class PaymentListController {
     }
 
     @PostMapping("/selectCardForPaymentHistory")
-    public String selectCard(@ModelAttribute CardForm cardForm) {
-        int cardNumber = cardForm.getCardNumber();
-        this.cardForm = cardForm;
-        return "redirect:paymentList";
+    public String selectCard(Model model, @ModelAttribute CardForm cardForm) {
+        CreditCard creditCard = cardService.findByNumber(cardForm.getCardNumber());
+        List<PaymentListForm> payments = PaymentListForm.getPaymentList(paymentService.findAllMyPayments(creditCard),
+            creditCard);
+        model.addAttribute("payments", payments);
+        return "paymentList";
     }
 
     @GetMapping("/paymentList")
     public String showPaymentList(Model model) {
-        CreditCard creditCard = cardService.findByNumber(this.cardForm.getCardNumber());
-        List<PaymentListForm> payments = PaymentListForm.getPaymentList(paymentService.findAllMyPayments(creditCard),
-                creditCard);
-        model.addAttribute("payments", payments);
+
         return "/paymentList";
     }
 

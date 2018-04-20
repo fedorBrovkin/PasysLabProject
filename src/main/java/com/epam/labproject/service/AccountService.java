@@ -5,14 +5,11 @@ import com.epam.labproject.entity.Account;
 import com.epam.labproject.entity.User;
 import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.repository.AccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService {
@@ -47,6 +44,14 @@ public class AccountService {
         return accountRepository
                 .findAllByUserAndStatusIsTrue(userService.getUser(login));
     }
+
+  /**
+   * RETURN LIST OF Blocked ACCOUNTS for current User
+   */
+  public List<Account> findAllByUserByUserNameAndStatusFalse(String login) {
+    return accountRepository
+        .findAllByUserAndStatusIsFalse(userService.getUser(login));
+  }
 
     public void createAccount(String login) {
         User user = userService.getUser(login);

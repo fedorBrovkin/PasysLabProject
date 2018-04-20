@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 class RegistrationController {
 
     private final UserService userService;
-    private DataBaseUserDetailsService userDetailsService;
+    private final DataBaseUserDetailsService userDetailsService;
 
     public RegistrationController(UserService userService, DataBaseUserDetailsService userDetailsService) {
         this.userService = userService;

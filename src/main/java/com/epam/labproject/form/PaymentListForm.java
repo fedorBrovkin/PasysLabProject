@@ -3,7 +3,6 @@ package com.epam.labproject.form;
 
 import com.epam.labproject.entity.CreditCard;
 import com.epam.labproject.entity.Payment;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class PaymentListForm {
     }
 
     private static boolean isTarget(Payment payment, CreditCard creditCard) {
-        return payment.getSource().getNumber() == creditCard.getNumber();
+        return payment.getTarget().getNumber() == creditCard.getNumber();
     }
 
     public int getSource() {

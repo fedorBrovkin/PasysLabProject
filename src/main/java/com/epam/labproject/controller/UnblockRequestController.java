@@ -1,0 +1,39 @@
+package com.epam.labproject.controller;
+
+import com.epam.labproject.form.UnblockRequestForm;
+import com.epam.labproject.service.AccountService;
+import com.epam.labproject.service.UnblockRequestService;
+import java.util.List;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@Controller
+public class UnblockRequestController {
+
+  private final UnblockRequestService requestService;
+  private final AccountService accountService;
+
+  public UnblockRequestController(UnblockRequestService requestService,
+      AccountService accountService) {
+    this.requestService = requestService;
+    this.accountService = accountService;
+  }
+
+  @GetMapping("/admUnblockRequest")
+  public String showUnblockRequest(Model model) {
+    List<UnblockRequestForm> requests = UnblockRequestForm
+        .getFormList(requestService.findAllRequest());
+    model.addAttribute("requests", requests);
+    return "admUnblockRequest";
+  }
+
+  @PostMapping("/admUnblockRequest")
+  public String changeStatus(@ModelAttribute("unblockRequestForm") UnblockRequestForm requestForm) {
+    accountService.changeStatus(requestForm.getAccNumber());
+    return "redirect:admUnblockRequest";
+  }
+
+}
