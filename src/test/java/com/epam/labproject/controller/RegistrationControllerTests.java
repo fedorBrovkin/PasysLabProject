@@ -43,6 +43,20 @@ public class RegistrationControllerTests {
                 .setViewResolvers(viewResolver)
                 .build();
     }
+//
+//    @Test//(expected = PasysException.class)
+//    public void testRoot() throws Exception {
+//        mockMvc.perform(get("/"))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("index"));
+//    }
+
+    @Test//(expected = PasysException.class)
+    public void testIndex() throws Exception {
+        mockMvc.perform(get("/index"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"));
+    }
 
     @Test
     public void testGetRegistration() throws Exception {

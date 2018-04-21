@@ -1,7 +1,4 @@
 package com.epam.labproject.entity;
-import com.epam.labproject.form.CardForm;
-
-import java.util.Date;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
