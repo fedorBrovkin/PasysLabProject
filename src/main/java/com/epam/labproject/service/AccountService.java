@@ -66,21 +66,21 @@ public class AccountService {
     return accountRepository.findAllByUser(user);
   }
 
-  /**
-   * Admin fixed transaction to target card.
-   *
-   * @param accountNumber target card number.
-   */
-  public void giveMoney(int accountNumber) throws PasysException {
-    Account account = accountRepository.findByNumber(accountNumber);
-    if (account != null && account.isStatus()) {
-      BigDecimal balance = account.getBalance();
-      account.setBalance(balance.add(new BigDecimal(10000)));
-      accountRepository.save(account);
-    } else {
-      throw new PasysException();///Account is blocked message
+    /**
+     * Admin fixed transaction to target card.
+     *
+     * @param accountNumber target card number.
+     */
+    public void giveMoney(int accountNumber) throws PasysException{
+        Account account=accountRepository.findByNumber(accountNumber);
+        if(account!=null&&account.isStatus()){
+            BigDecimal balance=account.getBalance();
+            account.setBalance(balance.add(new BigDecimal(10000)));
+            accountRepository.save(account);
+        }else{
+          throw new PasysException("?accountBlocked");
+        }
     }
-  }
 
   /**
    * Changing account status for currentAccount

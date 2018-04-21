@@ -69,8 +69,8 @@ public class CreditCardService {
 
     if (user != null && account != null && account.isStatus()) {
     } else {
-      throw new PasysException();
-    }//User not found
+      throw new PasysException(PasysException.USER_NOT_FOUND);
+    }
 
     CreditCard creditCard = new CreditCard();
     creditCard.setAccount(account);
@@ -110,21 +110,39 @@ public class CreditCardService {
   public void doPayment(int sourceNumber, int targetNumber, double amount) throws PasysException {
     CreditCard source = this.findByNumber(sourceNumber);
     CreditCard target = this.findByNumber(targetNumber);
-
-    if (source != null && this.isAccountActive(source) && this.checkStatus(source)) {
-    } else {
-      throw new PasysException();
-    }//Account is blocked or card is out of date
-
-    if (target != null && this.isAccountActive(target) && this.checkStatus(target)) {
-    } else {
-      throw new PasysException();
-    }//Accouny blocked or card is out of date
+    validatePayment(source, target);
 
     Payment payment = new Payment();
     payment.setSource(source);
     payment.setTarget(target);
     payment.setAmount(new BigDecimal(amount));
     paymentService.createPayment(payment);
+  }
+
+  private void validatePayment(CreditCard source, CreditCard target) throws PasysException {
+    if (source != null) {
+    } else {
+      throw new PasysException(PasysException.CREDIT_CARD_NOT_CHOSEN);
+    }
+    if (this.isAccountActive(source)) {
+    } else {
+      throw new PasysException(PasysException.SOURCE_ACCOUNT_IS_BLOCKED);
+    }
+    if (this.checkStatus(source)) {
+    } else {
+      throw new PasysException(PasysException.SOURCE_CREDIT_CARD_IS_OUT_DATE);
+    }
+    if (target != null) {
+    } else {
+      throw new PasysException(PasysException.TARGET_CARD_NOT_CHOSEN);
+    }
+    if (this.checkStatus(target)) {
+    } else {
+      throw new PasysException(PasysException.TARGET_ACCOUNT_IS_BLOCKED);
+    }
+    if (this.isAccountActive(target)) {
+    } else {
+      throw new PasysException(PasysException.TARGET_CARD_IS_OUT_DATE);
+    }
   }
 }

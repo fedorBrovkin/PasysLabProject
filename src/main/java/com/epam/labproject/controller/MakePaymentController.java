@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MakePaymentController {
@@ -30,6 +31,7 @@ public class MakePaymentController {
    * @param detailsService Injected instance
    * @param userService Injected instance
    */
+
   public MakePaymentController(PaymentService paymentService,
       CreditCardService creditCardService,
       DataBaseUserDetailsService detailsService,
@@ -45,13 +47,15 @@ public class MakePaymentController {
    * @param model instance
    * @return
    */
-  @GetMapping("/makePayment")
-  public String showPaymentPage(Model model) {
+
+  @GetMapping(value = {"/makePayment"})
+  public String showPaymentPage(Model model,
+      @RequestParam(value = "error", required = false) String error) {
     List<CreditCard> cardList = userService.getUser(detailsService.getCurrentUsername()).getCards();
     PaymentForm paymentForm = new PaymentForm();
     model.addAttribute("paymentForm", paymentForm);
     model.addAttribute("cards", CardForm.getCardFormList(cardList));
-
+    setAllert(model, error);
     return "makePayment";
   }
 
@@ -64,13 +68,27 @@ public class MakePaymentController {
   @PostMapping("/makePayment")
   public String makePayment(Model model, @ModelAttribute("paymentForm") PaymentForm paymentForm) {
     try {
-      creditCardService.doPayment(paymentForm.getSourceCard(),
-          Integer.parseInt(paymentForm.getTargetCard()),
-          Double.parseDouble(paymentForm.getAmount()));
+      creditCardService.doPayment(paymentForm.getSource(),
+          paymentForm.getTarget(),
+          paymentForm.getAmount());
     } catch (PasysException e) {
-      e.printStackTrace();
-      return e.getMessage();
+      return "redirect:makePayment" + e.getMessage();
     }
     return "redirect:/userOffice";
+  }
+
+  private boolean setAllert(Model model, String error) {
+    if (error != null) {
+      model.addAttribute("noSource", error.equals(PasysException.CREDIT_CARD_NOT_CHOSEN));
+      model.addAttribute("sourceBlocked", error.equals(PasysException.SOURCE_ACCOUNT_IS_BLOCKED));
+      model.addAttribute("sourceOutDate",
+          error.equals(PasysException.SOURCE_CREDIT_CARD_IS_OUT_DATE));
+      model.addAttribute("targetBlocked", error.equals(PasysException.TARGET_ACCOUNT_IS_BLOCKED));
+      model.addAttribute("noTarget", error.equals(PasysException.TARGET_CARD_NOT_CHOSEN));
+      model.addAttribute("targetOutDate", error.equals(PasysException.TARGET_CARD_IS_OUT_DATE));
+      model.addAttribute("noMoney", error.equals(PasysException.NOT_ENOUGHT_MONEY_ON_ACCOUNT));
+      return true;
+    }
+    return false;
   }
 }

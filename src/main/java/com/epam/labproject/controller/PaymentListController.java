@@ -3,6 +3,7 @@ package com.epam.labproject.controller;
 import com.epam.labproject.entity.CreditCard;
 import com.epam.labproject.entity.User;
 import com.epam.labproject.form.CardForm;
+import com.epam.labproject.form.PaymentForm;
 import com.epam.labproject.form.PaymentListForm;
 import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;
@@ -60,11 +61,11 @@ public class PaymentListController {
    * @param cardForm instance
    * @return
    */
-  @PostMapping("/selectCardForPaymentHistory")
-  public String selectCard(Model model, @ModelAttribute CardForm cardForm) {
-    CreditCard creditCard = cardService.findByNumber(cardForm.getCardNumber());
-    List<PaymentListForm> payments = PaymentListForm
-        .getPaymentList(paymentService.findAllMyPayments(creditCard),
+    @PostMapping("/selectCardForPaymentHistory")
+    public String selectCard(Model model, @ModelAttribute CardForm cardForm) {
+        CreditCard creditCard = cardService.findByNumber(cardForm.getCardNumber());
+      List<PaymentForm> payments = PaymentForm
+          .getPaymentList(paymentService.findAllMyPayments(creditCard),
             creditCard);
     model.addAttribute("payments", payments);
     return "paymentList";

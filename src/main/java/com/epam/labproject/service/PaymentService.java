@@ -48,7 +48,7 @@ public class PaymentService {
     BigDecimal paymentBalance = sourceAccount.getBalance();
 
     if (payment.getAmount().compareTo(paymentBalance) >= 1) {
-      throw new PasysException("No funds");
+      throw new PasysException(PasysException.NOT_ENOUGHT_MONEY_ON_ACCOUNT);
     }
 
     sourceAccount.setBalance(sourceAccount.getBalance().subtract(payment.getAmount()));
