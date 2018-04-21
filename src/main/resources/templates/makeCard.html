@@ -24,6 +24,8 @@
             ...
         </option>
     </select>
+  <div th:if="${noUser}" class="alert alert-danger" role="alert"
+       th:text="#{accountNumber}+': '+${account.accNumber}+' '+#{balance}+': '+${account.balance}"></div>
     <input type="text" th:field="*{login}" required m/>
     <button class="btn btn-dark" type="submit" th:text="#{button.create}"/>
 </form>

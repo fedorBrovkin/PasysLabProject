@@ -26,7 +26,8 @@
     <br/>
     <lable th:text="#{newPassword}"></lable>
     <input type="password" th:field="*{newPassworld}"/>
-
+    <div th:if="${error}" class="alert alert-danger" role="alert"
+         th:text="#{pasNotMuch}"></div>
     <br/>
     <lable th:text="#{repeatPassword}"></lable>
     <input type="password" th:field="*{repeatPassword}"/>

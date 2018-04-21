@@ -10,6 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface UnblockRequestRepository extends JpaRepository<UnblockRequest, Long> {
 
   public List<UnblockRequest> findAll();
-
   public UnblockRequest findByAccount(Account account);
 }
