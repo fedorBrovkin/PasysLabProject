@@ -5,16 +5,15 @@ import com.epam.labproject.entity.CreditCard;
 import com.epam.labproject.entity.Payment;
 import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.repository.PaymentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PaymentService {
@@ -44,7 +43,7 @@ public class PaymentService {
     BigDecimal paymentBalance=sourceAccount.getBalance();
 
     if (payment.getAmount().compareTo(paymentBalance) >= 1) {
-      throw new PasysException("No funds");
+      throw new PasysException(PasysException.NOT_ENOUGHT_MONEY_ON_ACCOUNT);
     }
 
     sourceAccount.setBalance(sourceAccount.getBalance().subtract(payment.getAmount()));

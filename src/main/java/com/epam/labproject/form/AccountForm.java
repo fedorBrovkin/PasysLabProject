@@ -2,7 +2,6 @@ package com.epam.labproject.form;
 
 
 import com.epam.labproject.entity.Account;
-
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +12,8 @@ public class AccountForm {
     private String status;
     private String currentCondition;
 
-    public AccountForm() {
+
+  public AccountForm() {
     }
 
     public AccountForm(int accNumber, double balance, boolean status) {

@@ -29,6 +29,8 @@
 
 <form class="form-signin" th:action="@{/registration}" th:object="${user}" method="post" shrink-to-fit=no>
     <img class="mb-4" src="../../resources/static/logo.png" th:src="@{../static/logo.png}" height="200">
+    <div th:if="${error}" class="alert alert-danger" role="alert"
+         th:text="#{userAlreadyExist}"></div>
     <h1 class="h3 mb-3 font-weight-normal" th:text="#{registration}"></h1>
     <label for="inputLogin" class="sr-only" th:text="#{login}"></label>
     <input type="text" name="username" th:field="*{login}" id="inputLogin" class="form-control" th:placeholder="#{login}" required autofocus>
@@ -44,12 +46,6 @@
         <div class="col-xs-6 col-sm-6 col-md-6">
             <button class="btn btn-lg btn-block btn-success" type="submit" th:text="#{button.create}"/>
         </div>
-    </div>
-    <div th:if="${param.error}">
-        Invalid username and password.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
     </div>
     <p class="mt-5 mb-3 text-muted">EPAM 2018</p>
 </form>

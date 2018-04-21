@@ -24,7 +24,7 @@
             ...
         </option>
     </select>
-    <input type="text" th:field="*{login}"/>
+    <input type="text" th:field="*{login}" required m/>
     <button class="btn btn-dark" type="submit" th:text="#{button.create}"/>
 </form>
 <a th:href="@{/cardList}">
