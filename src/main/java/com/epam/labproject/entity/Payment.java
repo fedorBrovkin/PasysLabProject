@@ -1,15 +1,20 @@
 package com.epam.labproject.entity;
 
-import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Positive;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "payment")
 public class Payment extends AbstractIdentifiableEntity {
-
   @ManyToOne
   @JoinColumn(name = "source_id")
   private CreditCard source;
@@ -56,21 +61,31 @@ public class Payment extends AbstractIdentifiableEntity {
     this.time = time;
   }
 
-
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (!(obj instanceof Payment))
-      return false;
-    if (obj == null) // not need
-      return false;
-    if (this.amount == ((Payment) obj).getAmount() &
-            this.time.equals(((Payment) obj).getTime()) &
-            this.source.equals(((Payment) obj).getSource()) &
-            this.target.equals(((Payment) obj).getTarget())) {
+    if (this == obj) {
+        return true;
+    }
+    if (!(obj instanceof Payment)) {
+        return false;
+    }
+    Payment other = (Payment) obj;
+    if (this.amount != null && this.amount.equals(other.getAmount()) &&
+            this.time != null && this.time.equals(other.getTime()) &&
+            this.source != null && this.source.equals(other.getSource()) &&
+            this.target != null && this.target.equals(other.getTarget())) {
       return true;
     }
     return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return new HashCodeBuilder()
+            .append(source)
+            .append(target)
+            .append(amount)
+            .append(time)
+            .toHashCode();
   }
 }

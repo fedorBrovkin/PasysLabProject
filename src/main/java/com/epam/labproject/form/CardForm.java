@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardForm {
-    int cardNumber;
-    int accountNumber;
-    double balance;
-    String currentCondition;
+    private int cardNumber;
+    private int accountNumber;
+    private double balance;
+    private String currentCondition;
 
     public CardForm() {
     }
@@ -21,6 +21,17 @@ public class CardForm {
         this.accountNumber = accountNumber;
         this.balance = balance;
         currentCondition = "Card: " + Integer.toString(cardNumber) + " account:" + Integer.toString(accountNumber) + " balance:" + Double.toString(balance);
+    }
+
+    public static List<CardForm> getCardFormList(List<CreditCard> cardList) {
+        List<CardForm> cards = new ArrayList<>(cardList.size());
+        for (CreditCard card : cardList) {
+            int accountNumber = card.getAccount().getNumber();
+            int cardNumber = card.getNumber();
+            BigDecimal balance = card.getAccount().getBalance();
+            cards.add(new CardForm(cardNumber, accountNumber, balance.doubleValue()));
+        }
+        return cards;
     }
 
     public void setCurrentCondition(String currentCondition) {
@@ -55,14 +66,5 @@ public class CardForm {
         return accountNumber;
     }
 
-    public static List<CardForm> getCardFormList(List<CreditCard> cardList) {
-        List<CardForm> cards = new ArrayList<>(cardList.size());
-        for (CreditCard card : cardList) {
-            int accountNumber = card.getAccount().getNumber();
-            int cardNumber = card.getNumber();
-            BigDecimal balance = card.getAccount().getBalance();
-            cards.add(new CardForm(cardNumber, accountNumber, balance.doubleValue()));
-        }
-        return cards;
-    }
+
 }

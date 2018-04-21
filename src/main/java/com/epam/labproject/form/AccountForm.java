@@ -8,10 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AccountForm {
-    int accNumber;
-    double balance;
-    String status;
-    String currentCondition;
+    private int accNumber;
+    private double balance;
+    private String status;
+    private String currentCondition;
 
     public AccountForm() {
     }

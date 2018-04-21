@@ -1,15 +1,14 @@
 package com.epam.labproject.entity;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "account")
@@ -26,10 +25,6 @@ public class Account extends AbstractIdentifiableEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public boolean getStatus() {
-        return status;
-    }
 
     public int getNumber() {
         return number;
@@ -73,19 +68,29 @@ public class Account extends AbstractIdentifiableEntity {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!(obj instanceof Account))
+        }
+        if (!(obj instanceof Account)) {
             return false;
-        if (obj == null) // not need
-            return false;
-        if (this.number == ((Account) obj).getNumber() &
-                this.balance == ((Account) obj).getBalance() &
-                this.dateOfCreation.equals(((Account) obj).dateOfCreation) &
-                this.status == ((Account) obj).getStatus()) {
+        }
+        Account other = (Account) obj;
+        if (this.number == other.getNumber() &&
+                this.dateOfCreation != null &&
+                    this.dateOfCreation.equals(((Account) obj).dateOfCreation) &&
+                this.user != null && this.user == other.getUser()) {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(number)
+                .append(dateOfCreation)
+                .append(user)
+                .toHashCode();
     }
 
     @Override

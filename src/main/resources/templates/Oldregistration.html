@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang=en>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -16,21 +16,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<ul class="nav">
-    <li class="nav-item">
-        <a class="nav-link  disabled" th:href="@{/administrator}" th:text="#{administrator}"></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" th:href="@{/admSelectUser}" th:text="#{searchAccount}"></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link disabled" th:href="@{/admUnblockRequest}" th:text="#{requests}"></a>
-    </li>
-</ul>
-<form th:action="@{/admSelectUser}"
+<h1 th:text="#{registration}"></h1>
+
+<form th:action="@{/registration}"
       th:object="${user}" method="POST">
-    <div><label th:text="#{userName}"></label><input type="text" th:field="*{login}"/></div>
-    <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
+
+    <label th:text="#{login}"></label>
+    <input type="text" th:field="*{login}" />
+
+    <br/>
+    <label th:text="#{password}"></label>
+    <input type="password" th:field="*{password}"/>
+
+    <br/>
+
+    <button class="btn btn-dark" type="submit" th:text="#{button.create}"/>
 </form>
+
+<br/>
+
+<!-- Check if errorMessage is not null and not empty -->
+
+<div th:if="${hasErrorMessage}" th:utext="#{error.message}"
+     style="color:red;font-style:italic;">
+    ...
+</div>
+
 </body>
 </html>

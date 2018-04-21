@@ -1,8 +1,16 @@
 package com.epam.labproject.entity;
 
-import javax.persistence.*;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -49,6 +57,28 @@ public class User extends AbstractIdentifiableEntity {
 
   public void setRole(Role role) {
     this.role = role;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (!(obj instanceof User)) {
+      return false;
+    }
+    User other = (User) obj;
+    if (this.login != null && this.login.equals(other.getLogin())) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return new HashCodeBuilder()
+            .append(login)
+            .toHashCode();
   }
 
   @Override

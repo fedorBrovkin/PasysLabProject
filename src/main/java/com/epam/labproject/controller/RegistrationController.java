@@ -4,6 +4,10 @@ import com.epam.labproject.entity.User;
 import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
+import java.util.HashSet;
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,16 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashSet;
-import java.util.Set;
-
 @Controller
 class RegistrationController {
 
     private final UserService userService;
-    private DataBaseUserDetailsService userDetailsService;
+    private final DataBaseUserDetailsService userDetailsService;
 
     public RegistrationController(UserService userService, DataBaseUserDetailsService userDetailsService) {
         this.userService = userService;

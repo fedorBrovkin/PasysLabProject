@@ -19,14 +19,16 @@
 <table class="table table-sm table-dark">
     <thead>
     <tr>
-        <th scope="col" th:text="#{cardNumber}"></th>
-        <th scope="col" th:text="#{accountNumber}"></th>
-        <th scope="col" th:text="#{balance}"></th>
+        <th scope="col" th:text="#{paymentData}"></th>
+        <th scope="col" th:text="#{amount}"></th>
+        <th scope="col" th:text="#{source}"></th>
+        <th scope="col" th:text="#{targetCard}"></th>
     </tr>
     <tr th:each="payment : ${payments}">
-        <td scope="col" th:utext="${card.cardNumber}">...</td>
-        <td scope="col" th:utext="${card.accountNumber}">...</td>
-        <td scope="col" th:utext="${card.balance}">...</td>
+        <td scope="col" th:utext="${payment.data}">...</td>
+        <td scope="col" th:utext="${payment.amount}">...</td>
+        <td scope="col" th:utext="${payment.source}">...</td>
+        <td scope="col" th:utext="${payment.target}">...</td>
     </tr>
 </table>
 </div>
