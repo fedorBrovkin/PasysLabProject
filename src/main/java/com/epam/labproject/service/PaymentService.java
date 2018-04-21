@@ -5,16 +5,15 @@ import com.epam.labproject.entity.CreditCard;
 import com.epam.labproject.entity.Payment;
 import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.repository.PaymentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PaymentService {
@@ -22,26 +21,31 @@ public class PaymentService {
   private final PaymentRepository paymentRepository;
   private final AccountService accountService;
 
-  @Autowired PaymentService(PaymentRepository paymentRepository, AccountService accountService){
-    this.paymentRepository=paymentRepository;
+  @Autowired
+  PaymentService(PaymentRepository paymentRepository, AccountService accountService) {
+    this.paymentRepository = paymentRepository;
     this.accountService = accountService;
   }
 
-  private void save(Payment payment) { paymentRepository.save(payment); }
+  private void save(Payment payment) {
+    paymentRepository.save(payment);
+  }
 
   /**
    * Create payment.
    */
   @Transactional(isolation = Isolation.REPEATABLE_READ)
-  public void createPayment(@Valid Payment payment) throws PasysException{
+  public void createPayment(@Valid Payment payment) throws PasysException {
     if (payment == null) {
       return;
     }
 
-    Account sourceAccount=accountService.findByNumber(payment.getSource().getAccount().getNumber());
-    Account targetAccount = accountService.findByNumber(payment.getTarget().getAccount().getNumber());
+    Account sourceAccount = accountService
+        .findByNumber(payment.getSource().getAccount().getNumber());
+    Account targetAccount = accountService
+        .findByNumber(payment.getTarget().getAccount().getNumber());
 
-    BigDecimal paymentBalance=sourceAccount.getBalance();
+    BigDecimal paymentBalance = sourceAccount.getBalance();
 
     if (payment.getAmount().compareTo(paymentBalance) >= 1) {
       throw new PasysException("No funds");
@@ -57,22 +61,22 @@ public class PaymentService {
     save(payment);
   }
 
-    public List<Payment> findAllBySource(CreditCard creditCard) {
-      List<Payment> allBySource = paymentRepository.findAllBySource(creditCard);
-      allBySource.sort(Comparator.comparing(Payment::getTime));
-      return allBySource;
-    }
+  public List<Payment> findAllBySource(CreditCard creditCard) {
+    List<Payment> allBySource = paymentRepository.findAllBySource(creditCard);
+    allBySource.sort(Comparator.comparing(Payment::getTime));
+    return allBySource;
+  }
 
-    public List<Payment> findAllByTarget(CreditCard creditCard){
-      List<Payment> allByTarget = paymentRepository.findAllByTarget(creditCard);
-      allByTarget.sort(Comparator.comparing(Payment::getTime));
-      return allByTarget;
-    }
+  public List<Payment> findAllByTarget(CreditCard creditCard) {
+    List<Payment> allByTarget = paymentRepository.findAllByTarget(creditCard);
+    allByTarget.sort(Comparator.comparing(Payment::getTime));
+    return allByTarget;
+  }
 
-    public List<Payment> findAllMyPayments(CreditCard creditCard){
-    List<Payment>list = findAllBySource(creditCard);
+  public List<Payment> findAllMyPayments(CreditCard creditCard) {
+    List<Payment> list = findAllBySource(creditCard);
     list.addAll(findAllByTarget(creditCard));
     list.sort(Comparator.comparing(Payment::getTime));
     return list;
-    }
+  }
 }

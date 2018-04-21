@@ -17,43 +17,68 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class PaymentListController {
-    private final PaymentService paymentService;
-    private final DataBaseUserDetailsService detailsService;
-    private final UserService userService;
-    private final CreditCardService cardService;
 
-    public PaymentListController(PaymentService paymentService,
-                                 DataBaseUserDetailsService detailsService,
-                                 UserService userService,
-                                 CreditCardService cardService) {
-        this.paymentService = paymentService;
-        this.detailsService = detailsService;
-        this.userService = userService;
-        this.cardService = cardService;
-    }
+  private final PaymentService paymentService;
+  private final DataBaseUserDetailsService detailsService;
+  private final UserService userService;
+  private final CreditCardService cardService;
 
-    @GetMapping("/selectCardForPaymentHistory")
-    public String showSelectCard(Model model) {
-        User user = userService.getUser(detailsService.getCurrentUsername());
-        List<CreditCard> cards = user.getCards();
-        model.addAttribute("cards", CardForm.getCardFormList(cards));
-        model.addAttribute("cardForm", new CardForm());
-        return "selectCardForPaymentHistory";
-    }
+  /**
+   * Constructor.
+   * @param paymentService Injected instance
+   * @param detailsService Injected instance
+   * @param userService Injected instance
+   * @param cardService Injected instance
+   */
+  public PaymentListController(PaymentService paymentService,
+      DataBaseUserDetailsService detailsService,
+      UserService userService,
+      CreditCardService cardService) {
+    this.paymentService = paymentService;
+    this.detailsService = detailsService;
+    this.userService = userService;
+    this.cardService = cardService;
+  }
 
-    @PostMapping("/selectCardForPaymentHistory")
-    public String selectCard(Model model, @ModelAttribute CardForm cardForm) {
-        CreditCard creditCard = cardService.findByNumber(cardForm.getCardNumber());
-        List<PaymentListForm> payments = PaymentListForm.getPaymentList(paymentService.findAllMyPayments(creditCard),
+  /**
+   * Get method. Create Lists of Card belong to user.
+   * @param model instance
+   * @return
+   */
+  @GetMapping("/selectCardForPaymentHistory")
+  public String showSelectCard(Model model) {
+    User user = userService.getUser(detailsService.getCurrentUsername());
+    List<CreditCard> cards = user.getCards();
+    model.addAttribute("cards", CardForm.getCardFormList(cards));
+    model.addAttribute("cardForm", new CardForm());
+    return "selectCardForPaymentHistory";
+  }
+
+  /**
+   * Post method. To find card.
+   * @param model instance
+   * @param cardForm instance
+   * @return
+   */
+  @PostMapping("/selectCardForPaymentHistory")
+  public String selectCard(Model model, @ModelAttribute CardForm cardForm) {
+    CreditCard creditCard = cardService.findByNumber(cardForm.getCardNumber());
+    List<PaymentListForm> payments = PaymentListForm
+        .getPaymentList(paymentService.findAllMyPayments(creditCard),
             creditCard);
-        model.addAttribute("payments", payments);
-        return "paymentList";
-    }
+    model.addAttribute("payments", payments);
+    return "paymentList";
+  }
 
-    @GetMapping("/paymentList")
-    public String showPaymentList(Model model) {
+  /**
+   * Showing payment list.
+   * @param model isntance
+   * @return
+   */
+  @GetMapping("/paymentList")
+  public String showPaymentList(Model model) {
 
-        return "/paymentList";
-    }
+    return "/paymentList";
+  }
 
 }

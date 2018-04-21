@@ -21,6 +21,13 @@ public class BlockAccountController {
   private final UserService userService;
   private final UnblockRequestService unblockRequestService;
 
+  /**
+   * Class constructor.
+   * @param accountService Injected AccountService instance
+   * @param userDetailsService Injected UserDetailService instance
+   * @param userService Injected UserService instance
+   * @param unblockRequestService Injected UnblockRequestService instance
+   */
   public BlockAccountController(AccountService accountService,
       DataBaseUserDetailsService userDetailsService,
       UserService userService,
@@ -31,6 +38,11 @@ public class BlockAccountController {
     this.unblockRequestService = unblockRequestService;
   }
 
+  /**
+   * Mapping two lists of accounts by block status.
+   * @param model model instance
+   * @return
+   */
   @GetMapping("/blockAccount")
   public String showSelectAccount(Model model) {
     String login = userDetailsService.getCurrentUsername();

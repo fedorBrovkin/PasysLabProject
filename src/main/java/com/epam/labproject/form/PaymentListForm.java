@@ -7,76 +7,77 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PaymentListForm {
-    private String data;
-    private double amount;
-    private int source;
-    private int target;
 
-    public PaymentListForm() {
+  private String data;
+  private double amount;
+  private int source;
+  private int target;
+
+  public PaymentListForm() {
+  }
+
+  public PaymentListForm(String data, double amount, int source, int target) {
+    this.data = data;
+    this.amount = amount;
+    this.source = source;
+    this.target = target;
+  }
+
+  public static List<PaymentListForm> getPaymentList(List<Payment> payments, CreditCard card) {
+    List<PaymentListForm> paymentsList = new LinkedList<>();
+    for (Payment payment : payments) {
+      String data = payment.getTime().toString();
+      double amount;
+      int source = payment.getSource().getNumber();
+      int target = payment.getTarget().getNumber();
+      if (isTarget(payment, card)) {
+        amount = payment.getAmount().doubleValue();
+      } else {
+        amount = payment.getAmount().doubleValue() * (-1);
+      }
+      PaymentListForm payListForm = new PaymentListForm(data, amount, source, target);
+      paymentsList.add(payListForm);
     }
+    return paymentsList;
+  }
 
-    public PaymentListForm(String data, double amount, int source, int target) {
-        this.data = data;
-        this.amount = amount;
-        this.source = source;
-        this.target = target;
-    }
+  private static boolean isTarget(Payment payment, CreditCard creditCard) {
+    return payment.getTarget().getNumber() == creditCard.getNumber();
+  }
 
-    public static List<PaymentListForm> getPaymentList(List<Payment> payments, CreditCard card) {
-        List<PaymentListForm> paymentsList = new LinkedList<>();
-        for (Payment payment : payments) {
-            String data = payment.getTime().toString();
-            double amount;
-            int source = payment.getSource().getNumber();
-            int target = payment.getTarget().getNumber();
-            if (isTarget(payment, card)) {
-                amount = payment.getAmount().doubleValue();
-            } else {
-                amount = payment.getAmount().doubleValue() * (-1);
-            }
-            PaymentListForm payListForm = new PaymentListForm(data, amount, source, target);
-            paymentsList.add(payListForm);
-        }
-        return paymentsList;
-    }
+  public int getSource() {
+    return source;
+  }
 
-    private static boolean isTarget(Payment payment, CreditCard creditCard) {
-        return payment.getTarget().getNumber() == creditCard.getNumber();
-    }
+  public void setSource(int source) {
 
-    public int getSource() {
-        return source;
-    }
+    this.source = source;
+  }
 
-    public int getTarget() {
-        return target;
-    }
+  public int getTarget() {
+    return target;
+  }
 
-    public String getData() {
-        return data;
+  public void setTarget(int target) {
+    this.target = target;
+  }
 
-    }
+  public String getData() {
+    return data;
 
-    public double getAmount() {
+  }
 
-        return amount;
-    }
+  public void setData(String data) {
+    this.data = data;
+  }
 
-    public void setData(String data) {
-        this.data = data;
-    }
+  public double getAmount() {
 
-    public void setTarget(int target) {
-        this.target = target;
-    }
+    return amount;
+  }
 
-    public void setSource(int source) {
+  public void setAmount(double amount) {
 
-        this.source = source;
-    }
-
-    public void setAmount(double amount) {
-
-        this.amount = amount;
-    }
+    this.amount = amount;
+  }
 }

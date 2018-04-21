@@ -20,46 +20,62 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MakeCardController {
 
-    private final CreditCardService creditCardService;
-    private final DataBaseUserDetailsService userDetailsService;
-    private final AccountService accountService;
-    private final UserService userService;
+  private final CreditCardService creditCardService;
+  private final DataBaseUserDetailsService userDetailsService;
+  private final AccountService accountService;
+  private final UserService userService;
 
-    public MakeCardController(CreditCardService creditCardService,
-                              DataBaseUserDetailsService userDetailsService,
-                              AccountService accountService,
-                              UserService userService) {
-        this.creditCardService = creditCardService;
-        this.userDetailsService = userDetailsService;
-        this.accountService = accountService;
-        this.userService = userService;
+  /**
+   * Constructor.
+   * @param creditCardService Injected instance
+   * @param userDetailsService Injected instance
+   * @param accountService Injected instance
+   * @param userService Injected instance
+   */
+  public MakeCardController(CreditCardService creditCardService,
+      DataBaseUserDetailsService userDetailsService,
+      AccountService accountService,
+      UserService userService) {
+    this.creditCardService = creditCardService;
+    this.userDetailsService = userDetailsService;
+    this.accountService = accountService;
+    this.userService = userService;
+  }
+
+  /**
+   *GetMethod to create card page.
+   * @param model Injected instance
+   * @return
+   */
+  @GetMapping("/makeCard")
+  public String makeCardPage(Model model) {
+    String currentUserLogin = userDetailsService.getCurrentUsername();
+    User user = userService.getUser(currentUserLogin);
+    List<Account> accountList = accountService.findAllByUserNameAndStatusTrue(currentUserLogin);
+    if (CollectionUtils.isEmpty(accountList)) {
+      accountService.createAccount(currentUserLogin);
+      return "redirect:makeCard";
     }
+    CreateCardForm cardForm = new CreateCardForm();
+    model.addAttribute("cardForm", cardForm);
+    model.addAttribute("accounts", AccountForm.getAccountFormList(accountList));
 
-    @GetMapping("/makeCard")
-    public String makeCardPage(Model model) {
-        String currentUserLogin = userDetailsService.getCurrentUsername();
-        User user = userService.getUser(currentUserLogin);
-        List<Account> accountList = accountService.findAllByUserNameAndStatusTrue(currentUserLogin);
-        if (CollectionUtils.isEmpty(accountList)) {
-            accountService.createAccount(currentUserLogin);
-            return "redirect:makeCard";
-        }
-        CreateCardForm cardForm = new CreateCardForm();
-        model.addAttribute("cardForm", cardForm);
-        model.addAttribute("accounts", AccountForm.getAccountFormList(accountList));
+    return "makeCard";
+  }
 
-        return "makeCard";
+  /**
+   * post method to create Card and Account.
+   * @param cardForm  instance
+   * @return
+   */
+  @PostMapping("/createCard")
+  public String createCardAndAccount(@ModelAttribute("cardForm") CreateCardForm cardForm) {
+    try {
+      creditCardService.createCard(cardForm.getLogin(), Integer.parseInt(cardForm.getNumber()));
+      return "redirect:cardList";
+    } catch (PasysException e) {
+      return e.getMessage();
     }
-
-
-    @PostMapping("/createCard")
-    public String createCardAndAccount(@ModelAttribute("cardForm") CreateCardForm cardForm) {
-        try {
-            creditCardService.createCard(cardForm.getLogin(), Integer.parseInt(cardForm.getNumber()));
-            return "redirect:cardList";
-        } catch (PasysException e) {
-            return e.getMessage();
-        }
-    }
+  }
 
 }
