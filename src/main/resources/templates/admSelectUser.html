@@ -29,6 +29,10 @@
 </ul>
 <form th:action="@{/admSelectUser}"
       th:object="${user}" method="POST">
+    <div th:if="${noUser}" class="alert alert-danger" role="alert"
+         th:text="#{noSuchUser}"></div>
+    <div th:if="${noAccount}" class="alert alert-danger" role="alert"
+         th:text="#{noAccounts}"></div>
     <div><label th:text="#{userName}"></label><input type="text" th:field="*{login}"/></div>
     <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
 </form>

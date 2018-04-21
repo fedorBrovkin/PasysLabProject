@@ -59,7 +59,7 @@ public class MakeCardController {
             return "redirect:makeCard";
         }
         CreateCardForm cardForm = new CreateCardForm();
-
+      model.addAttribute("noUser", error != null);
         model.addAttribute("cardForm", cardForm);
         model.addAttribute("accounts", AccountForm.getAccountFormList(accountList));
 
