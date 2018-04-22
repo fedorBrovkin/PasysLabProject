@@ -24,23 +24,12 @@
         </ul>
       </li>
     </ul>
+
     <ul class="nav navbar-nav navbar-right">
-      <li>
-        <a th:href="@{/userOffice?lang=en}">
-          <button type="button" class="btn btn-dark">EN</button>
-        </a>
-      </li>
-      <li>
-        <a th:href="@{/userOffice?lang=ru}">
-          <button type="button" class="btn btn-dark">RU</button>
-        </a>
-      </li>
-      <li>
-        <a th:href="@{/userOffice}">
-          <span class="glyphicon glyphicon-home">&nbsp;</span>
-          <label th:text="#{button.myOffice}"/>
-        </a>
-      </li>
+      <li><a th:href="@{/userOffice?lang=en}"><label th:text="#{lang.en}"/></a></li>
+      <li><a th:href="@{/userOffice?lang=ru}"><label th:text="#{lang.ru}"/></a></li>
+      <li><a th:href="@{/userOffice}"><span class="glyphicon glyphicon-home">&nbsp;</span><label
+          th:text="#{button.myOffice}"/></a></li>
       <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-out">&nbsp;</span><label th:text="#{button.logOut}"/></a></li>
     </ul>
   </div>
