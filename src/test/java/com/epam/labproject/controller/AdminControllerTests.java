@@ -21,6 +21,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -59,8 +60,8 @@ public class AdminControllerTests {
         viewResolver.setSuffix(".html");
 
         mockMvc = MockMvcBuilders.standaloneSetup(
-                    new AdminController(accountService, userService)
-                )
+                new AdminController(accountService, userService)
+        )
                 .setViewResolvers(viewResolver)
                 .build();
 
@@ -86,8 +87,25 @@ public class AdminControllerTests {
 
     @Test
     public void testGetShowSelectUser() throws Exception {
-        mockMvc.perform(get("/admSelectUser"))
+        mockMvc.perform(
+                get("/admSelectUser")
+        )
                 .andExpect(model().attribute("user", notNullValue()))
+                .andExpect(model().attribute("noUser", nullValue()))
+                .andExpect(model().attribute("noAccount", nullValue()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("admSelectUser"));
+    }
+
+    @Test
+    public void testGetShowSelectUserWithError() throws Exception {
+        mockMvc.perform(
+                get("/admSelectUser")
+                        .param("error", "some_error")
+        )
+                .andExpect(model().attribute("user", notNullValue()))
+                .andExpect(model().attribute("noUser", false))
+                .andExpect(model().attribute("noAccount", false))
                 .andExpect(status().isOk())
                 .andExpect(view().name("admSelectUser"));
     }
@@ -95,9 +113,9 @@ public class AdminControllerTests {
     @Test
     public void testPostSelectUserWithNotExistedLogin() throws Exception {
         mockMvc.perform(
-                    post("/admSelectUser")
+                post("/admSelectUser")
                         .flashAttr("user", user)
-                )
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("admSelectUser?error=noUser"));
     }
@@ -106,9 +124,9 @@ public class AdminControllerTests {
     public void testPostSelectUserWithEmptyAccountList() throws Exception {
         user.setLogin(TEST_LOGIN);
         mockMvc.perform(
-                    post("/admSelectUser")
-                    .flashAttr("user", user)
-                )
+                post("/admSelectUser")
+                        .flashAttr("user", user)
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admSelectUser?error=noAccounts"));
 
@@ -121,9 +139,9 @@ public class AdminControllerTests {
         user.setLogin(TEST_LOGIN);
         accounts.add(account);
         mockMvc.perform(
-                    post("/admSelectUser")
-                    .flashAttr("user", user)
-                )
+                post("/admSelectUser")
+                        .flashAttr("user", user)
+        )
                 .andExpect(model().attribute("accountForm", notNullValue()))
                 .andExpect(model().attribute("accounts", notNullValue()))
                 .andExpect(model().attribute("accounts", hasSize(1)))
@@ -137,9 +155,9 @@ public class AdminControllerTests {
     @Test
     public void testGetShowSelectAccount() throws Exception {
         mockMvc.perform(
-                    get("/admSelectAccount")
+                get("/admSelectAccount")
                         .flashAttr("blockedUser", user)
-                )
+        )
                 .andExpect(status().isOk())
                 .andExpect(view().name("admSelectAccount"));
     }
@@ -148,11 +166,11 @@ public class AdminControllerTests {
     @Test
     public void testPostBlockAccount() throws Exception {
         mockMvc.perform(
-                    post("/admBlockAccount")
+                post("/admBlockAccount")
                         .flashAttr("accountForm", accountForm)
-                )
+        )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/administrator"));
+                .andExpect(redirectedUrl("administrator?status"));
 
         verify(accountService, times(1)).changeStatus(anyInt());
     }

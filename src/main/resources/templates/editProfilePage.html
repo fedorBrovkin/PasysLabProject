@@ -40,9 +40,11 @@
     <h1 th:text="#{changePass}"></h1>
     <form th:action="@{/editProfilePage}"
           th:object="${profileForm}" method="POST">
-<table>
 
-            <tr>
+<table>
+  <div th:if="${error}" class="alert alert-danger" role="alert" th:text="#{pasNotMatch}"></div>
+  <div th:if="${success}" class="alert alert-success" role="alert" th:text="#{pasChange}"></div>
+  <tr>
                 <th>
             <td>
         <lable th:text="#{oldPassword}"></lable>

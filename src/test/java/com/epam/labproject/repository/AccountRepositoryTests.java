@@ -50,6 +50,7 @@ public class AccountRepositoryTests {
     private List<Account> accounts;
 
     private User user;
+
     @Before
     public void setUp() {
         user = new User();

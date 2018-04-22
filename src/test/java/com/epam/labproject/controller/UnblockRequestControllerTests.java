@@ -72,10 +72,10 @@ public class UnblockRequestControllerTests {
     @Test
     public void testPostChangeStatus() throws Exception {
         mockMvc.perform(post("/admUnblockRequest")
-                    .flashAttr("unblockRequestForm", unblockRequestForm)
-                )
+                .flashAttr("unblockRequestForm", unblockRequestForm)
+        )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/admUnblockRequest"));
+                .andExpect(redirectedUrl("admUnblockRequest?status"));
 
         verify(requestService, times(1)).delete(anyInt());
         verify(accountService, times(1)).changeStatus(anyInt());

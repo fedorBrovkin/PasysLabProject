@@ -33,8 +33,8 @@ class RegistrationController {
 
     @GetMapping(value = {"/registration"})
     public String registration(
-        @RequestParam(value = "userAlreadyExist", required = false) String error,
-        Model model) {
+            @RequestParam(value = "userAlreadyExist", required = false) String error,
+            Model model) {
         User user = new User();
         model.addAttribute("error", error != null);
         model.addAttribute("user", user);
@@ -47,10 +47,9 @@ class RegistrationController {
             userService.createUser(user);
         } catch (PasysException e) {
             e.printStackTrace();
-            return "redirect:/registration" + e.getMessage();
+            return "redirect:/registration"; //+ e.getMessage();
         }
         return "redirect:/";
     }
-
 
 }

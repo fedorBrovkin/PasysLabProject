@@ -12,37 +12,37 @@ import javax.persistence.Table;
 @Table(name = "unblock_request")
 public class UnblockRequest extends AbstractIdentifiableEntity {
 
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  User user;
-  @OneToOne
-  @JoinColumn(name = "account_id")
-  Account account;
-  @Column(name = "time")
-  private LocalDateTime time;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
+    @OneToOne
+    @JoinColumn(name = "account_id")
+    Account account;
+    @Column(name = "time")
+    private LocalDateTime time;
 
-  public User getUser() {
-    return user;
-  }
+    public User getUser() {
+        return user;
+    }
 
-  public void setUser(User user) {
-    this.user = user;
-  }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-  public Account getAccount() {
+    public Account getAccount() {
 
-    return account;
-  }
+        return account;
+    }
 
-  public void setAccount(Account account) {
-    this.account = account;
-  }
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
-  public LocalDateTime getTime() {
-    return time;
-  }
+    public LocalDateTime getTime() {
+        return time;
+    }
 
-  public void setTime(LocalDateTime time) {
-    this.time = time;
-  }
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
 }

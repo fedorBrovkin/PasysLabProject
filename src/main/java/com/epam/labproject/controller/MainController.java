@@ -2,10 +2,12 @@ package com.epam.labproject.controller;
 
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,40 +21,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
 
-  private final UserService userService;
-  private final DataBaseUserDetailsService userDetailsService;
+    private final UserService userService;
+    private final DataBaseUserDetailsService userDetailsService;
 
-  public MainController(UserService userService, DataBaseUserDetailsService userDetailsService) {
-    this.userService = userService;
-    this.userDetailsService = userDetailsService;
-  }
-
-  @GetMapping(value = {"/", "/index"})
-  public String index(Model model) {
-    String currentUser = userDetailsService.getCurrentUsername();
-    Set<GrantedAuthority> authirities = new HashSet(userDetailsService
-        .loadUserByUsername(currentUser).getAuthorities());
-    for (GrantedAuthority a : authirities) {
-      if (a.getAuthority().equals("ROLE_ADMIN")) {
-        return "redirect:administrator";
-      }
+    public MainController(UserService userService, DataBaseUserDetailsService userDetailsService) {
+        this.userService = userService;
+        this.userDetailsService = userDetailsService;
     }
-    return "index";
-  }
 
-  @RequestMapping("/login")
-  public String getLogin(@RequestParam(value = "error", required = false) String error,
-      Model model) {
-    model.addAttribute("error", error != null);
-    return "login";
-  }
-
-  @GetMapping(value = "/logout")
-  public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    if (auth != null) {
-      new SecurityContextLogoutHandler().logout(request, response, auth);
+    @GetMapping(value = {"/", "/index"})
+    public String index(Model model) {
+        String currentUser = userDetailsService.getCurrentUsername();
+        Set<GrantedAuthority> authirities = new HashSet(userDetailsService
+                .loadUserByUsername(currentUser).getAuthorities());
+        for (GrantedAuthority a : authirities) {
+            if (a.getAuthority().equals("ROLE_ADMIN")) {
+                return "redirect:administrator";
+            }
+        }
+        return "index";
     }
-    return "redirect:/login?logout";
-  }
+
+    @RequestMapping("/login")
+    public String getLogin(@RequestParam(value = "error", required = false) String error,
+                           Model model) {
+        model.addAttribute("error", error != null);
+        return "login";
+    }
+
+    @GetMapping(value = "/logout")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
+    }
 }

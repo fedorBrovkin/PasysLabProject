@@ -36,11 +36,11 @@ public class UserOfficeControllerTests {
                 .andExpect(view().name("userOffice"));
     }
 
-    @Test
-    public void testPostMakeCard() throws Exception {
-        mockMvc.perform(post("/userOffice"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("userOffice"));
-    }
+//    @Test
+//    public void testPostMakeCard() throws Exception {
+//        mockMvc.perform(post("/userOffice"))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("userOffice"));
+//    }
 
 }

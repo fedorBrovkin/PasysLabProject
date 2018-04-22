@@ -58,8 +58,8 @@ public class AccountListControllerTests {
         viewResolver.setSuffix(".html");
 
         mockMvc = MockMvcBuilders.standaloneSetup(
-                    new AccountListController(userService, userDetailsService, accountService)
-                )
+                new AccountListController(userService, userDetailsService, accountService)
+        )
                 .setViewResolvers(viewResolver)
                 .build();
 

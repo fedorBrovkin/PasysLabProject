@@ -59,11 +59,11 @@ public class CardListControllerTests {
         viewResolver.setSuffix(".html");
 
         mockMvc = MockMvcBuilders.standaloneSetup(new CardListController(
-                    userService,
-                    userDetailsService,
-                    cardService,
-                    accountService)
-                )
+                userService,
+                userDetailsService,
+                cardService,
+                accountService)
+        )
                 .setViewResolvers(viewResolver)
                 .build();
 

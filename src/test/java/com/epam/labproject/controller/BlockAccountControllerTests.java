@@ -61,11 +61,11 @@ public class BlockAccountControllerTests {
         viewResolver.setSuffix(".html");
 
         mockMvc = MockMvcBuilders.standaloneSetup(new BlockAccountController(
-                   accountService,
-                   userDetailsService,
-                   userService,
-                   unblockRequestService)
-                )
+                accountService,
+                userDetailsService,
+                userService,
+                unblockRequestService)
+        )
                 .setViewResolvers(viewResolver)
                 .build();
 
@@ -98,9 +98,9 @@ public class BlockAccountControllerTests {
         mockMvc.perform(
                 post("/blockAccount")
                         .flashAttr("accountForm", accountForm)
-                )
+        )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/accountList"));
+                .andExpect(redirectedUrl("accountList?status"));
 
         verify(accountService, times(1)).blockAccount(anyInt());
     }
@@ -110,9 +110,9 @@ public class BlockAccountControllerTests {
         mockMvc.perform(
                 post("/unblockAccount")
                         .flashAttr("unblockAccountForm", accountForm)
-                )
+        )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/accountList"));
+                .andExpect(redirectedUrl("accountList?status"));
 
         verify(unblockRequestService, times(1)).createRequest(anyInt());
     }

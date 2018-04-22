@@ -2,80 +2,81 @@ package com.epam.labproject.form;
 
 
 import com.epam.labproject.entity.UnblockRequest;
+
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class UnblockRequestForm {
 
-  private String username;
-  private String time;
-  private int accNumber;
-  private String currentCondition;
+    private String username;
+    private String time;
+    private int accNumber;
+    private String currentCondition;
 
-  public UnblockRequestForm() {
-  }
-
-  public UnblockRequestForm(String username, String time, int accNumber) {
-    this.username = username;
-    this.time = time;
-    this.accNumber = accNumber;
-    this.currentCondition =
-        "Time: " + time.substring(0, time.length() - 3) + " User: " + username + " Account: "
-            + accNumber;
-  }
-
-  public static List<UnblockRequestForm> getFormList(List<UnblockRequest> requests) {
-    requests.sort(Comparator.comparing(UnblockRequest::getTime));
-    List<UnblockRequestForm> formList = new LinkedList<>();
-    for (UnblockRequest request : requests) {
-      String username = request.getUser().getLogin();
-      String time = request.getTime().toString();
-      int account = request.getAccount().getNumber();
-      formList.add(new UnblockRequestForm(username, time, account));
+    public UnblockRequestForm() {
     }
-    return formList;
-  }
 
-  public String getCurrentCondition() {
-    return currentCondition;
-  }
+    public UnblockRequestForm(String username, String time, int accNumber) {
+        this.username = username;
+        this.time = time;
+        this.accNumber = accNumber;
+        this.currentCondition =
+                "Time: " + time.substring(0, time.length() - 3) + " User: " + username + " Account: "
+                        + accNumber;
+    }
 
-  public void setCurrentCondition(String currentCondition) {
-    this.currentCondition = currentCondition;
-  }
+    public static List<UnblockRequestForm> getFormList(List<UnblockRequest> requests) {
+        requests.sort(Comparator.comparing(UnblockRequest::getTime));
+        List<UnblockRequestForm> formList = new LinkedList<>();
+        for (UnblockRequest request : requests) {
+            String username = request.getUser().getLogin();
+            String time = request.getTime().toString();
+            int account = request.getAccount().getNumber();
+            formList.add(new UnblockRequestForm(username, time, account));
+        }
+        return formList;
+    }
 
-  public String getStatus() {
-    return currentCondition;
-  }
+    public String getCurrentCondition() {
+        return currentCondition;
+    }
 
-  public void setStatus(String currentCondition) {
-    this.currentCondition = currentCondition;
-  }
+    public void setCurrentCondition(String currentCondition) {
+        this.currentCondition = currentCondition;
+    }
 
-  public String getUsername() {
-    return username;
-  }
+    public String getStatus() {
+        return currentCondition;
+    }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public void setStatus(String currentCondition) {
+        this.currentCondition = currentCondition;
+    }
 
-  public String getTime() {
+    public String getUsername() {
+        return username;
+    }
 
-    return time;
-  }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-  public void setTime(String time) {
-    this.time = time;
-  }
+    public String getTime() {
 
-  public int getAccNumber() {
+        return time;
+    }
 
-    return accNumber;
-  }
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-  public void setAccNumber(int account) {
-    this.accNumber = account;
-  }
+    public int getAccNumber() {
+
+        return accNumber;
+    }
+
+    public void setAccNumber(int account) {
+        this.accNumber = account;
+    }
 }

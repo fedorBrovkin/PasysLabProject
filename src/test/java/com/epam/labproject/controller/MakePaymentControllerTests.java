@@ -65,11 +65,11 @@ public class MakePaymentControllerTests {
         viewResolver.setSuffix(".html");
 
         mockMvc = MockMvcBuilders.standaloneSetup(new MakePaymentController(
-                    paymentService,
-                    creditCardService,
-                    detailsService,
-                    userService)
-                )
+                paymentService,
+                creditCardService,
+                detailsService,
+                userService)
+        )
                 .setViewResolvers(viewResolver)
                 .build();
 
@@ -106,7 +106,7 @@ public class MakePaymentControllerTests {
         doThrow(new PasysException()).when(creditCardService).doPayment(anyInt(), anyInt(), anyDouble());
 
         mockMvc.perform(post("/makePayment")
-                    .flashAttr("paymentForm", paymentForm));
+                .flashAttr("paymentForm", paymentForm));
 
         verify(creditCardService, times(1)).doPayment(anyInt(), anyInt(), anyDouble());
     }
@@ -114,10 +114,10 @@ public class MakePaymentControllerTests {
     @Test
     public void testPostMakePayment() throws Exception {
         mockMvc.perform(post("/makePayment")
-                    .flashAttr("paymentForm", paymentForm)
-                )
+                .flashAttr("paymentForm", paymentForm)
+        )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/userOffice?success=yes"));
+                .andExpect(redirectedUrl("/userOffice?success"));
 
         verify(creditCardService, times(1)).doPayment(anyInt(), anyInt(), anyDouble());
     }

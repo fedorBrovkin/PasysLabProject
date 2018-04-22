@@ -73,11 +73,11 @@ public class MakeCardControllerTests {
         viewResolver.setSuffix(".html");
 
         mockMvc = MockMvcBuilders.standaloneSetup(new MakeCardController(
-                    creditCardService,
-                    userDetailsService,
-                    accountService,
-                    userService)
-                )
+                creditCardService,
+                userDetailsService,
+                accountService,
+                userService)
+        )
                 .setViewResolvers(viewResolver)
                 .build();
 
@@ -138,10 +138,10 @@ public class MakeCardControllerTests {
     @Test
     public void testPostCreateCardAndAccount() throws Exception {
         mockMvc.perform(post("/createCard")
-                    .flashAttr("cardForm", cardForm)
-                )
+                .flashAttr("cardForm", cardForm)
+        )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/cardList"));
+                .andExpect(redirectedUrl("cardList?success"));
 
         verify(creditCardService, times(1)).createCard(TEST_LOGIN, Integer.parseInt(TEST_NUMBER));
     }
@@ -152,11 +152,11 @@ public class MakeCardControllerTests {
                 .when(creditCardService).createCard(TEST_LOGIN, Integer.parseInt(TEST_NUMBER));
 
         mockMvc.perform(
-            post("/createCard")
-            .flashAttr("cardForm", cardForm)
+                post("/createCard")
+                        .flashAttr("cardForm", cardForm)
         )
-        .andExpect(status().isOk())
-        .andExpect(view().name("makeCard"));
+                .andExpect(status().isOk())
+                .andExpect(view().name("makeCard"));
 
         verify(creditCardService, times(1)).createCard(TEST_LOGIN, Integer.parseInt(TEST_NUMBER));
     }
