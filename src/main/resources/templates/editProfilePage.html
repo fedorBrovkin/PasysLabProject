@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    table {
+      border-collapse: separate; /* Способ отображения границы */
+      border-spacing: 7px 11px; /* Расстояние между ячейками */
+    }
+  </style>
 </head>
 <body>
 
@@ -45,14 +51,15 @@
   <div th:if="${error}" class="alert alert-danger" role="alert" th:text="#{pasNotMatch}"></div>
   <div th:if="${success}" class="alert alert-success" role="alert" th:text="#{pasChange}"></div>
   <tr>
-                <th>
+    <th>
             <td>
         <lable th:text="#{oldPassword}"></lable>
                 </td>
                 <td>
         <input type="password" th:field="*{oldPassworld}" required/>
+
                 </td>
-                </th>
+    </th>
             </tr>
         <tr>
             <th>

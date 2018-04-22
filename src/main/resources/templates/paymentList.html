@@ -58,13 +58,17 @@
 <div class="container" style="margin-top:5px">
   <form th:action="@{/selectCardForPaymentHistory}"
         th:object="${cardForm}" method="POST">
-    <select class="form-control" id="dropOperator" th:field="*{cardNumber}">
-      <option value="0" th:each="card:${cards}" th:value="${card.cardNumber}"
-              th:text="${card.currentCondition}">
-        ...
-      </option>
-    </select>
-    <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
+    <div style="margin-top:5px">
+      <select class="form-control" id="dropOperator" th:field="*{cardNumber}">
+        <option value="0" th:each="card:${cards}" th:value="${card.cardNumber}"
+                th:text="${card.currentCondition}">
+          ...
+        </option>
+      </select>
+    </div>
+    <div style="margin-top:5px">
+      <button class="btn btn-dark" type="submit" th:text="#{button.submit}"/>
+    </div>
   </form>
   <div>
     <table class="table table-sm table-dark">
