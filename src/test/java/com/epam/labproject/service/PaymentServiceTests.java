@@ -141,10 +141,11 @@ public class PaymentServiceTests {
         assertTrue(allByTarget.get(2).equals(payments.get(2)));
     }
 
-    @Test
-    public void testSave() {
-        paymentService.save(payment);
-
-        verify(paymentRepository, times(1)).save(payment);
-    }
+//    private
+//    @Test
+//    public void testSave() {
+//        paymentService.save(payment);
+//
+//        verify(paymentRepository, times(1)).save(payment);
+//    }
 }
