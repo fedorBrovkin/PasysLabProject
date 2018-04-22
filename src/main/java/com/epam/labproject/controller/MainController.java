@@ -40,7 +40,7 @@ public class MainController {
         return "redirect:administrator";
       }
     }
-    return "index";
+    return "redirect:userOffice";
   }
 
   /**
