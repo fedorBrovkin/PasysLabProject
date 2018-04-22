@@ -45,6 +45,7 @@
   </nav>
 <div class="container" style="margin-top:60px">
   <div>
+    <div th:if="${status}" class="alert alert-success" role="alert" th:text="#{succeed}"></div>
     <table class="table table-sm table-dark">
       <thead>
       <tr>

@@ -138,11 +138,11 @@ public class CreditCardService {
     }
     if (this.checkStatus(target)) {
     } else {
-      throw new PasysException(PasysException.TARGET_ACCOUNT_IS_BLOCKED);
+      throw new PasysException(PasysException.TARGET_CARD_IS_OUT_DATE);
     }
     if (this.isAccountActive(target)) {
     } else {
-      throw new PasysException(PasysException.TARGET_CARD_IS_OUT_DATE);
+      throw new PasysException(PasysException.TARGET_ACCOUNT_IS_BLOCKED);
     }
   }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CardListController {
@@ -41,11 +42,14 @@ public class CardListController {
    * @param model instance
    * @return
    */
+
   @GetMapping("/cardList")
-  public String showCardList(Model model) {
+  public String showCardList(Model model,
+      @RequestParam(value = "success", required = false) String success) {
     List<CreditCard> cardList = userService.getUser(userDetailsService.getCurrentUsername())
         .getCards();
     model.addAttribute("cardList", CardForm.getCardFormList(cardList));
+    model.addAttribute("success", success != null);
     return "cardList";
   }
 
