@@ -74,7 +74,7 @@ public class MakePaymentController {
     } catch (PasysException e) {
       return "redirect:makePayment" + e.getMessage();
     }
-    return "redirect:/userOffice";
+    return "redirect:/userOffice?success=yes";
   }
 
   private boolean setAllert(Model model, String error) {
