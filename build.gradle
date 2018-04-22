@@ -4,9 +4,13 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "gradle.plugin.com.palantir:jacoco-coverage:0.4.0"
 	}
 }
 
@@ -16,6 +20,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'checkstyle'
+apply plugin: "com.palantir.jacoco-coverage"
 
 group = 'com.epam.labproject'
 version = '0.0.1-SNAPSHOT'
@@ -36,7 +41,6 @@ checkstyleTest {
 	source ='src/test/java'
 }
 
-
 repositories {
 	mavenCentral()
 }
@@ -56,5 +60,4 @@ dependencies {
 	testCompile('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
-
 }

@@ -32,23 +32,23 @@ public class AdminController {
 
   @GetMapping("/admSelectUser")
   public String showSelectUser(Model model) {
-    model.addAttribute(new User());
+    model.addAttribute("user", new User());
     return "admSelectUser";
   }
 
   @PostMapping("/admSelectUser")
   public String selectUser(Model model, @ModelAttribute("user") User user) {
     String userLogin = user.getLogin();
-    if (userLogin.length() < 0) {
-      return "redirect:admSelectUser";
+    if (userLogin == null) {
+      return "redirect:/admSelectUser";
     }
     List<Account> accountList = accountService.findAllByUser(userService.getUser(user.getLogin()));
     if (CollectionUtils.isEmpty(accountList)) {
-      return "redirect:administrator";
+      return "redirect:/administrator";
     }
     model.addAttribute("accountForm", new AccountForm());
     model.addAttribute("accounts", AccountForm.getAccountFormList(accountList));
-    return "/admSelectAccount";
+    return "admSelectAccount";
   }
 
   @GetMapping("/admSelectAccount")
@@ -60,6 +60,6 @@ public class AdminController {
   @PostMapping("/admBlockAccount")
   public String blockAccount(@ModelAttribute("accountForm") AccountForm accountForm) {
     accountService.changeStatus(accountForm.getAccNumber());
-    return "redirect:administrator";
+    return "redirect:/administrator";
   }
 }

@@ -42,7 +42,7 @@ public class PaymentListController {
     }
 
     @PostMapping("/selectCardForPaymentHistory")
-    public String selectCard(Model model, @ModelAttribute CardForm cardForm) {
+    public String selectCard(Model model, @ModelAttribute("cardForm") CardForm cardForm) {
         CreditCard creditCard = cardService.findByNumber(cardForm.getCardNumber());
         List<PaymentListForm> payments = PaymentListForm.getPaymentList(paymentService.findAllMyPayments(creditCard),
             creditCard);
@@ -53,7 +53,7 @@ public class PaymentListController {
     @GetMapping("/paymentList")
     public String showPaymentList(Model model) {
 
-        return "/paymentList";
+        return "paymentList";
     }
 
 }

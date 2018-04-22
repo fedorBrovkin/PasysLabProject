@@ -36,7 +36,7 @@ public class UnblockRequestController {
     int accNumber = requestForm.getAccNumber();
     accountService.changeStatus(accNumber);
     requestService.delete(accNumber);
-    return "redirect:admUnblockRequest";
+    return "redirect:/admUnblockRequest";
   }
 
 }

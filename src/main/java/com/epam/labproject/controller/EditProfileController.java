@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class EditProfileController {
-    private final PasswordEncoder bCryptPasswordEncoder;
     private final UserService userService;
+    private final PasswordEncoder bCryptPasswordEncoder;
     private final DataBaseUserDetailsService detailsService;
 
     public EditProfileController(UserService userService,
@@ -35,12 +35,13 @@ public class EditProfileController {
     @PostMapping("/editProfilePage")
     public String editProfile(Model model, @ModelAttribute("profileForm") EditProfileForm profileForm) {
         User user = userService.getUser(detailsService.getCurrentUsername());
-        if (bCryptPasswordEncoder.matches(profileForm.getOldPassworld(), user.getPassword()))
+        if (bCryptPasswordEncoder.matches(profileForm.getOldPassworld(), user.getPassword())) {
             if (profileForm.getNewPassworld().equals(profileForm.getRepeatPassword())) {
                 user.setPassword(bCryptPasswordEncoder.encode(profileForm.getNewPassworld()));
                 userService.changePassword(detailsService.getCurrentUsername(), profileForm.getNewPassworld());
                 return "redirect:/userOffice";
             }
+        }
         return "editProfilePage";
     }
 

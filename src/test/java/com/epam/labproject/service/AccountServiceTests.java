@@ -23,6 +23,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -59,7 +61,7 @@ public class AccountServiceTests {
         account.setNumber(TEST_ACCOUNT_NUMBER);
         account.setStatus(false);
         account.setBalance(TEST_BALANCE);
-        status = account.getStatus();
+        status = account.isStatus();
         Mockito.when(accountRepository.findByNumber(TEST_ACCOUNT_NUMBER))
                 .thenReturn(account);
 
@@ -90,6 +92,17 @@ public class AccountServiceTests {
         Mockito.when(accountRepository.findAllByUserAndStatusIsTrue(userService.getUser(TEST_USER_LOGIN)))
                 .thenReturn(accounts);
 
+    }
+
+    @Test
+    public void testCreateAccount() {
+        Mockito.when(userService.getUser(TEST_USER_LOGIN)).thenReturn(user);
+        Mockito.when(accountRepository.findByNumber(anyInt())).thenReturn(null);
+
+        accountService.createAccount(TEST_USER_LOGIN);
+
+        verify(userService, times(2)).getUser(TEST_USER_LOGIN);
+        verify(accountRepository, times(1)).save(any());
     }
 
     @Test
@@ -185,7 +198,7 @@ public class AccountServiceTests {
 
         verify(accountRepository, times(1)).save(account);
 
-        assertThat(account.getStatus())
+        assertThat(account.isStatus())
                 .isNotEqualTo(status);
     }
 
@@ -197,7 +210,7 @@ public class AccountServiceTests {
 
         verify(accountRepository, times(1)).save(account);
 
-        assertThat(account.getStatus())
+        assertThat(account.isStatus())
                 .isEqualTo(false);
     }
 
@@ -207,7 +220,7 @@ public class AccountServiceTests {
 
         verify(accountRepository, times(1)).findByNumber(TEST_ACCOUNT_NUMBER);
 
-        assertThat(status).isEqualTo(account.getStatus());
+        assertThat(status).isEqualTo(account.isStatus());
     }
 
     @Test

@@ -46,9 +46,6 @@ public class PaymentServiceTests {
 
     private Payment payment;
 
-    @Autowired
-    private CreditCardRepository creditCardRepository;
-
     private List<Payment> payments;
 
     private CreditCard source;
@@ -149,15 +146,5 @@ public class PaymentServiceTests {
         paymentService.save(payment);
 
         verify(paymentRepository, times(1)).save(payment);
-    }
-
-    @Test
-    public void testCheckDestinationIsTrue() {
-        assertTrue(paymentService.checkDestination(payment, source));
-    }
-
-    @Test
-    public void testCheckDestinationIsFalse() {
-        assertFalse(paymentService.checkDestination(payment, target));
     }
 }

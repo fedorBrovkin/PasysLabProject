@@ -42,7 +42,7 @@ public class MakeCardController {
         List<Account> accountList = accountService.findAllByUserNameAndStatusTrue(currentUserLogin);
         if (CollectionUtils.isEmpty(accountList)) {
             accountService.createAccount(currentUserLogin);
-            return "redirect:makeCard";
+            return "redirect:/makeCard";
         }
         CreateCardForm cardForm = new CreateCardForm();
         model.addAttribute("cardForm", cardForm);
@@ -56,9 +56,9 @@ public class MakeCardController {
     public String createCardAndAccount(@ModelAttribute("cardForm") CreateCardForm cardForm) {
         try {
             creditCardService.createCard(cardForm.getLogin(), Integer.parseInt(cardForm.getNumber()));
-            return "redirect:cardList";
+            return "redirect:/cardList";
         } catch (PasysException e) {
-            return e.getMessage();
+            return "makeCard";
         }
     }
 

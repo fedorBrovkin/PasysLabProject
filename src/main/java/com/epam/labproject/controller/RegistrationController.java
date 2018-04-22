@@ -35,7 +35,7 @@ class RegistrationController {
         Set<GrantedAuthority> authirities = new HashSet(userDetailsService.loadUserByUsername(currentUser).getAuthorities());
         for (GrantedAuthority a : authirities) {
             if (a.getAuthority().equals("ROLE_ADMIN")) {
-                return "redirect:administrator";
+                return "redirect:/administrator";
             }
         }
         return "index";

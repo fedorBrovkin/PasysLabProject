@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AccountListController {
@@ -36,7 +37,7 @@ public class AccountListController {
   @GetMapping("/makeAccount")
   public String makeAccount() {
     accountService.createAccount(userDetailsService.getCurrentUsername());
-    return "redirect:accountList";
+    return "redirect:/accountList";
   }
 
 
