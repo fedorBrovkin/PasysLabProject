@@ -51,7 +51,7 @@
 
     <select class="form-control" id="dropOperator" th:field="*{source}">
       <option value="0" th:each="card:${cards}" th:value="${card.cardNumber}"
-              th:text="#{cardNumber}+': '+${cardNumber}+' '+#{accountNumber}+': '+${accountNumber}+' '+#{balance}+': '+${balance}">
+              th:text="#{cardNumber}+': '+${card.cardNumber}+' '+#{accountNumber}+': '+${card.accountNumber}+' '+#{balance}+': '+${card.balance}">
         ...
       </option>
     </select>
