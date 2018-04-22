@@ -13,27 +13,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class CardListController {
-    private final UserService userService;
-    private final DataBaseUserDetailsService userDetailsService;
-    private final CreditCardService cardService;
-    private final AccountService accountService;
 
-    public CardListController(UserService userService,
-                              DataBaseUserDetailsService userDetailsService,
-                              CreditCardService cardService,
-                              AccountService accountService) {
-        this.userService = userService;
-        this.userDetailsService = userDetailsService;
-        this.cardService = cardService;
-        this.accountService = accountService;
-    }
+  private final UserService userService;
+  private final DataBaseUserDetailsService userDetailsService;
+  private final CreditCardService cardService;
+  private final AccountService accountService;
 
-    @GetMapping("/cardList")
-    public String showCardList(Model model) {
-        List<CreditCard> cardList = userService.getUser(userDetailsService.getCurrentUsername()).getCards();
-        model.addAttribute("cardList", CardForm.getCardFormList(cardList));
-        return "cardList";
-    }
+  /**
+   * Class constructor.
+   * @param userService Injected instance
+   * @param userDetailsService Injected instance
+   * @param cardService Injected instance
+   * @param accountService Injected instance
+   */
+  public CardListController(UserService userService,
+      DataBaseUserDetailsService userDetailsService,
+      CreditCardService cardService,
+      AccountService accountService) {
+    this.userService = userService;
+    this.userDetailsService = userDetailsService;
+    this.cardService = cardService;
+    this.accountService = accountService;
+  }
+
+  /**
+   * Get method to fill cardList attribute.
+   * @param model instance
+   * @return
+   */
+  @GetMapping("/cardList")
+  public String showCardList(Model model) {
+    List<CreditCard> cardList = userService.getUser(userDetailsService.getCurrentUsername())
+        .getCards();
+    model.addAttribute("cardList", CardForm.getCardFormList(cardList));
+    return "cardList";
+  }
 
 
 }

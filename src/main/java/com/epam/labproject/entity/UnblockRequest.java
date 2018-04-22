@@ -15,13 +15,11 @@ public class UnblockRequest extends AbstractIdentifiableEntity {
   @ManyToOne
   @JoinColumn(name = "user_id")
   User user;
-
-  @Column(name = "time")
-  private LocalDateTime time;
-
   @OneToOne
   @JoinColumn(name = "account_id")
   Account account;
+  @Column(name = "time")
+  private LocalDateTime time;
 
   public User getUser() {
     return user;

@@ -43,6 +43,12 @@ public class AdminController {
     return "admSelectUser";
   }
 
+  /**
+   * This is method to find all the accounts by user from the database.
+   * @param model model of the form
+   * @param user userVariable
+   * @return
+   */
   @PostMapping("/admSelectUser")
   public String selectUser(Model model, @ModelAttribute("user") User user) {
     String userLogin = user.getLogin();
