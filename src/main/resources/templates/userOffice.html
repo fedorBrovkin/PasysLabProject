@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>User Office</title>
   <meta charset="utf-8">
@@ -24,6 +25,16 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
+      <li>
+        <a th:href="@{/userOffice?lang=en}">
+          <button type="button" class="btn btn-dark">EN</button>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/userOffice?lang=ru}">
+          <button type="button" class="btn btn-dark">RU</button>
+        </a>
+      </li>
       <li>
         <a th:href="@{/userOffice}">
           <span class="glyphicon glyphicon-home">&nbsp;</span>

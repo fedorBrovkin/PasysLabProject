@@ -27,6 +27,9 @@ public class MainController {
     this.userDetailsService = userDetailsService;
   }
 
+  /**
+   * Default page
+   */
   @GetMapping(value = {"/", "/index"})
   public String index(Model model) {
     String currentUser = userDetailsService.getCurrentUsername();
@@ -40,6 +43,12 @@ public class MainController {
     return "index";
   }
 
+  /**
+   * Login page
+   *
+   * @param error - error message
+   * @param model - form model
+   */
   @RequestMapping("/login")
   public String getLogin(@RequestParam(value = "error", required = false) String error,
       Model model) {
@@ -47,6 +56,9 @@ public class MainController {
     return "login";
   }
 
+  /**
+   * Logout page
+   */
   @GetMapping(value = "/logout")
   public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();

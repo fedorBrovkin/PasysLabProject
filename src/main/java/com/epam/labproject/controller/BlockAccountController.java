@@ -55,12 +55,22 @@ public class BlockAccountController {
     return "blockAccount";
   }
 
+  /**
+   * Blocking account
+   *
+   * @param accountForm - form with account number
+   */
   @PostMapping("/blockAccount")
   public String blockAccount(@ModelAttribute("accountForm") AccountForm accountForm) {
     accountService.blockAccount(accountForm.getAccNumber());
     return "redirect:accountList?status";
   }
 
+  /**
+   * Send unblock request
+   * @param accountForm - account number
+   * @return
+   */
   @PostMapping("/unblockAccount")
   public String unblockAccount(@ModelAttribute("unblockAccountForm") AccountForm accountForm) {
     unblockRequestService.createRequest(accountForm.getAccNumber());
