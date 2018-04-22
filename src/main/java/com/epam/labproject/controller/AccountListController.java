@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AccountListController {
@@ -37,13 +38,19 @@ public class AccountListController {
    * @return
    */
   @GetMapping("/accountList")
-  public String showCardList(Model model) {
+  public String showCardList(Model model,
+      @RequestParam(value = "status", required = false) String status) {
     List<Account> accList = accountService
         .findAllByUser(userService
             .getUser(userDetailsService.getCurrentUsername()));
+    model.addAttribute("status", status != null);
     model.addAttribute("accounts", AccountForm.getAccountFormList(accList));
     return "accountList";
   }
+
+  /**
+   * Creating account
+   */
 
   @GetMapping("/makeAccount")
   public String makeAccount() {

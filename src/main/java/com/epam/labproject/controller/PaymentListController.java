@@ -33,6 +33,7 @@ public class PaymentListController {
     this.cardService = cardService;
   }
 
+
   @PostMapping("/selectCardForPaymentHistory")
   public String selectCard(Model model, @ModelAttribute CardForm cardForm) {
     CreditCard creditCard = cardService.findByNumber(cardForm.getCardNumber());
@@ -40,17 +41,17 @@ public class PaymentListController {
         .getPaymentList(paymentService.findAllMyPayments(creditCard),
             creditCard);
     model.addAttribute("payments", payments);
-    return "redirect:/paymentList?cardNum="+cardForm.getCardNumber();
+    return "redirect:/paymentList?cardNum=" + cardForm.getCardNumber();
   }
 
   @GetMapping("/paymentList")
   public String showPaymentList(Model model,
-      @RequestParam(value = "cardNum",required = false) String cardNum) {
+      @RequestParam(value = "cardNum", required = false) String cardNum) {
     User user = userService.getUser(detailsService.getCurrentUsername());
     List<CreditCard> cards = user.getCards();
     model.addAttribute("cards", CardForm.getCardFormList(cards));
     model.addAttribute("cardForm", new CardForm());
-    if (cardNum!=null) {
+    if (cardNum != null) {
       CreditCard creditCard = cardService.findByNumber(Integer.parseInt(cardNum));
       List<PaymentForm> payments = PaymentForm
           .getPaymentList(paymentService.findAllMyPayments(creditCard),

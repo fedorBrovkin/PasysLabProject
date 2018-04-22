@@ -3,7 +3,7 @@ package com.epam.labproject.form;
 
 import com.epam.labproject.entity.Account;
 import java.math.BigDecimal;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccountForm {
@@ -28,7 +28,7 @@ public class AccountForm {
   }
 
   public static List<AccountForm> getAccountFormList(List<Account> accountList) {
-    List<AccountForm> accounts = new LinkedList<>();
+    List<AccountForm> accounts = new ArrayList<>(accountList.size());
     for (Account account : accountList) {
       int accountNumber = account.getNumber();
       BigDecimal balance = account.getBalance();

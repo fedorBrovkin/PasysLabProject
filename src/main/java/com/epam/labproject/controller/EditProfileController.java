@@ -21,10 +21,12 @@ public class EditProfileController {
 
   /**
    * Constructor method.
+   *
    * @param userService Injected instance
    * @param bCryptPasswordEncoder Injected instance
    * @param detailsService Injected instance
    */
+
   public EditProfileController(UserService userService,
       PasswordEncoder bCryptPasswordEncoder,
       DataBaseUserDetailsService detailsService) {
@@ -35,34 +37,41 @@ public class EditProfileController {
 
   /**
    * Get method. Show profile.
+   *
    * @param model Injected instance
-   * @return
    */
-    @GetMapping("/editProfilePage")
-    public String showEditProfilePage(Model model,
-        @RequestParam(value = "error", required = false) String error) {
-        EditProfileForm profileForm = new EditProfileForm();
-      model.addAttribute("error", error != null);
-        model.addAttribute("profileForm", profileForm);
-        return "editProfilePage";
-    }
+
+  @GetMapping("/editProfilePage")
+  public String showEditProfilePage(Model model,
+      @RequestParam(value = "error", required = false) String error,
+      @RequestParam(value = "success", required = false) String success) {
+    EditProfileForm profileForm = new EditProfileForm();
+    model.addAttribute("error", error != null);
+    model.addAttribute("success", success != null);
+    model.addAttribute("profileForm", profileForm);
+    return "editProfilePage";
+  }
 
   /**
    * Post method to change password.
+   *
    * @param model model instance
    * @param profileForm profile instance
-   * @return
    */
 
-    @PostMapping("/editProfilePage")
-    public String editProfile(Model model, @ModelAttribute("profileForm") EditProfileForm profileForm) {
-        User user = userService.getUser(detailsService.getCurrentUsername());
-        if (bCryptPasswordEncoder.matches(profileForm.getOldPassworld(), user.getPassword()))
-            if (profileForm.getNewPassworld().equals(profileForm.getRepeatPassword())) {
-                userService.changePassword(detailsService.getCurrentUsername(), profileForm.getNewPassworld());
-              return "redirect:/userOffice?error";
-            }
-        return "editProfilePage";
-    }
+  @PostMapping("/editProfilePage")
+  public String editProfile(Model model,
+      @ModelAttribute("profileForm") EditProfileForm profileForm) {
+    User user = userService.getUser(detailsService.getCurrentUsername());
+    if (bCryptPasswordEncoder.matches(profileForm.getOldPassworld(), user.getPassword())) {
+      if (profileForm.getNewPassworld().equals(profileForm.getRepeatPassword())) {
+        userService
+            .changePassword(detailsService.getCurrentUsername(),
+                profileForm.getNewPassworld());
+        return "redirect:/editProfilePage?success";
 
+      }
+    }
+    return "redirect:/editProfilePage?error";
+  }
 }

@@ -76,7 +76,7 @@ public class MakeCardController {
     public String createCardAndAccount(@ModelAttribute("cardForm") CreateCardForm cardForm) {
         try {
             creditCardService.createCard(cardForm.getLogin(), Integer.parseInt(cardForm.getNumber()));
-            return "redirect:cardList";
+          return "redirect:cardList?success";
         } catch (PasysException e) {
             return "redirect:/makeCard" + e.getMessage();
         }

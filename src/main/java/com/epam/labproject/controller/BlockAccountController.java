@@ -58,12 +58,12 @@ public class BlockAccountController {
   @PostMapping("/blockAccount")
   public String blockAccount(@ModelAttribute("accountForm") AccountForm accountForm) {
     accountService.blockAccount(accountForm.getAccNumber());
-    return "redirect:accountList";
+    return "redirect:accountList?status";
   }
 
   @PostMapping("/unblockAccount")
   public String unblockAccount(@ModelAttribute("unblockAccountForm") AccountForm accountForm) {
     unblockRequestService.createRequest(accountForm.getAccNumber());
-    return "redirect:accountList";
+    return "redirect:accountList?status";
   }
 }

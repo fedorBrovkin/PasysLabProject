@@ -27,7 +27,9 @@ public class AdminController {
   }
 
   @GetMapping("/administrator")
-  public String showAdministrator(Model model) {
+  public String showAdministrator(Model model,
+      @RequestParam(value = "status", required = false) String status) {
+    model.addAttribute("status", status != null);
     return "administrator";
   }
 
@@ -74,6 +76,6 @@ public class AdminController {
   @PostMapping("/admBlockAccount")
   public String blockAccount(@ModelAttribute("accountForm") AccountForm accountForm) {
     accountService.changeStatus(accountForm.getAccNumber());
-    return "redirect:administrator";
+    return "redirect:administrator?status";
   }
 }

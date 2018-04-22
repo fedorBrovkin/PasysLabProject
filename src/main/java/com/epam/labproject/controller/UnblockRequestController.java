@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UnblockRequestController {
@@ -33,9 +34,11 @@ public class UnblockRequestController {
    * @return
    */
   @GetMapping("/admUnblockRequest")
-  public String showUnblockRequest(Model model) {
+  public String showUnblockRequest(Model model,
+      @RequestParam(value = "status", required = false) String status) {
     List<UnblockRequestForm> requests = UnblockRequestForm
         .getFormList(requestService.findAllRequest());
+    model.addAttribute("status", status != null);
     model.addAttribute("requests", requests);
     model.addAttribute("unblockRequestForm", new UnblockRequestForm());
     return "admUnblockRequest";
@@ -51,7 +54,7 @@ public class UnblockRequestController {
     int accNumber = requestForm.getAccNumber();
     accountService.changeStatus(accNumber);
     requestService.delete(accNumber);
-    return "redirect:admUnblockRequest";
+    return "redirect:admUnblockRequest?status";
   }
 
 }
