@@ -1,6 +1,13 @@
 package com.epam.labproject.exception;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PasysException extends Exception {
+
+
+  static final Logger logger= LoggerFactory.getLogger(PasysException.class);
 
 
   public static final String USER_ALREADY_EXIST = "userAlreadyExist";
@@ -17,8 +24,10 @@ public class PasysException extends Exception {
   private String message;
   private String err = "?error=";
 
+
   public PasysException(String message) {
     this.message = message;
+    logger.error(message);
   }
 
   public PasysException() {
