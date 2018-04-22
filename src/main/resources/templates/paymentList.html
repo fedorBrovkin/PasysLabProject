@@ -16,6 +16,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<ul class="nav">
+    <li class="nav-item">
+        <a class="nav-link disabled " th:href="@{/selectCardForPaymentHistory}"
+           th:text="#{selectCard}"></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" th:href="@{/paymentList.html}" th:text="#{paymentHistory}"></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" th:href="@{/makePayment.html.html}"
+           th:text="#{makePayment}"></a>
+    </li>
+</ul>
 <table class="table table-sm table-dark">
     <thead>
     <tr>

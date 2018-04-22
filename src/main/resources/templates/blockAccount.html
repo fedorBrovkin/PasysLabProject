@@ -21,7 +21,7 @@
 
     <select class="form-control" id="dropOperator" th:field="*{accNumber}">
         <option value="0" th:each="account:${accounts}" th:value="${account.accNumber}"
-                th:text="${account.currentCondition}">
+                th:text="#{accountNumber}+' '+${account.accNumber}+' '+#{balance}+' '+${account.balance}">
             ...
         </option>
     </select>
@@ -33,7 +33,7 @@
 
   <select class="form-control" id="dropOperator" th:field="*{accNumber}">
     <option value="0" th:each="account:${blockedAccounts}" th:value="${account.accNumber}"
-            th:text="${account.currentCondition}">
+            th:text="#{accountNumber}+': '+${account.accNumber}+' '+#{balance}+': '+${account.balance}">
       ...
     </option>
   </select>

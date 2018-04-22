@@ -79,8 +79,8 @@ public class AccountService {
             BigDecimal balance = account.getBalance();
             account.setBalance(balance.add(new BigDecimal(10000)));
             accountRepository.save(account);
-        } else {
-            throw new PasysException();///Account is blocked message
+        }else{
+          throw new PasysException("?accountBlocked");
         }
     }
 

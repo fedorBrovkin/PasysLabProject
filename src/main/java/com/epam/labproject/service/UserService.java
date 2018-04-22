@@ -33,7 +33,7 @@ public class UserService {
                 userRepository.save(user);
                 PasswordEncoderFactories.createDelegatingPasswordEncoder();
             } else {
-                throw new PasysException("user is already exist");//MESSAGE FROM BUNDLE NEEDED
+                throw new PasysException("?error" + PasysException.USER_ALREADY_EXIST);
             }
         }
     }
@@ -60,7 +60,7 @@ public class UserService {
             user.setRole(role);
             userRepository.save(user);
         } else {
-            throw new PasysException("No such role");
+            throw new PasysException("?error=" + PasysException.NO_SUCH_ROLE);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.epam.labproject.service;
 
+import com.epam.labproject.entity.Account;
 import com.epam.labproject.entity.UnblockRequest;
 import com.epam.labproject.repository.UnblockRequestRepository;
 import java.time.LocalDateTime;
@@ -33,8 +34,13 @@ public class UnblockRequestService {
   }
 
   public void createRequest(int accNumber) {
-    UnblockRequest request = new UnblockRequest();
-    request.setAccount(accountService.findByNumber(accNumber));
+    Account account = accountService.findByNumber(accNumber);
+    UnblockRequest request;
+    if ((request = requestRepository.findByAccount(account)) != null) {
+      requestRepository.delete(request);
+    }
+    request = new UnblockRequest();
+    request.setAccount(account);
     request.setUser(userService.getUser(detailsService.getCurrentUsername()));
     request.setTime(LocalDateTime.now());
     save(request);

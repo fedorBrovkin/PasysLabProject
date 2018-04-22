@@ -16,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MakeCardController {
@@ -36,7 +37,8 @@ public class MakeCardController {
     }
 
     @GetMapping("/makeCard")
-    public String makeCardPage(Model model) {
+    public String makeCardPage(Model model,
+        @RequestParam(value = "error", required = false) String error) {
         String currentUserLogin = userDetailsService.getCurrentUsername();
         User user = userService.getUser(currentUserLogin);
         List<Account> accountList = accountService.findAllByUserNameAndStatusTrue(currentUserLogin);
@@ -45,6 +47,7 @@ public class MakeCardController {
             return "redirect:/makeCard";
         }
         CreateCardForm cardForm = new CreateCardForm();
+      model.addAttribute("noUser", error != null);
         model.addAttribute("cardForm", cardForm);
         model.addAttribute("accounts", AccountForm.getAccountFormList(accountList));
 

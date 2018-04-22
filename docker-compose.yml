@@ -1,0 +1,31 @@
+version: '3'
+services:
+  spring-boot-jpa-docker-webapp::
+    image: gradle-springboot
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=payment_system
+      - DATABASE_PORT=4444
+  db:
+#        container_name: db
+      image: postgres:10.3
+      restart: always
+#        hostname: db
+#        volumes:
+#            - db_dir:/var/lib/postgresql/data
+      environment:
+          - POSTGRES_PASSWORD=postgres
+          - POSTGRES_USER=postgres
+          - POSTGRES_DB=payment_system
+          - PGDATA=/var/lib/postgresql/data/pgdata
+      ports:
+          - 4444:5432
+
+#volumes:
+#    db_dir: {}

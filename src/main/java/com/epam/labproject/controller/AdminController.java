@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AdminController {
@@ -31,20 +32,27 @@ public class AdminController {
   }
 
   @GetMapping("/admSelectUser")
-  public String showSelectUser(Model model) {
-    model.addAttribute("user", new User());
+  public String showSelectUser(Model model,
+      @RequestParam(value = "error", required = false) String error) {
+    model.addAttribute(new User());
+    if (error != null) {
+      model.addAttribute("noUser", error.equals("noUser"));
+      model.addAttribute("noAccount", error.equals("noAccounts"));
+      model.addAttribute(new User());
+    }
     return "admSelectUser";
   }
 
   @PostMapping("/admSelectUser")
   public String selectUser(Model model, @ModelAttribute("user") User user) {
     String userLogin = user.getLogin();
-    if (userLogin == null) {
-      return "redirect:/admSelectUser";
+    user = userService.getUser(userLogin);
+    if (user == null) {
+      return "redirect:admSelectUser?error=noUser";
     }
-    List<Account> accountList = accountService.findAllByUser(userService.getUser(user.getLogin()));
+    List<Account> accountList = accountService.findAllByUser(user);
     if (CollectionUtils.isEmpty(accountList)) {
-      return "redirect:/administrator";
+      return "redirect:/admSelectUser?error=noAccounts";
     }
     model.addAttribute("accountForm", new AccountForm());
     model.addAttribute("accounts", AccountForm.getAccountFormList(accountList));

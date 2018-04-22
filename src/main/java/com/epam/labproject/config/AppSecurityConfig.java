@@ -13,18 +13,15 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
         .antMatchers("/webjars/**", "/static/**").permitAll()
-        .antMatchers("/registration", "/resources/static/**").permitAll()
+        .antMatchers("/registration**", "/resources/static/**", "/login**").permitAll()
         .antMatchers("/administrator").hasAnyRole("ADMIN")
         .antMatchers("/adm**").hasAnyRole("ADMIN")
         .antMatchers("/registration").permitAll()
         .anyRequest().authenticated()
         .and()
         .formLogin().loginPage("/login")
-        .permitAll()
         .and()
-        .logout()
-        .logoutUrl("/logout")
-        .logoutSuccessUrl("/login");
+        .logout();
   }
 }
 

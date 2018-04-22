@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class EditProfileController {
@@ -26,8 +27,10 @@ public class EditProfileController {
     }
 
     @GetMapping("/editProfilePage")
-    public String showEditProfilePage(Model model) {
+    public String showEditProfilePage(Model model,
+        @RequestParam(value = "error", required = false) String error) {
         EditProfileForm profileForm = new EditProfileForm();
+      model.addAttribute("error", error != null);
         model.addAttribute("profileForm", profileForm);
         return "editProfilePage";
     }
@@ -37,9 +40,8 @@ public class EditProfileController {
         User user = userService.getUser(detailsService.getCurrentUsername());
         if (bCryptPasswordEncoder.matches(profileForm.getOldPassworld(), user.getPassword())) {
             if (profileForm.getNewPassworld().equals(profileForm.getRepeatPassword())) {
-                user.setPassword(bCryptPasswordEncoder.encode(profileForm.getNewPassworld()));
                 userService.changePassword(detailsService.getCurrentUsername(), profileForm.getNewPassworld());
-                return "redirect:/userOffice";
+              return "redirect:/userOffice?error";
             }
         }
         return "editProfilePage";
