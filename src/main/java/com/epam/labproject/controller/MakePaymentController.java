@@ -70,7 +70,7 @@ public class MakePaymentController {
     int target = paymentForm.getTarget();
     int source = paymentForm.getSource();
     if (target == source) {
-      return "redirect:/makePayment";
+      return "redirect:/makePayment?error=sameCard";
     }
     try {
       creditCardService.doPayment(source,
@@ -88,6 +88,7 @@ public class MakePaymentController {
       model.addAttribute("sourceBlocked", error.equals(PasysException.SOURCE_ACCOUNT_IS_BLOCKED));
       model.addAttribute("sourceOutDate",
           error.equals(PasysException.SOURCE_CREDIT_CARD_IS_OUT_DATE));
+      model.addAttribute("sameCard", error.equals("sameCard"));
       model.addAttribute("targetBlocked", error.equals(PasysException.TARGET_ACCOUNT_IS_BLOCKED));
       model.addAttribute("noTarget", error.equals(PasysException.TARGET_CARD_NOT_CHOSEN));
       model.addAttribute("targetOutDate", error.equals(PasysException.TARGET_CARD_IS_OUT_DATE));

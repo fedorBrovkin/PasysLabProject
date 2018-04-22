@@ -61,7 +61,7 @@
   <div th:if="${status}" class="alert alert-success" role="alert" th:text="#{statusChanged}"></div>
   <select class="form-control" id="dropOperator" th:field="*{accNumber}">
     <option value="0" th:each="account:${accounts}" th:value="${account.accNumber}"
-            th:text="#{accountNumber}+': '+${account.accNumber}+' '+#{balance}+': '+${account.balance}+#{status}+${account.status}">
+            th:text="#{accountNumber}+': '+${account.accNumber}+' '+#{balance}+': '+${account.balance}+' '+#{status}+': '+${account.status}">
       ...
     </option>
   </select>
