@@ -18,6 +18,12 @@ public class AccountListController {
   private final DataBaseUserDetailsService userDetailsService;
   private final AccountService accountService;
 
+  /**
+   * Constructor for class.
+   * @param userService service for User entity
+   * @param userDetailsService userDService
+   * @param accountService service for Account entity.
+   */
   public AccountListController(UserService userService,
       DataBaseUserDetailsService userDetailsService,
       AccountService accountService) {
@@ -26,10 +32,16 @@ public class AccountListController {
     this.accountService = accountService;
   }
 
+  /**
+   * ShowCard method.
+   * @param model model of the form.
+   * @return
+   */
   @GetMapping("/accountList")
   public String showCardList(Model model) {
     List<Account> accList = accountService
-        .findAllByUser(userService.getUser(userDetailsService.getCurrentUsername()));
+        .findAllByUser(userService
+            .getUser(userDetailsService.getCurrentUsername()));
     model.addAttribute("accounts", AccountForm.getAccountFormList(accList));
     return "accountList";
   }

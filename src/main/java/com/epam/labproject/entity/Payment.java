@@ -21,7 +21,6 @@ public class Payment extends AbstractIdentifiableEntity {
   @ManyToOne
   @JoinColumn(name = "target_id")
   private CreditCard target;
-
   @Positive
   @Max(15000)
   @Column(name = "amount")

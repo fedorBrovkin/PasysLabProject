@@ -2,32 +2,33 @@ package com.epam.labproject.form;
 
 
 public class EditProfileForm {
-    private String oldPassworld;
-    private String newPassworld;
-    private String repeatPassword;
 
-    public String getNewPassworld() {
-        return newPassworld;
-    }
+  private String oldPassworld;
+  private String newPassworld;
+  private String repeatPassword;
 
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
+  public String getNewPassworld() {
+    return newPassworld;
+  }
 
-    public String getOldPassworld() {
+  public void setNewPassworld(String newPassworld) {
+    this.newPassworld = newPassworld;
+  }
 
-        return oldPassworld;
-    }
+  public String getRepeatPassword() {
+    return repeatPassword;
+  }
 
-    public void setOldPassworld(String oldPassworld) {
-        this.oldPassworld = oldPassworld;
-    }
+  public void setRepeatPassword(String repeatPassword) {
+    this.repeatPassword = repeatPassword;
+  }
 
-    public void setNewPassworld(String newPassworld) {
-        this.newPassworld = newPassworld;
-    }
+  public String getOldPassworld() {
 
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
-    }
+    return oldPassworld;
+  }
+
+  public void setOldPassworld(String oldPassworld) {
+    this.oldPassworld = oldPassworld;
+  }
 }

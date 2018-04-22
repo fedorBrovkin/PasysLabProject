@@ -24,6 +24,14 @@ public class MakePaymentController {
   private final DataBaseUserDetailsService detailsService;
   private final UserService userService;
 
+  /**
+   * Constructor.
+   * @param paymentService Injected instance
+   * @param creditCardService Injected instance
+   * @param detailsService Injected instance
+   * @param userService Injected instance
+   */
+
   public MakePaymentController(PaymentService paymentService,
       CreditCardService creditCardService,
       DataBaseUserDetailsService detailsService,
@@ -33,6 +41,12 @@ public class MakePaymentController {
     this.detailsService = detailsService;
     this.userService = userService;
   }
+
+  /**
+   * get method.
+   * @param model instance
+   * @return
+   */
 
   @GetMapping(value = {"/makePayment"})
   public String showPaymentPage(Model model,
@@ -45,6 +59,12 @@ public class MakePaymentController {
     return "makePayment";
   }
 
+  /**
+   * Post method.
+   * @param model instance
+   * @param paymentForm instance
+   * @return
+   */
   @PostMapping("/makePayment")
   public String makePayment(Model model, @ModelAttribute("paymentForm") PaymentForm paymentForm) {
     try {
@@ -54,7 +74,7 @@ public class MakePaymentController {
     } catch (PasysException e) {
       return "redirect:makePayment" + e.getMessage();
     }
-    return "redirect:/userOffice";
+    return "redirect:/userOffice?success=yes";
   }
 
   private boolean setAllert(Model model, String error) {

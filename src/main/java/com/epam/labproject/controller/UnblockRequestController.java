@@ -16,12 +16,22 @@ public class UnblockRequestController {
   private final UnblockRequestService requestService;
   private final AccountService accountService;
 
+  /**
+   * Constructor.
+   * @param requestService Injected instance
+   * @param accountService Injected instance
+   */
   public UnblockRequestController(UnblockRequestService requestService,
       AccountService accountService) {
     this.requestService = requestService;
     this.accountService = accountService;
   }
 
+  /**
+   * Get method
+   * @param model instance
+   * @return
+   */
   @GetMapping("/admUnblockRequest")
   public String showUnblockRequest(Model model) {
     List<UnblockRequestForm> requests = UnblockRequestForm
@@ -31,6 +41,11 @@ public class UnblockRequestController {
     return "admUnblockRequest";
   }
 
+  /**
+   * Post method.
+   * @param requestForm instance
+   * @return
+   */
   @PostMapping("/admUnblockRequest")
   public String changeStatus(@ModelAttribute("unblockRequestForm") UnblockRequestForm requestForm) {
     int accNumber = requestForm.getAccNumber();

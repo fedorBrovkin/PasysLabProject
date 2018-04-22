@@ -24,13 +24,15 @@ public class User extends AbstractIdentifiableEntity {
   @JoinColumn(name = "role_id")
   private Role role;
   @OneToMany(mappedBy = "user", targetEntity = CreditCard.class, fetch = FetchType.EAGER)
-  private List<CreditCard> cards=new  ArrayList<CreditCard>();
-  public User(){
+  private List<CreditCard> cards = new ArrayList<CreditCard>();
+
+  public User() {
   }
 
   public List<CreditCard> getCards() {
     return cards;
   }
+
   public void setCards(List<CreditCard> cards) {
     this.cards = cards;
   }
@@ -83,12 +85,20 @@ public class User extends AbstractIdentifiableEntity {
 
   @Override
   public String toString() {
-    return "User{" +
-            "id='" + getId() + '\'' +
-            "login='" + login + '\'' +
-            ", password='" + password + '\'' +
-            ", role=" + role +
-            ", cards=" + cards +
-            '}';
+    return "User{"
+        + "id='"
+        + getId()
+        + '\''
+        + "login='"
+        + login
+        + '\''
+        + ", password='"
+        + password
+        + '\''
+        + ", role="
+        + role
+        + ", cards="
+        + cards
+        + '}';
   }
 }

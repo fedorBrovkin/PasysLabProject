@@ -27,9 +27,14 @@ public class MvcConfig implements WebMvcConfigurer {
     return new CookieLocaleResolver();
   }
 
+  /**
+   * This is a bean for messageSource. Configuration paths for bundles.
+   * @return
+   */
   @Bean(name = "messageSource")
   public MessageSource getMessageResource() {
-    ReloadableResourceBundleMessageSource messageResource = new ReloadableResourceBundleMessageSource();
+    ReloadableResourceBundleMessageSource messageResource =
+        new ReloadableResourceBundleMessageSource();
     messageResource.setBasename("classpath:i18n/messages");
     messageResource.setDefaultEncoding("UTF-8");
     return messageResource;
