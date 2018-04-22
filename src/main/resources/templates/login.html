@@ -15,7 +15,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="../../resources/static/logo.png">
+    <link rel="icon" href="../../resources/static/logo1.png">
 
     <title>Pysys LogIn</title>
 
@@ -29,7 +29,7 @@
 
 
 <form class="form-signin" th:action="@{/login}" method="post" shrink-to-fit=no>
-    <img class="mb-4" src="../../resources/static/logo.png" th:src="@{../static/logo.png}" height="200">
+    <img class="mb-4" src="../../resources/static/logo1.png" th:src="@{../static/logo1.png}" height="85">
     <div th:if="${param.logout}" class="alert alert-dark" role="alert" th:text="#{logOutAlert}"
          style="margin-top:45px"></div>
     <div th:if="${param.error}" class="alert alert-danger" role="alert"
