@@ -56,28 +56,32 @@
 <div class="container">
 <form th:action="@{/blockAccount}"
       th:object="${accountForm}" method="POST">
-
+  <div style="margin-top:5px">
   <select class="form-control" id="dropOperator" th:field="*{accNumber}">
     <option value="0" th:each="account:${accounts}" th:value="${account.accNumber}"
             th:text="#{accountNumber}+' '+${account.accNumber}+' '+#{balance}+' '+${account.balance}">
       ...
     </option>
   </select>
-
-  <button class="btn btn-dark" type="submit" th:text="#{button.blockAccount}"/>
+  </div>
+  <div style="margin-top:5px">
+    <button class="btn btn-dark" type="submit" th:text="#{button.blockAccount}"/>
+  </div>
 </form>
 
   <form th:action="@{/unblockAccount}"
         th:object="${unblockAccountForm}" method="POST">
-
+    <div style="margin-top:5px">
     <select class="form-control" id="dropOperator" th:field="*{accNumber}">
       <option value="0" th:each="account:${blockedAccounts}" th:value="${account.accNumber}"
               th:text="#{accountNumber}+': '+${account.accNumber}+' '+#{balance}+': '+${account.balance}">
         ...
       </option>
     </select>
-
+    </div>
+    <div style="margin-top:5px">
     <button class="btn btn-dark" type="submit" th:text="#{button.makeRequest}"/>
+    </div>
 </form>
 
 </div>

@@ -67,9 +67,14 @@ public class MakePaymentController {
    */
   @PostMapping("/makePayment")
   public String makePayment(Model model, @ModelAttribute("paymentForm") PaymentForm paymentForm) {
+    int target = paymentForm.getTarget();
+    int source = paymentForm.getSource();
+    if (target == source) {
+      return "redirect:/makePayment";
+    }
     try {
-      creditCardService.doPayment(paymentForm.getSource(),
-          paymentForm.getTarget(),
+      creditCardService.doPayment(source,
+          target,
           paymentForm.getAmount());
     } catch (PasysException e) {
       return "redirect:makePayment" + e.getMessage();
