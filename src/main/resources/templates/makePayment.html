@@ -51,7 +51,7 @@
 
     <select class="form-control" id="dropOperator" th:field="*{source}">
       <option value="0" th:each="card:${cards}" th:value="${card.cardNumber}"
-              th:text="${card.currentCondition}">
+              th:text="#{cardNumber}+': '+${cardNumber}+' '+#{accountNumber}+': '+${accountNumber}+' '+#{balance}+': '+${balance}">
         ...
       </option>
     </select>
@@ -91,6 +91,8 @@
     <div style="margin-top:5px">
       <div th:if="${noSource}" class="alert alert-danger" role="alert"
            th:text="#{noSourceCard}"></div>
+      <div th:if="${sameCard}" class="alert alert-danger" role="alert"
+           th:text="#{sameCard}"></div>
       <div th:if="${sourceBlocked}" class="alert alert-danger" role="alert"
            th:text="#{sourceAccIsBlocked}"></div>
       <div th:if="${sourceOutDate}" class="alert alert-danger" role="alert"
