@@ -13,32 +13,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 class RegistrationController {
 
-    private final UserService userService;
+  private final UserService userService;
 
-    public RegistrationController(UserService userService) {
-        this.userService = userService;
-    }
+  public RegistrationController(UserService userService) {
+    this.userService = userService;
+  }
 
-    @GetMapping(value = {"/registration"})
-    public String registration(
-        @RequestParam(value = "userAlreadyExist", required = false) String error,
-        Model model) {
-        User user = new User();
-        model.addAttribute("error", error != null);
-        model.addAttribute("user", user);
-        return "registration";
-    }
+  /**
+   * Method show registration page
+   *
+   * @param error error message
+   * @param model form model
+   */
 
-    @PostMapping(value = {"/registration"})
-    public String saveUser(Model model, @ModelAttribute("user") User user) {
-        try {
-            userService.createUser(user);
-        } catch (PasysException e) {
-            e.printStackTrace();
-            return "redirect:/registration" + e.getMessage();
-        }
-        return "redirect:/";
+  @GetMapping(value = {"/registration"})
+  public String registration(
+      @RequestParam(value = "userAlreadyExist", required = false) String error,
+      Model model) {
+    User user = new User();
+    model.addAttribute("error", error != null);
+    model.addAttribute("user", user);
+    return "registration";
+  }
+
+  /**
+   * Register user
+   *
+   * @param model - form model
+   * @param user - user
+   */
+  @PostMapping(value = {"/registration"})
+  public String saveUser(Model model, @ModelAttribute("user") User user) {
+    try {
+      userService.createUser(user);
+    } catch (PasysException e) {
+      e.printStackTrace();
+      return "redirect:/registration" + e.getMessage();
     }
+    return "redirect:/";
+  }
 
 
 }

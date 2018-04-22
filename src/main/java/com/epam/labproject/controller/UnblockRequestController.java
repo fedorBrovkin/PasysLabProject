@@ -19,6 +19,7 @@ public class UnblockRequestController {
 
   /**
    * Constructor.
+   *
    * @param requestService Injected instance
    * @param accountService Injected instance
    */
@@ -30,8 +31,8 @@ public class UnblockRequestController {
 
   /**
    * Get method
+   *
    * @param model instance
-   * @return
    */
   @GetMapping("/admUnblockRequest")
   public String showUnblockRequest(Model model,
@@ -46,8 +47,8 @@ public class UnblockRequestController {
 
   /**
    * Post method.
+   *
    * @param requestForm instance
-   * @return
    */
   @PostMapping("/admUnblockRequest")
   public String changeStatus(@ModelAttribute("unblockRequestForm") UnblockRequestForm requestForm) {

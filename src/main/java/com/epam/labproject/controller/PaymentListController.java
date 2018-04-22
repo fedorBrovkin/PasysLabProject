@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PaymentListController {
+
   private final PaymentService paymentService;
   private final DataBaseUserDetailsService detailsService;
   private final UserService userService;
@@ -33,7 +34,12 @@ public class PaymentListController {
     this.cardService = cardService;
   }
 
-
+  /**
+   * Select card for displaying payment history
+   *
+   * @param model - model of th form
+   * @param cardForm - form with card number
+   */
   @PostMapping("/selectCardForPaymentHistory")
   public String selectCard(Model model, @ModelAttribute CardForm cardForm) {
     CreditCard creditCard = cardService.findByNumber(cardForm.getCardNumber());
@@ -44,6 +50,12 @@ public class PaymentListController {
     return "redirect:/paymentList?cardNum=" + cardForm.getCardNumber();
   }
 
+  /**
+   * Displaying and fill payment table.
+   *
+   * @param model model of th form
+   * @param cardNum - card number
+   */
   @GetMapping("/paymentList")
   public String showPaymentList(Model model,
       @RequestParam(value = "cardNum", required = false) String cardNum) {
