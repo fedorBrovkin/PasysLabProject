@@ -8,7 +8,9 @@ import com.epam.labproject.service.CreditCardService;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.PaymentService;
 import com.epam.labproject.service.UserService;
+
 import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,21 +26,19 @@ public class PaymentListController {
   private final UserService userService;
   private final CreditCardService cardService;
 
-  public PaymentListController(PaymentService paymentService,
-      DataBaseUserDetailsService detailsService,
-      UserService userService,
-      CreditCardService cardService) {
-    this.paymentService = paymentService;
-    this.detailsService = detailsService;
-    this.userService = userService;
-    this.cardService = cardService;
-  }
+    public PaymentListController(PaymentService paymentService,
+                                 DataBaseUserDetailsService detailsService,
+                                 UserService userService,
+                                 CreditCardService cardService) {
+        this.paymentService = paymentService;
+        this.detailsService = detailsService;
+        this.userService = userService;
+        this.cardService = cardService;
+    }
 
   /**
    * Select card for displaying payment history
    *
-   * @param model - model of th form
-   * @param cardForm - form with card number
    */
   @PostMapping("/selectCardForPaymentHistory")
   public String selectCard(Model model, @ModelAttribute CardForm cardForm) {
@@ -48,8 +48,6 @@ public class PaymentListController {
   /**
    * Displaying and fill payment table.
    *
-   * @param model model of th form
-   * @param cardNum - card number
    */
   @GetMapping("/paymentList")
   public String showPaymentList(Model model,

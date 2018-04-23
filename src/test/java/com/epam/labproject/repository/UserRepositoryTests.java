@@ -13,20 +13,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DataJpaTest
 public class UserRepositoryTests {
 
-  private static final String TEST_USER_LOGIN = "alex";
+    private static final String TEST_USER_LOGIN = "alex";
 
-  @Autowired
-  private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-  @Test
-  public void findByLogin() {
-    User alex = new User();
-    alex.setLogin(TEST_USER_LOGIN);
-    userRepository.save(alex);
+    @Test
+    public void testFindByLogin() {
+        User alex = new User();
+        alex.setLogin(TEST_USER_LOGIN);
+        userRepository.save(alex);
 
-    User found = userRepository.findByLogin(TEST_USER_LOGIN);
+        User found = userRepository.findByLogin(TEST_USER_LOGIN);
 
-    assertThat(found.getLogin())
-        .isEqualTo(alex.getLogin());
-  }
+        assertThat(found.getLogin())
+                .isEqualTo(alex.getLogin());
+    }
 }

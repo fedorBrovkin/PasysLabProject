@@ -5,7 +5,9 @@ import com.epam.labproject.entity.User;
 import com.epam.labproject.form.AccountForm;
 import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.UserService;
+
 import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -17,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AdminController {
 
-  private final AccountService accountService;
-  private final UserService userService;
+    private final AccountService accountService;
+    private final UserService userService;
 
-  public AdminController(AccountService accountService,
-      UserService userService) {
-    this.accountService = accountService;
-    this.userService = userService;
-  }
+    public AdminController(AccountService accountService,
+                           UserService userService) {
+        this.accountService = accountService;
+        this.userService = userService;
+    }
 
   /**
    * Displaying administarators page
@@ -39,7 +41,6 @@ public class AdminController {
     model.addAttribute("status", status != null);
     return "administrator";
   }
-
   /**
    * Select user for look at his accounts
    *
@@ -62,8 +63,6 @@ public class AdminController {
   /**
    * This is method to find all the accounts by user from the database.
    *
-   * @param model model of the form
-   * @param user userVariable
    */
   @PostMapping("/admSelectUser")
   public String selectUser(Model model, @ModelAttribute("user") User user) {
@@ -88,13 +87,12 @@ public class AdminController {
   @GetMapping("/admSelectAccount")
   public String showSelectAccount(@ModelAttribute("blockedUser") User user, Model model) {
 
-    return "admSelectAccount";
-  }
+        return "admSelectAccount";
+    }
 
   /**
    * Changing account status
    *
-   * @param accountForm - account number
    */
 
   @PostMapping("/admBlockAccount")

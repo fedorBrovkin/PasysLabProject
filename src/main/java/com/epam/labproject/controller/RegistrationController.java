@@ -22,8 +22,6 @@ class RegistrationController {
   /**
    * Method show registration page
    *
-   * @param error error message
-   * @param model form model
    */
 
   @GetMapping(value = {"/registration"})
@@ -39,8 +37,6 @@ class RegistrationController {
   /**
    * Register user
    *
-   * @param model - form model
-   * @param user - user
    */
   @PostMapping(value = {"/registration"})
   public String saveUser(Model model, @ModelAttribute("user") User user) {

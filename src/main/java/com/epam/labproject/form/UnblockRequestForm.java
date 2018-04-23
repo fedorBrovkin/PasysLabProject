@@ -2,28 +2,28 @@ package com.epam.labproject.form;
 
 
 import com.epam.labproject.entity.UnblockRequest;
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UnblockRequestForm {
 
-  private String username;
-  private String time;
-  private int accNumber;
-  private String currentCondition;
+    private String username;
+    private String time;
+    private int accNumber;
+    private String currentCondition;
 
-  public UnblockRequestForm() {
-  }
+    public UnblockRequestForm() {
+    }
 
-  public UnblockRequestForm(String username, String time, int accNumber) {
-    this.username = username;
-    this.time = time;
-    this.accNumber = accNumber;
-    this.currentCondition =
-        "Time: " + time.substring(0, time.length() - 3) + " User: " + username + " Account: "
-            + accNumber;
-  }
+    public UnblockRequestForm(String username, String time, int accNumber) {
+        this.username = username;
+        this.time = time;
+        this.accNumber = accNumber;
+        this.currentCondition =
+                "Time: " + time.substring(0, time.length() - 3) + " User: " + username + " Account: "
+                        + accNumber;
+    }
 
   public static List<UnblockRequestForm> getFormList(List<UnblockRequest> requests) {
     requests.sort(Comparator.comparing(UnblockRequest::getTime));
@@ -37,45 +37,45 @@ public class UnblockRequestForm {
     return formList;
   }
 
-  public String getCurrentCondition() {
-    return currentCondition;
-  }
+    public String getCurrentCondition() {
+        return currentCondition;
+    }
 
-  public void setCurrentCondition(String currentCondition) {
-    this.currentCondition = currentCondition;
-  }
+    public void setCurrentCondition(String currentCondition) {
+        this.currentCondition = currentCondition;
+    }
 
-  public String getStatus() {
-    return currentCondition;
-  }
+    public String getStatus() {
+        return currentCondition;
+    }
 
-  public void setStatus(String currentCondition) {
-    this.currentCondition = currentCondition;
-  }
+    public void setStatus(String currentCondition) {
+        this.currentCondition = currentCondition;
+    }
 
-  public String getUsername() {
-    return username;
-  }
+    public String getUsername() {
+        return username;
+    }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-  public String getTime() {
+    public String getTime() {
 
-    return time;
-  }
+        return time;
+    }
 
-  public void setTime(String time) {
-    this.time = time;
-  }
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-  public int getAccNumber() {
+    public int getAccNumber() {
 
-    return accNumber;
-  }
+        return accNumber;
+    }
 
-  public void setAccNumber(int account) {
-    this.accNumber = account;
-  }
+    public void setAccNumber(int account) {
+        this.accNumber = account;
+    }
 }

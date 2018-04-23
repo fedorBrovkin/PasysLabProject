@@ -3,7 +3,9 @@ package com.epam.labproject.controller;
 import com.epam.labproject.form.UnblockRequestForm;
 import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.UnblockRequestService;
+
 import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UnblockRequestController {
 
-  private final UnblockRequestService requestService;
-  private final AccountService accountService;
+    private final UnblockRequestService requestService;
+    private final AccountService accountService;
 
   /**
    * Constructor.
    *
    * @param requestService Injected instance
-   * @param accountService Injected instance
    */
   public UnblockRequestController(UnblockRequestService requestService,
       AccountService accountService) {
@@ -32,7 +33,6 @@ public class UnblockRequestController {
   /**
    * Get method
    *
-   * @param model instance
    */
   @GetMapping("/admUnblockRequest")
   public String showUnblockRequest(Model model,
@@ -48,7 +48,6 @@ public class UnblockRequestController {
   /**
    * Post method.
    *
-   * @param requestForm instance
    */
   @PostMapping("/admUnblockRequest")
   public String changeStatus(@ModelAttribute("unblockRequestForm") UnblockRequestForm requestForm) {

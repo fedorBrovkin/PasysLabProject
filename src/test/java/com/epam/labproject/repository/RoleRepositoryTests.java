@@ -13,20 +13,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DataJpaTest
 public class RoleRepositoryTests {
 
-  private static final String TEST_ROLE_NAME = "admin";
+    private static final String TEST_ROLE_NAME = "admin";
 
-  @Autowired
-  private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-  @Test
-  public void findByName() {
-    Role admin = new Role();
-    admin.setName(TEST_ROLE_NAME);
-    roleRepository.save(admin);
+    @Test
+    public void testFindByName() {
+        Role admin = new Role();
+        admin.setName(TEST_ROLE_NAME);
+        roleRepository.save(admin);
 
-    Role found = roleRepository.findByName(TEST_ROLE_NAME);
+        Role found = roleRepository.findByName(TEST_ROLE_NAME);
 
-    assertThat(found.getName())
-        .isEqualTo(admin.getName());
-  }
+        assertThat(found.getName())
+                .isEqualTo(admin.getName());
+    }
 }

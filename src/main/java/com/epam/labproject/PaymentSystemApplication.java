@@ -9,12 +9,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class PaymentSystemApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(PaymentSystemApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(PaymentSystemApplication.class, args);
+    }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 }

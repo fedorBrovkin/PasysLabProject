@@ -9,21 +9,21 @@ import org.springframework.security.core.GrantedAuthority;
 @Table(name = "role")
 public class Role extends AbstractIdentifiableEntity implements GrantedAuthority {
 
-  @Column(name = "name", unique = true)
-  private String name;
+    @Column(name = "name", unique = true)
+    private String name;
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  @Override
-  public String toString() {
-    return String.format("Role[name='%s']", name);
-  }
+    @Override
+    public String toString() {
+        return String.format("Role[name='%s']", name);
+    }
 
   @Override
   public String getAuthority() {

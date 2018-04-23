@@ -29,7 +29,6 @@ public class MvcConfig implements WebMvcConfigurer {
 
   /**
    * This is a bean for messageSource. Configuration paths for bundles.
-   * @return
    */
   @Bean(name = "messageSource")
   public MessageSource getMessageResource() {

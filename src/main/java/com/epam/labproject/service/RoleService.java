@@ -9,31 +9,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleService {
 
-  private RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
-  @Autowired
-  public RoleService(RoleRepository roleRepository) {
-    this.roleRepository = roleRepository;
-  }
-
-  public void save(Role role) {
-    if (role != null && !role.getName().isEmpty()
-        && roleRepository.findByName(role.getName()) == null) {
-      roleRepository.save(role);
+    @Autowired
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
-  }
 
-  public Role findByName(String name) {
-    return roleRepository.findByName(name);
-  }
-
-  public void delete(Role role) {
-    if (role != null) {
-      Role persistedRole = roleRepository.findByName(role.getName());
-      if (persistedRole != null) {
-        roleRepository.delete(persistedRole);
-      }
+    public void save(Role role) {
+        if (role != null && !role.getName().isEmpty()
+                && roleRepository.findByName(role.getName()) == null) {
+            roleRepository.save(role);
+        }
     }
-  }
+
+    public Role findByName(String name) {
+        return roleRepository.findByName(name);
+    }
+
+    public void delete(Role role) {
+        if (role != null) {
+            Role persistedRole = roleRepository.findByName(role.getName());
+            if (persistedRole != null) {
+                roleRepository.delete(persistedRole);
+            }
+        }
+    }
 
 }

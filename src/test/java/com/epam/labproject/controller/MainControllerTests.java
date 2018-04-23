@@ -1,8 +1,7 @@
 package com.epam.labproject.controller;
 
+
 import com.epam.labproject.entity.Role;
-import com.epam.labproject.entity.User;
-import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
 import org.junit.Before;
@@ -18,17 +17,16 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.Collections;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 @RunWith(SpringRunner.class)
-public class RegistrationControllerTests {
+public class MainControllerTests {
     private static final String TEST_LOGIN = "alex_login";
     private static final String TEST_PASSWORD = "pwd";
     private static final String ROLE_ADMIN_NAME = "ROLE_ADMIN";
@@ -42,8 +40,6 @@ public class RegistrationControllerTests {
     @MockBean
     private DataBaseUserDetailsService userDetailsService;
 
-    private User user;
-
     private MockMvc mockMvc;
 
     @Before
@@ -53,7 +49,7 @@ public class RegistrationControllerTests {
         viewResolver.setSuffix(".html");
 
         mockMvc = MockMvcBuilders.standaloneSetup(
-                new RegistrationController(userService)
+                new MainController(userService, userDetailsService)
         )
                 .setViewResolvers(viewResolver)
                 .build();
@@ -74,50 +70,80 @@ public class RegistrationControllerTests {
                 TEST_PASSWORD,
                 Collections.singleton(adminRole)
         );
-
-        user = new User();
-        user.setLogin(TEST_LOGIN);
-        user.setPassword(TEST_PASSWORD);
-        user.setRole(role);
     }
 
     @Test
-    public void testGetRegistration() throws Exception {
-        mockMvc.perform(
-                get("/registration")
-                        .flashAttr("userAlreadyExist", new String())
+    public void testRootForNotAdmin() throws Exception {
+        Mockito.when(userDetailsService.loadUserByUsername(TEST_LOGIN)).thenReturn(userDetails);
+
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"));
+
+        verify(userDetailsService, times(1)).getCurrentUsername();
+        verify(userDetailsService, times(1)).loadUserByUsername(TEST_LOGIN);
+    }
+
+    @Test
+    public void testIndexForNotAdmin() throws Exception {
+        Mockito.when(userDetailsService.loadUserByUsername(TEST_LOGIN)).thenReturn(userDetails);
+
+        mockMvc.perform(get("/index"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"));
+
+        verify(userDetailsService, times(1)).getCurrentUsername();
+        verify(userDetailsService, times(1)).loadUserByUsername(TEST_LOGIN);
+    }
+
+    @Test
+    public void testRootForAdmin() throws Exception {
+        Mockito.when(userDetailsService.loadUserByUsername(TEST_LOGIN)).thenReturn(adminUserDetails);
+
+        mockMvc.perform(get("/"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("administrator"));
+
+        verify(userDetailsService, times(1)).getCurrentUsername();
+        verify(userDetailsService, times(1)).loadUserByUsername(TEST_LOGIN);
+    }
+
+    @Test
+    public void testIndexForAdmin() throws Exception {
+        Mockito.when(userDetailsService.loadUserByUsername(TEST_LOGIN)).thenReturn(adminUserDetails);
+
+        mockMvc.perform(get("/index"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("administrator"));
+
+        verify(userDetailsService, times(1)).getCurrentUsername();
+        verify(userDetailsService, times(1)).loadUserByUsername(TEST_LOGIN);
+    }
+
+    @Test
+    public void testGetLogin() throws Exception {
+        mockMvc.perform(get("/login")
+                    .param("error", "some_error")
         )
-                .andExpect(model().attribute("user", notNullValue()))
                 .andExpect(model().attribute("error", notNullValue()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("registration"));
+                .andExpect(view().name("login"));
     }
 
-    @Test
-    public void testPostSaveUserWithoutExistedUser() throws Exception {
-        doThrow(new PasysException())
-                .when(userService).createUser(user);
-
-        mockMvc.perform(
-                post("/registration")
-                        .flashAttr("user", user)
-        )
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/registration"));
-
-        verify(userService, times(1)).createUser(any());
-    }
+//    @Test
+//    public void testPostRegistration() throws Exception {
+//        mockMvc.perform(post("/registration"))
+//                .andExpect(status().is3xxRedirection())
+//                .andExpect(redirectedUrl("/"));
+//
+//        verify(userService, times(1)).createUser(any());
+//    }
 
     @Test
-    public void testPostSaveUserWithExistedUser() throws Exception {
-
-        mockMvc.perform(
-                post("/registration")
-                        .flashAttr("user", new User())
-        )
+    public void testLogout() throws Exception {
+        mockMvc.perform(get("/logout"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
-
-        verify(userService, times(1)).createUser(any());
+                .andExpect(redirectedUrl("/login?logout"));
     }
 }
+

@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/payment_system?useSSL=false
+    url: jdbc:postgresql://localhost:5432/payment_system
     username: postgres
-    password: 66542
+    password: postgres
   jpa:
     properties:
       hibernate:

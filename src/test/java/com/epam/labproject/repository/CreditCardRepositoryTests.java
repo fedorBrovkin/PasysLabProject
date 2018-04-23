@@ -19,7 +19,7 @@ public class CreditCardRepositoryTests {
     private CreditCardRepository creditCardRepository;
 
     @Test
-    public void findByNumber() {
+    public void testFindByNumber() {
         CreditCard creditCard = new CreditCard();
         creditCard.setNumber(TEST_CREDIT_CARD_NUMBER);
         creditCardRepository.save(creditCard);

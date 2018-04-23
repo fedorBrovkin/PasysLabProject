@@ -50,6 +50,7 @@ public class AccountRepositoryTests {
     private List<Account> accounts;
 
     private User user;
+
     @Before
     public void setUp() {
         user = new User();
@@ -88,7 +89,7 @@ public class AccountRepositoryTests {
     }
 
     @Test
-    public void findByNumber() {
+    public void testFindByNumber() {
         Account account = new Account();
         account.setNumber(TEST_ACCOUNT_NUMBER);
         accountRepository.save(account);
@@ -100,7 +101,7 @@ public class AccountRepositoryTests {
     }
 
     @Test
-    public void findAllByUser() {
+    public void testFindAllByUser() {
         List<Account> foundAccounts = accountRepository.findAllByUser(user);
         assertNotNull(foundAccounts);
         assertThat(foundAccounts, hasSize(3));
@@ -108,7 +109,7 @@ public class AccountRepositoryTests {
     }
 
     @Test
-    public void findAllByUserAndStatusIsTrue() {
+    public void testFindAllByUserAndStatusIsTrue() {
         List<Account> foundAccounts = accountRepository.findAllByUserAndStatusIsTrue(user);
         assertNotNull(foundAccounts);
         assertThat(foundAccounts, hasSize(2));
