@@ -26,12 +26,26 @@ public class AdminController {
     this.userService = userService;
   }
 
+  /**
+   * Displaying administarators page
+   *
+   * @param model - form model
+   * @param status - message
+   */
+
   @GetMapping("/administrator")
   public String showAdministrator(Model model,
       @RequestParam(value = "status", required = false) String status) {
     model.addAttribute("status", status != null);
     return "administrator";
   }
+
+  /**
+   * Select user for look at his accounts
+   *
+   * @param model -  form model
+   * @param error - message
+   */
 
   @GetMapping("/admSelectUser")
   public String showSelectUser(Model model,
@@ -47,9 +61,9 @@ public class AdminController {
 
   /**
    * This is method to find all the accounts by user from the database.
+   *
    * @param model model of the form
    * @param user userVariable
-   * @return
    */
   @PostMapping("/admSelectUser")
   public String selectUser(Model model, @ModelAttribute("user") User user) {
@@ -67,11 +81,21 @@ public class AdminController {
     return "/admSelectAccount";
   }
 
+  /**
+   * Display users accounts
+   */
+
   @GetMapping("/admSelectAccount")
   public String showSelectAccount(@ModelAttribute("blockedUser") User user, Model model) {
 
     return "admSelectAccount";
   }
+
+  /**
+   * Changing account status
+   *
+   * @param accountForm - account number
+   */
 
   @PostMapping("/admBlockAccount")
   public String blockAccount(@ModelAttribute("accountForm") AccountForm accountForm) {

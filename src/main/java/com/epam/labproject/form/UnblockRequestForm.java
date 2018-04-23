@@ -2,8 +2,8 @@ package com.epam.labproject.form;
 
 
 import com.epam.labproject.entity.UnblockRequest;
+import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class UnblockRequestForm {
@@ -27,7 +27,7 @@ public class UnblockRequestForm {
 
   public static List<UnblockRequestForm> getFormList(List<UnblockRequest> requests) {
     requests.sort(Comparator.comparing(UnblockRequest::getTime));
-    List<UnblockRequestForm> formList = new LinkedList<>();
+    List<UnblockRequestForm> formList = new ArrayList<>();
     for (UnblockRequest request : requests) {
       String username = request.getUser().getLogin();
       String time = request.getTime().toString();

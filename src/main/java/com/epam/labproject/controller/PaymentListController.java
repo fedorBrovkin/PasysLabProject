@@ -42,11 +42,6 @@ public class PaymentListController {
    */
   @PostMapping("/selectCardForPaymentHistory")
   public String selectCard(Model model, @ModelAttribute CardForm cardForm) {
-    CreditCard creditCard = cardService.findByNumber(cardForm.getCardNumber());
-    List<PaymentForm> payments = PaymentForm
-        .getPaymentList(paymentService.findAllMyPayments(creditCard),
-            creditCard);
-    model.addAttribute("payments", payments);
     return "redirect:/paymentList?cardNum=" + cardForm.getCardNumber();
   }
 

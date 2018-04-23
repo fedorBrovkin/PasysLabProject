@@ -52,5 +52,11 @@ public class UnblockRequestService {
     requestRepository.delete(request);
   }
 
+  public void unblockAccount(int accountNumber) {
+    Account a = accountService.findByNumber(accountNumber);
+    a.setStatus(true);
+    accountService.save(a);
+    this.delete(accountNumber);
+  }
 
 }

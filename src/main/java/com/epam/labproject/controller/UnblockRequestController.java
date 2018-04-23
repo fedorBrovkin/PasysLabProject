@@ -53,8 +53,7 @@ public class UnblockRequestController {
   @PostMapping("/admUnblockRequest")
   public String changeStatus(@ModelAttribute("unblockRequestForm") UnblockRequestForm requestForm) {
     int accNumber = requestForm.getAccNumber();
-    accountService.changeStatus(accNumber);
-    requestService.delete(accNumber);
+    requestService.unblockAccount(accNumber);
     return "redirect:admUnblockRequest?status";
   }
 

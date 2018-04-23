@@ -16,9 +16,11 @@ public class AccountService {
 
   private AccountRepository accountRepository;
   private UserService userService;
+  private UnblockRequestService requestService;
 
   @Autowired
-  public AccountService(AccountRepository accountRepository, UserService userService) {
+  public AccountService(AccountRepository accountRepository, UserService userService,
+      UnblockRequestService requestService) {
     this.accountRepository = accountRepository;
     this.userService = userService;
   }
