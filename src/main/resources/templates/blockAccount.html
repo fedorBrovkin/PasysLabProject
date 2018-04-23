@@ -15,7 +15,7 @@
   <div class="container-fluid">
     <ul class="nav navbar-nav">
       <!--<li><a th:href="@{/newUserOffice}"><span class="glyphicon glyphicon-menu-left">&nbsp;</span><label th:text="#{button.back}"/></a></li>-->
-      <li><a th:href="@{accountList}"><span
+      <li class="active"><a><span
           class="glyphicon glyphicon-briefcase">&nbsp;</span><label th:text="#{button.myAccounts}"/></a>
       </li>
       <li><a th:href="@{cardList}"><span class="glyphicon glyphicon-credit-card">&nbsp;</span><label
@@ -48,7 +48,7 @@
   <div class="container-fluid">
     <ul class="nav navbar-nav">
       <!--<li class="active"><a href="#" th:text="#{selectCard}"></a></li>-->
-      <li><a th:text="#{button.makeAccount}" th:href="@{/makeAccount}"></a></li>
+      <li><a th:text="#{button.accList}" th:href="@{/accountList}"></a></li>
       <li class="active"><a th:text="#{button.blockAccount}"></a></li>
     </ul>
   </div>

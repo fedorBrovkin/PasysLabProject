@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/payment_system
     username: postgres
-    password: 66542
+    password: Passw0rd1
   jpa:
     properties:
       hibernate:
@@ -14,6 +14,9 @@ spring:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+  logginig:
+    logging.file: ${user.home}/Pasys.log
+
 #  messages:
 #    basename: classpath:i18n/messages
 #    encoding: UTF-8
