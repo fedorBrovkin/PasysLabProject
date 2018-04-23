@@ -1,8 +1,19 @@
 package com.epam.labproject.controller;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 import com.epam.labproject.form.UnblockRequestForm;
 import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.UnblockRequestService;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,18 +23,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 public class UnblockRequestControllerTests {
@@ -67,18 +66,6 @@ public class UnblockRequestControllerTests {
                 .andExpect(view().name("admUnblockRequest"));
 
         verify(requestService, times(1)).findAllRequest();
-    }
-
-    @Test
-    public void testPostChangeStatus() throws Exception {
-        mockMvc.perform(post("/admUnblockRequest")
-                .flashAttr("unblockRequestForm", unblockRequestForm)
-        )
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("admUnblockRequest?status"));
-
-        verify(requestService, times(1)).delete(anyInt());
-        verify(accountService, times(1)).changeStatus(anyInt());
     }
 
 

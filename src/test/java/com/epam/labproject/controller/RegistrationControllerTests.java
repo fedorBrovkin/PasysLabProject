@@ -1,10 +1,21 @@
 package com.epam.labproject.controller;
 
+import static org.hamcrest.Matchers.notNullValue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 import com.epam.labproject.entity.Role;
 import com.epam.labproject.entity.User;
-import com.epam.labproject.exception.PasysException;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
+import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,17 +26,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import java.util.Collections;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 @RunWith(SpringRunner.class)
 public class RegistrationControllerTests {
@@ -93,20 +93,6 @@ public class RegistrationControllerTests {
                 .andExpect(view().name("registration"));
     }
 
-    @Test
-    public void testPostSaveUserWithoutExistedUser() throws Exception {
-        doThrow(new PasysException())
-                .when(userService).createUser(user);
-
-        mockMvc.perform(
-                post("/registration")
-                        .flashAttr("user", user)
-        )
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/registration"));
-
-        verify(userService, times(1)).createUser(any());
-    }
 
     @Test
     public void testPostSaveUserWithExistedUser() throws Exception {

@@ -1,9 +1,17 @@
 package com.epam.labproject.controller;
 
 
+import static org.hamcrest.Matchers.notNullValue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 import com.epam.labproject.entity.Role;
 import com.epam.labproject.service.DataBaseUserDetailsService;
 import com.epam.labproject.service.UserService;
+import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,16 +22,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import java.util.Collections;
-
-import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 public class MainControllerTests {
@@ -72,53 +70,7 @@ public class MainControllerTests {
         );
     }
 
-    @Test
-    public void testRootForNotAdmin() throws Exception {
-        Mockito.when(userDetailsService.loadUserByUsername(TEST_LOGIN)).thenReturn(userDetails);
 
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"));
-
-        verify(userDetailsService, times(1)).getCurrentUsername();
-        verify(userDetailsService, times(1)).loadUserByUsername(TEST_LOGIN);
-    }
-
-    @Test
-    public void testIndexForNotAdmin() throws Exception {
-        Mockito.when(userDetailsService.loadUserByUsername(TEST_LOGIN)).thenReturn(userDetails);
-
-        mockMvc.perform(get("/index"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"));
-
-        verify(userDetailsService, times(1)).getCurrentUsername();
-        verify(userDetailsService, times(1)).loadUserByUsername(TEST_LOGIN);
-    }
-
-    @Test
-    public void testRootForAdmin() throws Exception {
-        Mockito.when(userDetailsService.loadUserByUsername(TEST_LOGIN)).thenReturn(adminUserDetails);
-
-        mockMvc.perform(get("/"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("administrator"));
-
-        verify(userDetailsService, times(1)).getCurrentUsername();
-        verify(userDetailsService, times(1)).loadUserByUsername(TEST_LOGIN);
-    }
-
-    @Test
-    public void testIndexForAdmin() throws Exception {
-        Mockito.when(userDetailsService.loadUserByUsername(TEST_LOGIN)).thenReturn(adminUserDetails);
-
-        mockMvc.perform(get("/index"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("administrator"));
-
-        verify(userDetailsService, times(1)).getCurrentUsername();
-        verify(userDetailsService, times(1)).loadUserByUsername(TEST_LOGIN);
-    }
 
     @Test
     public void testGetLogin() throws Exception {
@@ -130,14 +82,6 @@ public class MainControllerTests {
                 .andExpect(view().name("login"));
     }
 
-//    @Test
-//    public void testPostRegistration() throws Exception {
-//        mockMvc.perform(post("/registration"))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/"));
-//
-//        verify(userService, times(1)).createUser(any());
-//    }
 
     @Test
     public void testLogout() throws Exception {

@@ -1,5 +1,15 @@
 package com.epam.labproject.controller;
 
+import static org.hamcrest.Matchers.notNullValue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 import com.epam.labproject.entity.User;
 import com.epam.labproject.form.EditProfileForm;
 import com.epam.labproject.service.DataBaseUserDetailsService;
@@ -14,13 +24,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 public class EditProfileControllerTests {
@@ -123,25 +126,4 @@ public class EditProfileControllerTests {
                 .matches(TEST_PASSWORD, TEST_PASSWORD);
     }
 
-//    @Test
-//    public void testPostEditProfileMatchesPasswordsAndEqualsPasswords() throws Exception {
-//        Mockito.when(bCryptPasswordEncoder.matches(
-//                profileForm.getOldPassworld(),
-//                user.getPassword())
-//        )
-//                .thenReturn(true);
-//
-//        mockMvc.perform(
-//                post("/editProfilePage")
-//                        .flashAttr("profileForm", profileForm)
-//        )
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/editProfilePage?success"));
-//
-//        verify(detailsService, times(2)).getCurrentUsername();
-//        verify(userService, times(1)).getUser(TEST_LOGIN);
-//        verify(bCryptPasswordEncoder, times(1)).matches(TEST_PASSWORD, TEST_PASSWORD);
-//        verify(bCryptPasswordEncoder, times(1)).encode(TEST_NEW_PASSWORD);
-//        verify(userService, times(1)).changePassword(TEST_LOGIN, TEST_NEW_PASSWORD);
-//    }
 }

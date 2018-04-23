@@ -66,6 +66,7 @@
         <td>
 
           <input type="number" min="1000" max="9999" th:field="*{target}" required
+                 oninvalid='this.setCustomValidity("Номер должен быть от 1000 до 9999")'
                  maxlength="4"/>
           <br/>
 
@@ -79,7 +80,8 @@
         </td>
         <td>
           <div style="margin-top:5px">
-            <input type="number" min="0" max="15000" th:field="*{amount}" required/>
+            <input type="number" min="0" max="15000" th:field="*{amount}" required
+                   oninvalid='this.setCustomValidity("Максимальная сумма 15000")'/>
           </div>
         </td>
         </th>

@@ -1,10 +1,26 @@
 package com.epam.labproject.controller;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 import com.epam.labproject.entity.Account;
 import com.epam.labproject.entity.User;
 import com.epam.labproject.form.AccountForm;
 import com.epam.labproject.service.AccountService;
 import com.epam.labproject.service.UserService;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,20 +30,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 public class AdminControllerTests {
@@ -128,7 +130,7 @@ public class AdminControllerTests {
                         .flashAttr("user", user)
         )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/admSelectUser?error=noAccounts"));
+            .andExpect(redirectedUrl("admSelectUser?error=noAccounts"));
 
         verify(accountService, times(1)).findAllByUser(user);
         verify(userService, times(1)).getUser(TEST_LOGIN);
@@ -146,7 +148,7 @@ public class AdminControllerTests {
                 .andExpect(model().attribute("accounts", notNullValue()))
                 .andExpect(model().attribute("accounts", hasSize(1)))
                 .andExpect(status().isOk())
-                .andExpect(view().name("admSelectAccount"));
+            .andExpect(view().name("/admSelectAccount"));
 
         verify(accountService, times(1)).findAllByUser(user);
         verify(userService, times(1)).getUser(TEST_LOGIN);
