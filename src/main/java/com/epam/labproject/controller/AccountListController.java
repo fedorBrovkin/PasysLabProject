@@ -49,7 +49,7 @@ public class AccountListController {
   }
 
   /**
-   * Creating account
+   *  GET request for creating new account
    */
 
   @GetMapping("/makeAccount")
