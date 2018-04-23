@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/payment_system
     username: postgres
-    password: Passw0rd1
+    password: 66542
   jpa:
     properties:
       hibernate:
