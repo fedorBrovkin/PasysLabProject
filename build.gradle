@@ -53,6 +53,8 @@ dependencies {
     compile("org.webjars:jquery:2.0.3-1")
 	compile('org.postgresql:postgresql')
 	compile('org.hibernate:hibernate-core')
+	compile 'org.codehaus.groovy:groovy'
+	compile 'org.codehaus.groovy:groovy'
 	testCompile('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
