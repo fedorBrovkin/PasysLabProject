@@ -28,7 +28,7 @@
 <body class="text-center">
 
 <form class="form-signin" th:action="@{/registration}" th:object="${user}" method="post" shrink-to-fit=no>
-    <img class="mb-4" src="../../resources/static/logo.png" th:src="@{../static/logo.png}" height="200">
+    <img class="mb-4" src="../../resources/static/logo1.png" th:src="@{../static/logo1.png}" height="85">
     <div th:if="${error}" class="alert alert-danger" role="alert"
          th:text="#{userAlreadyExist}"></div>
     <h1 class="h3 mb-3 font-weight-normal" th:text="#{registration}"></h1>

@@ -38,13 +38,14 @@
     <div class="container-fluid">
       <ul class="nav navbar-nav">
         <!--<li class="active"><a href="#" th:text="#{selectCard}"></a></li>-->
-        <li ><a th:text="#{button.makeAccount}" th:href="@{/makeAccount}"></a></li>
+        <li class="active"><a th:text="#{button.accList}"></a></li>
         <li ><a th:text="#{button.blockAccount}" th:href="@{/blockAccount}"></a></li>
       </ul>
     </div>
   </nav>
 <div class="container" style="margin-top:60px">
   <div>
+    <a th:href="@{/makeAccount}"><button class="btn button-dark" th:text="#{button.makeAccount}"></button></a>
     <div th:if="${status}" class="alert alert-success" role="alert" th:text="#{succeed}"></div>
     <table class="table table-sm table-dark">
       <thead>
