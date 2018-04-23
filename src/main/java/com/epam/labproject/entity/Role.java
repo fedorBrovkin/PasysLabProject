@@ -29,4 +29,21 @@ public class Role extends AbstractIdentifiableEntity implements GrantedAuthority
   public String getAuthority() {
     return name;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+    if (obj instanceof Role) {
+      obj = (Role) obj;
+      return this.name.equals(((Role) obj).getName());
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return this.name.hashCode();
+  }
 }
