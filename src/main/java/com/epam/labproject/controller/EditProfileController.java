@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class EditProfileController {
@@ -20,10 +21,12 @@ public class EditProfileController {
 
   /**
    * Constructor method.
+   *
    * @param userService Injected instance
    * @param bCryptPasswordEncoder Injected instance
    * @param detailsService Injected instance
    */
+
   public EditProfileController(UserService userService,
       PasswordEncoder bCryptPasswordEncoder,
       DataBaseUserDetailsService detailsService) {
@@ -34,35 +37,41 @@ public class EditProfileController {
 
   /**
    * Get method. Show profile.
+   *
    * @param model Injected instance
-   * @return
    */
+
   @GetMapping("/editProfilePage")
-  public String showEditProfilePage(Model model) {
+  public String showEditProfilePage(Model model,
+      @RequestParam(value = "error", required = false) String error,
+      @RequestParam(value = "success", required = false) String success) {
     EditProfileForm profileForm = new EditProfileForm();
+    model.addAttribute("error", error != null);
+    model.addAttribute("success", success != null);
     model.addAttribute("profileForm", profileForm);
     return "editProfilePage";
   }
 
   /**
    * Post method to change password.
+   *
    * @param model model instance
    * @param profileForm profile instance
-   * @return
    */
+
   @PostMapping("/editProfilePage")
   public String editProfile(Model model,
       @ModelAttribute("profileForm") EditProfileForm profileForm) {
     User user = userService.getUser(detailsService.getCurrentUsername());
     if (bCryptPasswordEncoder.matches(profileForm.getOldPassworld(), user.getPassword())) {
       if (profileForm.getNewPassworld().equals(profileForm.getRepeatPassword())) {
-        user.setPassword(bCryptPasswordEncoder.encode(profileForm.getNewPassworld()));
         userService
-            .changePassword(detailsService.getCurrentUsername(), profileForm.getNewPassworld());
-        return "redirect:/userOffice";
+            .changePassword(detailsService.getCurrentUsername(),
+                profileForm.getNewPassworld());
+        return "redirect:/editProfilePage?success";
+
       }
     }
-    return "editProfilePage";
+    return "redirect:/editProfilePage?error";
   }
-
 }

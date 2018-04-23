@@ -14,6 +14,7 @@ public class AccountForm {
   private String status;
   private String currentCondition;
 
+
   public AccountForm() {
   }
 
@@ -41,16 +42,20 @@ public class AccountForm {
     return accNumber;
   }
 
-  public void setAccNumber(int accNumber) {
-    this.accNumber = accNumber;
-  }
-
   public double getBalance() {
     return balance;
   }
 
+  public void setAccNumber(int accNumber) {
+    this.accNumber = accNumber;
+  }
+
   public void setBalance(double balance) {
     this.balance = balance;
+  }
+
+  public void setCurrentCondition(String currentCondition) {
+    this.currentCondition = currentCondition;
   }
 
   public String getCurrentCondition() {
@@ -58,16 +63,12 @@ public class AccountForm {
     return currentCondition;
   }
 
-  public void setCurrentCondition(String currentCondition) {
-    this.currentCondition = currentCondition;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public String getStatus() {
 
     return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
   }
 }
